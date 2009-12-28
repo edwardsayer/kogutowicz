@@ -1,0 +1,8 @@
+"layer","layerType","zindex","type","startZoom","stopZoom","filter","color","width","pattern"
+"area","way",,"polygon",,,"landuse = farm","0xead8bd",,
+,,,"polygon",,,"landuse = leisure",,,
+,,,"polygon",,,"landuse = park",,,
+,,,"polygon",,,"landuse = forest",,,
+,,,"polygon",,,"landuse = reservoir,water OR naural = lake,water","0xbdd0d0",,
+"streets","way",,"line",,,"highway = tertiary","0xABABAB","13:6,14:7.5,15-16:11,17-18:16",
+,,,"line",,,,"0xffffff","13:2,14-15:3,16:9.4,17-18:13",

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <bounds minlat='47.5009673231107' minlon='18.896484375' maxlat='47.6006073229207' maxlon='19.0276336669922' origin='test' />
+  <node id='1' timestamp='2009-11-09T15:00:35Z' visible='true' version='1' lat='47.56376835972476' lon='18.918111723971506'>
+  </node>
+  <node id='2' timestamp='2009-11-09T15:00:35Z' visible='true' version='1' lat='47.52217828418202' lon='18.946613466119494'>
+  </node>
+  <node id='3' timestamp='2009-11-09T15:00:35Z' visible='true' version='1' lat='47.54948629233028' lon='19.009078362084548'>
+  </node>
+  <node id='4' timestamp='2009-11-09T15:00:35Z' visible='true' version='1' lat='47.5733259557566' lon='18.993206134421296'>
+  </node>
+  <node id='5' timestamp='2009-11-09T15:00:35Z' visible='true' version='1' lat='47.54695197053986' lon='18.96948312748375'>
+  </node>
+  <node id='6' timestamp='2009-11-09T15:00:35Z' visible='true' version='1' lat='47.549947064944796' lon='18.95753628945765'>
+  </node>
+  <node id='7' timestamp='2009-11-09T15:00:35Z' visible='true' version='1' lat='47.57873731502846' lon='18.974944539152823'>
+  </node>
+  <node id='11' visible='true' lat='47.57125337219007' lon='18.926645179704437' version='1' />
+  <node id='12' visible='true' lat='47.54902551566484' lon='18.94251740736769' version='1'/>
+  <node id='13' visible='true' lat='47.54165253808592' lon='18.973749855350214' version='1'/>
+  <node id='14' visible='true' lat='47.54453273088127' lon='19.01385709729499' version='1'/>
+  <node id='15' visible='true' lat='47.52817113253509' lon='18.970336473057042' version='1'/>
+  <way id='8' action='modify' timestamp='2009-11-09T15:00:35Z' visible='true' version='1'>
+    <nd ref='1' />
+    <nd ref='2' />
+    <nd ref='3' />
+    <nd ref='4' />
+    <nd ref='5' />
+    <nd ref='6' />
+    <nd ref='7' />
+    <nd ref='1' />
+    <tag k='name' v='negyszogletukerekerdo' />
+    <tag k='landuse' v='forest' />
+  </way>
+  <way id='16' action='modify' visible='true' version='1'>
+    <nd ref='11' />
+    <nd ref='12' />
+    <nd ref='13' />
+    <nd ref='14' />
+    <tag k='highway' v='secondary' />
+  </way>
+  <way id='17' action='modify' visible='true' version='1'>
+    <nd ref='13' />
+    <nd ref='15' />
+    <tag k='highway' v='residential' />
+  </way>
+</osm>

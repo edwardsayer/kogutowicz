@@ -1,0 +1,6 @@
+Plugin-Class: net.anzix.kogutowicz.josm.KogutowiczPlugin
+Plugin-Description: Plugin-Description
+Plugin-Date: 2009-07-03T21:35:00.614610Z
+Plugin-Link: http://wiki.openstreetmap.org/wiki/JOSM/Plugins/EditGpx
+Plugin-Mainversion: 1725
+Plugin-Version: 16294
