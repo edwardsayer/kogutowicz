@@ -95,7 +95,6 @@ public class QuadraticProcessor {
         for (DataSource ds : cartographer.getDataSources()) {
             ds.init(matrix.getDivision());
         }
-        matrix.initListeners();
     }
 
     public void release() {

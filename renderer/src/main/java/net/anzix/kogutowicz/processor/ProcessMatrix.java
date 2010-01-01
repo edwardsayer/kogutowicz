@@ -36,8 +36,6 @@ public class ProcessMatrix {
 
     private Map<TileCoord, TileState> tiles = new HashMap();
 
-    private List<TileStateListener> listeners = new ArrayList();
-
     private int tileWidth = 256;
 
     private GeometryCache geometries;
@@ -80,25 +78,11 @@ public class ProcessMatrix {
         this.boundary = new Box(topLeft, bottomRight);
         height = (topLeft.getLatitude() - bottomRight.getLatitude()) / noYTile;
         width = (bottomRight.getLongitude() - topLeft.getLongitude()) / noXTile;
-//        for (int x = 0; x < noXTile; x++) {
-//            for (int y = 0; y < noYTile; y++) {
-//                Node tl = new Node(topLeft.getLongitude() + x * width, topLeft.getLatitude() - y * height);
-//                Node br = new Node(topLeft.getLongitude() + (x + 1) * width, topLeft.getLatitude() - (y + 1) * height);
-//                setTileRectangle(x, y, new TileRectangle(tl, br, zoom));
-//            }
-//        }
-        listeners.add(new RenderableListener());
-        listeners.add(new ReleaseResourceListener());
-        listeners.add(new LabelDensityCorrectorListener());
         this.geometries = new GeometryCache(this);
 
         this.division = division;
         tileStart = division.getTileCoord(topLeft);
         tileEnd = division.getTileCoord(bottomRight);
-    }
-
-    public void addListener(TileStateListener listener) {
-        listeners.add(listener);
     }
 
     public TileCoord getTileSize() {
@@ -132,38 +116,8 @@ public class ProcessMatrix {
     public void setTileState(TileCoord c, TileState state) {
         logger.log(Level.FINE, "Changing tile state (" + c.getX() + "," + c.getY() + "): " + state);
         tiles.put(c, state);
-        fireStateChange(c, state);
     }
 
-    protected void fireStateChange(TileCoord coord, TileState newState) {
-        for (TileStateListener listener : listeners) {
-            listener.onStateChange(this, coord, newState);
-        }
-    }
-
-//    public void setTileRectangle(int x, int y, TileRectangle tile) {
-//        Map<Integer, TileRectangle> column = tiles.get(x);
-//        if (column == null) {
-//            column = new HashMap<Integer, TileRectangle>();
-//            tiles.put(x, column);
-//        }
-//        column.put(y, tile);
-//    }
-//
-//    public TileRectangle getTileRectangle(int x, int y) {
-//
-//    }
-//
-//    public TilePosition getTilePosition(TileRectangle rectangle) {
-//        for (Integer x : tiles.keySet()) {
-//            for (Integer y : tiles.get(x).keySet()) {
-//                if (tiles.get(x).get(y) == rectangle) {
-//                    return new TilePosition(x, y);
-//                }
-//            }
-//        }
-//        return null;
-//    }
     public void addGeometry(TileCoord coord, Layer layer, GeometryElement element) {
         geometries.addGeometry(coord, layer, element);
     }
@@ -180,21 +134,6 @@ public class ProcessMatrix {
 
     public Projection getProjecion() {
         return projecion;
-    }
-
-//    public Box getBoundingBox(int x, int y) {
-//        return getTileRectangle(x, y).getBox();
-//    }
-    public void releaseListeners() {
-        for (TileStateListener listener : listeners) {
-            listener.release(this);
-        }
-    }
-
-    public void initListeners() {
-        for (TileStateListener listener : listeners) {
-            listener.init(this);
-        }
     }
 
     /**
@@ -322,7 +261,8 @@ public class ProcessMatrix {
     public void setDivision(TileDivision division) {
         this.division = division;
     }
-    public Box getBox(TileCoord coord){
+
+    public Box getBox(TileCoord coord) {
         return getDivision().getBox(coord);
     }
 }

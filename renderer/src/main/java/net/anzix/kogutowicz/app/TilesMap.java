@@ -5,18 +5,8 @@
 package net.anzix.kogutowicz.app;
 
 import java.io.File;
-import java.util.logging.Level;
-import net.anzix.kogutowicz.App;
-import net.anzix.kogutowicz.OSMTileDivision;
-import net.anzix.kogutowicz.TileCoord;
-import net.anzix.kogutowicz.TileDivision;
-import net.anzix.kogutowicz.Zoom;
 import net.anzix.kogutowicz.datasource.DataSource;
-import net.anzix.kogutowicz.element.Node;
-import net.anzix.kogutowicz.processor.ProcessMatrix;
-import net.anzix.kogutowicz.processor.Processor;
-import net.anzix.kogutowicz.processor.TileRenderListener;
-import net.anzix.kogutowicz.style.Cartographer;
+
 import net.anzix.kogutowicz.style.MapStyle;
 
 /**
@@ -79,28 +69,28 @@ public class TilesMap implements Runnable {
 
     @Override
     public void run() {
-        if (verbose) {
-//			App.setLogLevel(Level.FINE);
-        }
-        Cartographer c = mapStyle.applyStyle(new Cartographer(datasource));
-
-        for (int zoom = startZoom; zoom < stopZoom + 1; zoom++) {
-            datasource.reset();
-            TileDivision div = new OSMTileDivision(new Zoom(zoom));
-
-            TileCoord startCoord = div.getTileCoord(new Node(west, north));
-            TileCoord stopCoord = div.getTileCoord(new Node(east, south));
-            System.out.println(startCoord + " " + stopCoord);
-            Node start = div.getTopLeft(startCoord);
-            Node stop = div.getBottomRight(stopCoord);
-            int tilex = stopCoord.getX() - startCoord.getX() + 1;
-            int tiley = stopCoord.getY() - startCoord.getY() + 1;//
-            ProcessMatrix matrix = new ProcessMatrix(start, stop, div, tilex, tiley);
-            matrix.addListener(new TileRenderListener(outputDirectory, startCoord, zoom));
-
-            Processor processor = new Processor(matrix, c);
-            processor.process();
-        }
+//        if (verbose) {
+////			App.setLogLevel(Level.FINE);
+//        }
+//        Cartographer c = mapStyle.applyStyle(new Cartographer(datasource));
+//
+//        for (int zoom = startZoom; zoom < stopZoom + 1; zoom++) {
+//            datasource.reset();
+//            TileDivision div = new OSMTileDivision(new Zoom(zoom));
+//
+//            TileCoord startCoord = div.getTileCoord(new Node(west, north));
+//            TileCoord stopCoord = div.getTileCoord(new Node(east, south));
+//            System.out.println(startCoord + " " + stopCoord);
+//            Node start = div.getTopLeft(startCoord);
+//            Node stop = div.getBottomRight(stopCoord);
+//            int tilex = stopCoord.getX() - startCoord.getX() + 1;
+//            int tiley = stopCoord.getY() - startCoord.getY() + 1;//
+//            ProcessMatrix matrix = new ProcessMatrix(start, stop, div, tilex, tiley);
+//            matrix.addListener(new TileRenderListener(outputDirectory, startCoord, zoom));
+//
+//            Processor processor = new Processor(matrix, c);
+//            processor.process();
+//        }
     }
 
     public Double getEast() {

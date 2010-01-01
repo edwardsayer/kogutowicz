@@ -5,14 +5,12 @@
 package net.anzix.kogutowicz.app;
 
 import java.io.File;
-import net.anzix.kogutowicz.SimpleTileDivision;
-import net.anzix.kogutowicz.Zoom;
+import net.anzix.kogutowicz.RectangleTileDivision;
 import net.anzix.kogutowicz.datasource.DataSource;
-import net.anzix.kogutowicz.element.Box;
 import net.anzix.kogutowicz.element.Node;
-import net.anzix.kogutowicz.processor.ImageRenderFileListener;
 import net.anzix.kogutowicz.processor.ProcessMatrix;
-import net.anzix.kogutowicz.processor.Processor;
+import net.anzix.kogutowicz.processor.QuadraticProcessor;
+import net.anzix.kogutowicz.renderer.Java2DFileRenderer;
 import net.anzix.kogutowicz.style.Cartographer;
 import net.anzix.kogutowicz.style.MapStyle;
 
@@ -40,30 +38,28 @@ public class ImageMap implements Runnable {
 
     private MapStyle mapStyle;
 
+    private String output;
+
     @Override
     public void run() {
-//        OSMTileDivision odiv = new OSMTileDivision(new Zoom(14));
-//        TileCoord coord = new TileCoord(9054,5725);
-//        west = odiv.getTopLeft(coord).getLongitude();
-//        east = odiv.getBottomRight(coord).getLongitude();
-//
-//        north = odiv.getTopLeft(coord).getLatitude();
-//        south = odiv.getBottomRight(coord).getLatitude();
+        Node n1 = new Node(west, north);
+        Node n2 = new Node(east, south);
+        Cartographer c = new Cartographer(datasource);
+        mapStyle.applyStyle(c);
 
-        Box box = new Box(new Node(west, north), new Node(east, south));
-        SimpleTileDivision div = new SimpleTileDivision(new Zoom(14), box.getTopLeft(), box.getBottomRight());
-
-        ProcessMatrix matrix = new ProcessMatrix(box, div, 1, 1);
-
-        Cartographer c = mapStyle.applyStyle(new Cartographer(datasource));
-
-        int wp = (int) Math.round(Math.abs(east - west) / (360 / Math.pow(2, zoom)) * 256);
-        int hp = (int) Math.round(Math.abs(north - south) / (121 * 2 / Math.pow(2, zoom)) * 256);
-        System.out.println(wp + " " + hp);
-        ImageRenderFileListener lis = new ImageRenderFileListener(outputFile, wp, hp);
-        matrix.addListener(lis);
-        Processor processor = new Processor(matrix, c);
-        processor.process();
+        RectangleTileDivision division = new RectangleTileDivision(n1, n2, 10, 10);
+        ProcessMatrix testMatrix = new ProcessMatrix(n1, n2, division, 10, 10);
+        QuadraticProcessor p = new QuadraticProcessor(testMatrix, c);
+        Java2DFileRenderer renderer = new Java2DFileRenderer();
+        renderer.setOutputFile(new File(output));
+        p.setRenderer(renderer);
+        double[] from = testMatrix.getProjecion().getProjected(n1.getLongitude(), n1.getLatitude());
+        double[] to = testMatrix.getProjecion().getProjected(n2.getLongitude(), n2.getLatitude());
+        double aspect = Math.abs((from[0] - to[0]) / (from[1] - to[1]));
+        p.setWidth(800);
+        p.setHeight((int) Math.round(aspect * 800));
+        p.process();
+        p.release();
     }
 
     public DataSource getDatasource() {
@@ -137,4 +133,14 @@ public class ImageMap implements Runnable {
     public void setMapStyle(MapStyle mapStyle) {
         this.mapStyle = mapStyle;
     }
+
+    public String getOutput() {
+        return output;
+    }
+
+    public void setOutput(String output) {
+        this.output = output;
+    }
+
+    
 }
