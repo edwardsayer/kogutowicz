@@ -10,7 +10,7 @@
     <groupId>net.anzix.kogutowicz</groupId>
     <artifactId>samples</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>samples</name>
+    <name>kogutowicz samples</name>
     <url>http://maven.apache.org</url>
     <build>
         <plugins>

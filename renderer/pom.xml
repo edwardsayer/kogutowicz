@@ -6,7 +6,7 @@
     <artifactId>renderer</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>Kogutowicz</name>
+    <name>kogutowicz renderer</name>
     <url>http://maven.apache.org</url>
     <repositories>
         <repository>
