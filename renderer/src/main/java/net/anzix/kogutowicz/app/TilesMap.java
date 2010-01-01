@@ -20,10 +20,11 @@ import net.anzix.kogutowicz.style.Cartographer;
 import net.anzix.kogutowicz.style.MapStyle;
 
 /**
- *
+ * Render an area to OSM tiles.
+ * 
  * @author elek
  */
-public class TilesMap implements Runnable {
+public class TilesMap implements MapApplication {
 
     @NotNull
     private File outputDir;

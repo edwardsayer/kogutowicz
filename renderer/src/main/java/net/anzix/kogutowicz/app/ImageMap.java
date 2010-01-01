@@ -5,6 +5,8 @@
 package net.anzix.kogutowicz.app;
 
 import java.io.File;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import net.anzix.kogutowicz.RectangleTileDivision;
 import net.anzix.kogutowicz.datasource.DataSource;
 import net.anzix.kogutowicz.element.Node;
@@ -15,13 +17,16 @@ import net.anzix.kogutowicz.style.Cartographer;
 import net.anzix.kogutowicz.style.MapStyle;
 
 /**
+ * Render one image block.
  *
  * @author elek
  */
-public class ImageMap implements Runnable {
+public class ImageMap implements MapApplication {
 
     private File outputFile;
 
+    @NotNull
+    @Valid
     private DataSource datasource;
 
     private Integer zoom;
@@ -36,6 +41,8 @@ public class ImageMap implements Runnable {
 
     private Boolean verbose = Boolean.FALSE;
 
+    @NotNull
+    @Valid
     private MapStyle mapStyle;
 
     private String output;
@@ -141,6 +148,4 @@ public class ImageMap implements Runnable {
     public void setOutput(String output) {
         this.output = output;
     }
-
-    
 }
