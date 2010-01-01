@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.anzix.kogutowicz.element.Way;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -22,6 +22,7 @@ import net.anzix.kogutowicz.element.Way;
  */
 public class CsvMapStyle implements MapStyle {
 
+    @NotNull
     private File source;
 
     private FilterParser fp;

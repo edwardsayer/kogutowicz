@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.validation.constraints.NotNull;
 import net.anzix.kogutowicz.TileCoord;
 import net.anzix.kogutowicz.TileDivision;
 import net.anzix.kogutowicz.element.Element;
@@ -48,6 +49,7 @@ public class OsmFile implements DataSource {
 
     private net.anzix.kogutowicz.element.Node br;
 
+    @NotNull
     private File osmFile;
 
     private Logger logger = Logger.getLogger(OsmFile.class.getCanonicalName());

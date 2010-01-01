@@ -12,6 +12,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
+import java.util.Set;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.ValidatorFactory;
+import net.anzix.kogutowicz.app.TilesMap;
 
 /**
  *
@@ -60,7 +65,18 @@ public class ConfigReader {
         fis.close();
 
         Runnable o = (Runnable) createClass("map");
-        o.run();
+        ValidatorFactory fact = Validation.buildDefaultValidatorFactory();
+        Set<ConstraintViolation<Runnable>> errors = fact.getValidator().validate(o);
+        if (errors.size() > 0) {
+            System.err.println("Error in configuration " + propertyFile.getAbsolutePath());
+            for (ConstraintViolation<Runnable> error : errors) {
+                System.err.println("map." + error.getPropertyPath() + " " + error.getMessage());
+            }
+
+        } else {
+
+            o.run();
+        }
     }
 
     private Object createClass(String k) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IntrospectionException, IllegalArgumentException, InvocationTargetException {

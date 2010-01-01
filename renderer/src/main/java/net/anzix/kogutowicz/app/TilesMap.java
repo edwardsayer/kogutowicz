@@ -1,12 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz.app;
 
 import java.io.File;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import net.anzix.kogutowicz.OSMTileDivision;
-import net.anzix.kogutowicz.RectangleTileDivision;
 import net.anzix.kogutowicz.TileCoord;
 import net.anzix.kogutowicz.Zoom;
 import net.anzix.kogutowicz.datasource.DataSource;
@@ -28,25 +25,32 @@ import net.anzix.kogutowicz.style.MapStyle;
  */
 public class TilesMap implements Runnable {
 
+    @NotNull
     private File outputDir;
 
+    @NotNull
+    @Valid
     private DataSource datasource;
 
     private Integer zoom;
 
+    @NotNull
     private Double west;
 
+    @NotNull
     private Double east;
 
+    @NotNull
     private Double north;
 
+    @NotNull
     private Double south;
 
     private Boolean verbose = Boolean.FALSE;
 
+    @Valid
+    @NotNull
     private MapStyle mapStyle;
-
-    private String output;
 
     @Override
     public void run() {
@@ -126,14 +130,6 @@ public class TilesMap implements Runnable {
 
     public void setNorth(Double north) {
         this.north = north;
-    }
-
-    public String getOutput() {
-        return output;
-    }
-
-    public void setOutput(String output) {
-        this.output = output;
     }
 
     public File getOutputDir() {
