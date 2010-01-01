@@ -33,6 +33,7 @@ import net.anzix.kogutowicz.style.LineStyle;
 import net.anzix.kogutowicz.style.PolygonStyle;
 
 /**
+ * 
  *
  * @author elek
  */
@@ -140,7 +141,7 @@ public abstract class AbstractJava2DRenderer implements Renderer {
                     realNo++;
                 } else {
                     //System.out.println("no such icon " + img);
-                    }
+                }
             }
             Point p = i.transform(t);
 
@@ -172,6 +173,4 @@ public abstract class AbstractJava2DRenderer implements Renderer {
     public void setGraphics(Graphics2D graphics) {
         this.graphics = graphics;
     }
-
-    
 }

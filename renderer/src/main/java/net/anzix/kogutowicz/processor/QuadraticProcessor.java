@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.anzix.kogutowicz.TileCoord;
+import net.anzix.kogutowicz.TileDivision;
 import net.anzix.kogutowicz.datasource.DataSource;
 import net.anzix.kogutowicz.element.Element;
 import net.anzix.kogutowicz.geometry.CoordBox;
@@ -34,7 +35,7 @@ public class QuadraticProcessor {
 
     private Logger logger = Logger.getLogger(QuadraticProcessor.class.getCanonicalName());
 
-    private ProcessMatrix matrix;
+    protected ProcessMatrix matrix;
 
     private Cartographer cartographer;
 
@@ -54,9 +55,10 @@ public class QuadraticProcessor {
     }
 
     public void process() {
-        CoordBox box = CoordBox.projectFromBox(matrix.getProjecion(), matrix.getBoundary());
 
-        renderer.initSpace(width, height);
+        initRenderer(renderer);
+
+        CoordBox box = CoordBox.projectFromBox(matrix.getProjecion(), matrix.getBoundary());
         this.transformation = new BaseTransformation(box, width, height);
 
         Date start = new Date();
@@ -71,7 +73,10 @@ public class QuadraticProcessor {
         }
         for (int x = from.getX(); x <= to.getX(); x++) {
             for (int y = from.getY(); y <= to.getY(); y++) {
-                render(new TileCoord(x, y));
+                TileCoord current = new TileCoord(x, y);
+                beforeTileRender(current, renderer);
+                render(current);
+                afterTileRender(current, renderer);
             }
         }
 
@@ -141,5 +146,19 @@ public class QuadraticProcessor {
 
     public void setRenderer(Renderer renderer) {
         this.renderer = renderer;
+    }
+
+    protected void beforeTileRender(TileCoord coord, Renderer renderer) {
+    }
+
+    protected void afterTileRender(TileCoord coord, Renderer renderer) {
+    }
+
+    protected void initRenderer(Renderer renderer) {
+        renderer.initSpace(width, height);
+    }
+
+    public TileDivision getDivision() {
+        return matrix.getDivision();
     }
 }

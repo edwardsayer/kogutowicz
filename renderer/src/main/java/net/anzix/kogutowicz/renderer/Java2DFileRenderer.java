@@ -20,9 +20,10 @@ import javax.imageio.ImageIO;
  *
  * @author elek
  */
-public class Java2DFileRenderer extends AbstractJava2DRenderer {
+public class Java2DFileRenderer extends AbstractJava2DRenderer implements FileOutputRenderer {
 
     private File outputFile;
+
     private BufferedImage bi;
 
     @Override
@@ -40,7 +41,7 @@ public class Java2DFileRenderer extends AbstractJava2DRenderer {
         getGraphics().setPaint(Color.WHITE);
         getGraphics().fillRect(0, 0, round(width), round(heght));
         getGraphics().setPaint(Color.black);
-        
+
 
 
     }
@@ -48,6 +49,9 @@ public class Java2DFileRenderer extends AbstractJava2DRenderer {
     @Override
     public void release() {
         try {
+            if (!outputFile.getParentFile().exists()) {
+                outputFile.getParentFile().mkdirs();
+            }
             ImageIO.write(bi, "PNG", outputFile);
             bi = null;
             setGraphics(null);
