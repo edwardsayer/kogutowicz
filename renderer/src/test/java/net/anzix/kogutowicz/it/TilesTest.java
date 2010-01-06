@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.anzix.kogituwitz.it;
+package net.anzix.kogutowicz.it;
 
 import java.io.File;
 import net.anzix.kogutowicz.config.ConfigReader;
