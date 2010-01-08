@@ -19,7 +19,7 @@ public class App {
 
         logger.info("Start rendering");
         File propFile = new File(args[0]);
-        new ConfigReader().start(propFile);
+        new ConfigReader(propFile).start();
 
     }
 }

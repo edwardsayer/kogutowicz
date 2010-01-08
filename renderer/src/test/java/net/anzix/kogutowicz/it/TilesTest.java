@@ -16,7 +16,7 @@ public class TilesTest {
 
     @Test
     public void test() throws Exception {
-        new ConfigReader().start(new File("src/it/remete-tiles.properties"));
+        new ConfigReader(new File("src/it/remete-tiles.properties")).start();
 
     }
 }
