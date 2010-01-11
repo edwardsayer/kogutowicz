@@ -1,18 +1,18 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz.app;
 
 import java.io.File;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import net.anzix.kogutowicz.Mercator;
+import net.anzix.kogutowicz.Projection;
 import net.anzix.kogutowicz.RectangleTileDivision;
 import net.anzix.kogutowicz.datasource.DataSource;
 import net.anzix.kogutowicz.element.Node;
 import net.anzix.kogutowicz.processor.ProcessMatrix;
 import net.anzix.kogutowicz.processor.QuadraticProcessor;
 import net.anzix.kogutowicz.renderer.Java2DFileRenderer;
+import net.anzix.kogutowicz.renderer.Renderer;
+import net.anzix.kogutowicz.renderer.SystemOutputRenderer;
 import net.anzix.kogutowicz.style.Cartographer;
 import net.anzix.kogutowicz.style.MapStyle;
 
@@ -41,6 +41,8 @@ public class ImageMap implements MapApplication {
 
     private Boolean verbose = Boolean.FALSE;
 
+    private Projection inputProjection = new Mercator();
+
     @NotNull
     @Valid
     private MapStyle mapStyle;
@@ -49,22 +51,23 @@ public class ImageMap implements MapApplication {
 
     @Override
     public void run() {
-        Node n1 = new Node(west, north);
-        Node n2 = new Node(east, south);
+
+        Node tl = Node.valueOf(inputProjection, west, north);
+        Node br = Node.valueOf(inputProjection, east, south);
+
         Cartographer c = new Cartographer(datasource);
         mapStyle.applyStyle(c);
 
-        RectangleTileDivision division = new RectangleTileDivision(n1, n2, 10, 10);
-        ProcessMatrix testMatrix = new ProcessMatrix(n1, n2, division, 10, 10);
-        QuadraticProcessor p = new QuadraticProcessor(testMatrix, c);
+        RectangleTileDivision division = new RectangleTileDivision(tl, br, 10, 10);
+        ProcessMatrix testMatrix = new ProcessMatrix(tl, br, division, 10, 10);
+        QuadraticProcessor p = new QuadraticProcessor(inputProjection, testMatrix, c);
         Java2DFileRenderer renderer = new Java2DFileRenderer();
         renderer.setOutputFile(new File(output));
         p.setRenderer(renderer);
-        double[] from = testMatrix.getProjecion().getProjected(n1.getLongitude(), n1.getLatitude());
-        double[] to = testMatrix.getProjecion().getProjected(n2.getLongitude(), n2.getLatitude());
-        double aspect = Math.abs((from[0] - to[0]) / (from[1] - to[1]));
+        double aspect = Math.abs((tl.getLongitude() - br.getLongitude()) / (tl.getLatitude() - br.getLatitude()));
+        System.out.println(aspect);
         p.setWidth(800);
-        p.setHeight((int) Math.round(aspect * 800));
+        p.setHeight((int) Math.round(aspect *p.getWidth()));
         p.process();
         p.release();
     }

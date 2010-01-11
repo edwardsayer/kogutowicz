@@ -5,7 +5,7 @@
 package net.anzix.kogutowicz.datasource;
 
 import java.util.Collection;
-import java.util.Iterator;
+import net.anzix.kogutowicz.Projection;
 import net.anzix.kogutowicz.TileCoord;
 import net.anzix.kogutowicz.TileDivision;
 import net.anzix.kogutowicz.element.Element;
@@ -16,7 +16,8 @@ import net.anzix.kogutowicz.element.Element;
  */
 public interface DataSource {
 
-    public void init(TileDivision division);
+
+    public void init(TileDivision division,Projection targetProjection);
 
     public void reset();
 

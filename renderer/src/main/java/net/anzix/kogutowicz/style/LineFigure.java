@@ -74,12 +74,12 @@ public class LineFigure extends Figure {
     }
 
     @Override
-    public List<GeometryElement> drawElements(Projection projection, Element element, Zoom zoom) {
+    public List<GeometryElement> drawElements(Element element, Zoom zoom) {
         List<GeometryElement> elements = new ArrayList();
         if (element instanceof Way) {
             Line l = new Line(convertStyle(style, zoom));
             for (Node n : ((Way) element).getNodes()) {
-                l.addPoint(convertNodeToPoint(projection, n));
+                l.addPoint(convertNodeToPoint(n));
             }
 
             elements.add(l);

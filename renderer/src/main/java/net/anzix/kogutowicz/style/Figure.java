@@ -32,12 +32,12 @@ public abstract class Figure {
     private Class<? extends Element> type;
 
     // private Style style = new Style();
-    public abstract List<GeometryElement> drawElements(Projection projection, Element element, Zoom zoom);
+    public abstract List<GeometryElement> drawElements(Element element, Zoom zoom);
 
     public abstract void init(String... parameters);
 
-    public Point convertNodeToPoint(Projection proj, Node n) {
-        return new Point(proj.getXY(n.getLongitude(), n.getLatitude()));
+    public Point convertNodeToPoint(Node n) {
+        return new Point(n.getLongitude(), n.getLatitude());
     }
 
     public Filter getFilter() {
@@ -108,6 +108,4 @@ public abstract class Figure {
     public void setType(Class<? extends Element> type) {
         this.type = type;
     }
-
-    
 }

@@ -64,10 +64,9 @@ public class QuadraticTest {
         c = new TuhuStyleFactory().applyStyle(c);
 
 
-        ProcessMatrix testMatrix = new ProcessMatrix(no1, no2, division, 2, 2);
-        testMatrix.setProjecion(new EqualProjection());
+        ProcessMatrix testMatrix = new ProcessMatrix(no1, no2, division, 2, 2);        
 
-        QuadraticProcessor p = new QuadraticProcessor(testMatrix, c);
+        QuadraticProcessor p = new QuadraticProcessor(new EqualProjection(),testMatrix, c);
         Java2DFileRenderer renderer = new Java2DFileRenderer();
         renderer.setOutputFile(new File("target/test.png"));
         p.setRenderer(renderer);

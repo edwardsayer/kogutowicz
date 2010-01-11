@@ -4,6 +4,8 @@
  */
 package net.anzix.kogutowicz.element;
 
+import net.anzix.kogutowicz.geometry.CoordBox;
+
 /**
  *
  * @author elek
@@ -45,6 +47,9 @@ public class Box {
         this.topLeft = topLeft;
     }
 
+    public CoordBox getCoordBox(){
+        return new CoordBox(topLeft.getCoordPair(), bottomRight.getCoordPair());
+    }
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

@@ -29,12 +29,12 @@ public class CombinedFigure extends Figure {
     }
 
     @Override
-    public List<GeometryElement> drawElements(Projection projection, Element e, Zoom zoom) {
+    public List<GeometryElement> drawElements(Element e, Zoom zoom) {
         List<GeometryElement> results = new ArrayList();
         int zind = getZindex();
         for (Figure figure : figures) {
             if (figure.getStartZoom() <= zoom.getLevel() && figure.getEndZoom() >= zoom.getLevel()) {
-                List<GeometryElement> ges = figure.drawElements(projection, e, zoom);
+                List<GeometryElement> ges = figure.drawElements(e, zoom);
                 for (GeometryElement el : ges) {
                     el.setZindex(zind);
                 }

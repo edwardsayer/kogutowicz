@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz.datasource;
 
 import java.io.File;
@@ -14,12 +10,13 @@ import java.util.Map;
 
 
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.validation.constraints.NotNull;
+import net.anzix.kogutowicz.Mercator;
+import net.anzix.kogutowicz.Projection;
 import net.anzix.kogutowicz.TileCoord;
 import net.anzix.kogutowicz.TileDivision;
 import net.anzix.kogutowicz.element.Element;
+
 import org.openstreetmap.osmosis.core.container.v0_6.EntityContainer;
 import org.openstreetmap.osmosis.core.domain.v0_6.Entity;
 import org.openstreetmap.osmosis.core.domain.v0_6.Node;
@@ -30,12 +27,18 @@ import org.openstreetmap.osmosis.core.domain.v0_6.Way;
 import org.openstreetmap.osmosis.core.task.v0_6.Sink;
 import org.openstreetmap.osmosis.core.xml.common.CompressionMethod;
 import org.openstreetmap.osmosis.core.xml.v0_6.XmlReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author elek
  */
 public class OsmFile implements DataSource {
+
+    private Logger logger = LoggerFactory.getLogger(OsmFile.class);
+
+    private Projection projection = new Mercator();
 
     private Map<Element.Id, net.anzix.kogutowicz.element.Element> elements = new HashMap();
 
@@ -51,8 +54,6 @@ public class OsmFile implements DataSource {
 
     @NotNull
     private File osmFile;
-
-    private Logger logger = Logger.getLogger(OsmFile.class.getCanonicalName());
 
     private Set<Element.Id> returned = new HashSet();
 
@@ -74,10 +75,11 @@ public class OsmFile implements DataSource {
     }
 
     @Override
-    public void init(TileDivision div) {
-        this.division = div;
+    public void init(TileDivision division, Projection targetProjection) {
+        this.projection = targetProjection;
+        this.division = division;
         if (!initialized) {
-            logger.log(Level.FINE, "init osmFile dataSource " + osmFile);
+            logger.debug("init osmFile dataSource " + osmFile);
             XmlReader reader = new XmlReader(osmFile, true, CompressionMethod.None);
             //FastXmlReader reader = new FastXmlReader(new File("/home/elek/Documents/nagykovacsi.osm"), true, CompressionMethod.None);
             reader.setSink(new Sink() {
@@ -122,10 +124,8 @@ public class OsmFile implements DataSource {
                         indexWay(way);
                     } else if (e instanceof Node) {
                         Node n = (Node) e;
-                        net.anzix.kogutowicz.element.Node node = new net.anzix.kogutowicz.element.Node();
+                        net.anzix.kogutowicz.element.Node node = net.anzix.kogutowicz.element.Node.valueOf(projection, n.getLongitude(), n.getLatitude());
                         node.setId(new Element.Id(net.anzix.kogutowicz.element.Node.class, n.getId()));
-                        node.setLongitude(n.getLongitude());
-                        node.setLatitude(n.getLatitude());
                         copyTags(node, e);
                         elements.put(node.getId(), node);
                         if (top == null) {
@@ -154,8 +154,8 @@ public class OsmFile implements DataSource {
 
                 @Override
                 public void complete() {
-                    logger.log(Level.INFO, "File " + osmFile.getAbsolutePath() + " is loaded.");
-                    logger.log(Level.INFO, left + " " + top + " " + right + " " + bottom);
+                    logger.debug("File " + osmFile.getAbsolutePath() + " is loaded.");
+                    logger.debug(left + " " + top + " " + right + " " + bottom);
                     initialized = true;
                 }
 

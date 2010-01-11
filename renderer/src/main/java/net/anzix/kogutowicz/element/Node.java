@@ -4,6 +4,9 @@
  */
 package net.anzix.kogutowicz.element;
 
+import net.anzix.kogutowicz.Projection;
+import net.anzix.kogutowicz.geometry.CoordPair;
+
 /**
  * Element represents an OSM node object.
  *
@@ -89,4 +92,14 @@ public class Node extends Element {
     public String toString() {
         return "Node(" + getLongitude() + "," + getLatitude() + ")";
     }
+
+    public CoordPair getCoordPair(){
+        return new CoordPair(longitude, latitude);
+    }
+
+    public static Node valueOf(Projection p,double lon,double lat){
+        double[] coords = p.getXY(lon, lat);
+        return new Node(coords[0],coords[1]);
+    }
+
 }

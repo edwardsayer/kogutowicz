@@ -20,7 +20,9 @@ public class OSMTileDivision implements TileDivision {
     }
 
     @Override
-    public TileCoord getTileCoord(Node node) {
+    public TileCoord getTileCoord(Node merc) {
+        double[] d = new Mercator().getLanLon(merc.getLongitude(), merc.getLatitude());
+        Node node = new Node(d[0],d[1]);
         int xtile = (int) Math.floor((node.getLongitude() + 180) / 360 * (1 << zoom.getLevel()));
         int ytile = (int) Math.floor((1 - Math.log(Math.tan(node.getLatitude() * Math.PI / 180) + 1 / Math.cos(node.getLatitude() * Math.PI / 180)) / Math.PI) / 2 * (1 << zoom.getLevel()));
         return new TileCoord(xtile, ytile);
@@ -32,7 +34,8 @@ public class OSMTileDivision implements TileDivision {
         double lon_deg = coord.getX() / n * 360.0 - 180.0;
         double lat_rad = Math.atan(Math.sinh(Math.PI * (1 - 2 * coord.getY() / n)));
         double lat_deg = lat_rad * 180.0 / Math.PI;
-        return new Node(lon_deg, lat_deg);
+        double[] d = new Mercator().getXY(lon_deg, lat_deg);
+        return new Node(d[0], d[1]);
     }
 
     @Override

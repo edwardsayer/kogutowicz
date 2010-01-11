@@ -7,9 +7,10 @@ package net.anzix.kogutowicz.datasource;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import net.anzix.kogutowicz.EqualProjection;
+import net.anzix.kogutowicz.Projection;
 import net.anzix.kogutowicz.TileCoord;
 import net.anzix.kogutowicz.TileDivision;
 import net.anzix.kogutowicz.element.Element;
@@ -20,11 +21,13 @@ import net.anzix.kogutowicz.element.Element;
  */
 public class InMemory implements DataSource {
 
+    private Projection projection = new EqualProjection();
+
     private Map<TileCoord, List<Element>> elementMap = new HashMap();
 
     public void add(TileCoord coord, Element element) {
         List<Element> elements = elementMap.get(coord);
-        if (elements==null){
+        if (elements == null) {
             elements = new ArrayList();
             elementMap.put(coord, elements);
         }
@@ -32,7 +35,7 @@ public class InMemory implements DataSource {
     }
 
     @Override
-    public void init(TileDivision division) {
+    public void init(TileDivision division, Projection targetProjection) {
     }
 
     @Override

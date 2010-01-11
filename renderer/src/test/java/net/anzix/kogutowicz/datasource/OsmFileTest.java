@@ -6,6 +6,7 @@ package net.anzix.kogutowicz.datasource;
 
 import java.io.File;
 import java.util.Collection;
+import net.anzix.kogutowicz.EqualProjection;
 import net.anzix.kogutowicz.RectangleTileDivision;
 import net.anzix.kogutowicz.TileCoord;
 import net.anzix.kogutowicz.TileDivision;
@@ -30,7 +31,7 @@ public class OsmFileTest {
     public void testGetElements() {
         OsmFile file = new OsmFile(new File("src/test/simple.osm"));
         TileDivision div = new RectangleTileDivision(new Node(18.5, 48), new Node(19.5, 47), 10, 10);
-        file.init(div);
+        file.init(div,new EqualProjection());
         Collection<Element> es = file.getElements(new TileCoord(5, 4));
         assertEquals(4, es.size());
         for (Element e : es) {

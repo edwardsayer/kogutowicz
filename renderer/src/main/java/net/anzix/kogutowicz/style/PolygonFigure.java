@@ -4,7 +4,6 @@
  */
 package net.anzix.kogutowicz.style;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import net.anzix.kogutowicz.Projection;
@@ -44,12 +43,12 @@ public class PolygonFigure extends Figure {
     }
 
     @Override
-    public List<GeometryElement> drawElements(Projection projection, Element element, Zoom zoom) {
+    public List<GeometryElement> drawElements(Element element, Zoom zoom) {
         List<GeometryElement> elements = new ArrayList();
         if (element instanceof Way) {
             Polygon p = new Polygon(convertStyle(style, zoom));
             for (Node n : ((Way) element).getNodes()) {
-                p.addPoint(convertNodeToPoint(projection, n));
+                p.addPoint(convertNodeToPoint(n));
             }
 
             elements.add(p);

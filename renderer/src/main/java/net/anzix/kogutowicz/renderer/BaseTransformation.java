@@ -36,12 +36,20 @@ public class BaseTransformation implements Transformation {
         aspect = aspectx > aspecty ? aspectx : aspecty;
         //aspect = aspecty;
 
-        System.out.println(aspectx);
-        System.out.println(aspecty);
     }
 
     @Override
     public CoordPair transform(CoordPair pair) {
         return new CoordPair((pair.getX() - basex) * aspect, height - (pair.getY() - basey) * aspect);
     }
+
+    public double getAspect() {
+        return aspect;
+    }
+
+    public void setAspect(double aspect) {
+        this.aspect = aspect;
+    }
+
+    
 }

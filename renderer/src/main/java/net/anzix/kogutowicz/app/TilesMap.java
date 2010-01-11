@@ -3,12 +3,13 @@ package net.anzix.kogutowicz.app;
 import java.io.File;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import net.anzix.kogutowicz.Mercator;
 import net.anzix.kogutowicz.OSMTileDivision;
+import net.anzix.kogutowicz.Projection;
 import net.anzix.kogutowicz.TileCoord;
 import net.anzix.kogutowicz.Zoom;
 import net.anzix.kogutowicz.datasource.DataSource;
 import net.anzix.kogutowicz.element.Node;
-import net.anzix.kogutowicz.geometry.CoordBox;
 import net.anzix.kogutowicz.processor.ProcessMatrix;
 import net.anzix.kogutowicz.processor.QuadraticProcessor;
 import net.anzix.kogutowicz.renderer.BaseTransformation;
@@ -18,6 +19,8 @@ import net.anzix.kogutowicz.renderer.Renderer;
 import net.anzix.kogutowicz.style.Cartographer;
 
 import net.anzix.kogutowicz.style.MapStyle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Render an area to OSM tiles.
@@ -25,6 +28,8 @@ import net.anzix.kogutowicz.style.MapStyle;
  * @author elek
  */
 public class TilesMap implements MapApplication {
+
+    private Logger logger = LoggerFactory.getLogger(MapApplication.class);
 
     @NotNull
     private File outputDir;
@@ -53,27 +58,30 @@ public class TilesMap implements MapApplication {
     @NotNull
     private MapStyle mapStyle;
 
+    private Projection projection = new Mercator();
+
     @Override
     public void run() {
-        Node n1 = new Node(west, north);
-        Node n2 = new Node(east, south);
+        Node n1 = Node.valueOf(projection, west, north);
+        Node n2 = Node.valueOf(projection, east, south);
         Cartographer c = new Cartographer(datasource);
         mapStyle.applyStyle(c);
 
         OSMTileDivision division = new OSMTileDivision(Zoom.zoom(zoom));
+        
+
         ProcessMatrix testMatrix = new ProcessMatrix(n1, n2, division, 10, 10);
-        QuadraticProcessor p = new QuadraticProcessor(testMatrix, c) {
+        QuadraticProcessor p = new QuadraticProcessor(projection, testMatrix, c) {
 
             @Override
             protected void afterTileRender(TileCoord coord, Renderer renderer) {
                 renderer.release();
-
             }
 
             @Override
             protected void beforeTileRender(TileCoord coord, Renderer renderer) {
                 renderer.initSpace(256, 256);
-                setTransformation(new BaseTransformation(CoordBox.projectFromBox(matrix.getProjecion(), getDivision().getBox(coord)), 256, 256));
+                setTransformation(new BaseTransformation(getDivision().getBox(coord).getCoordBox(), 256, 256));
                 String fileName = zoom + "/" + coord.getX() + "/" + coord.getY() + ".png";
                 System.out.println(fileName);
                 ((FileOutputRenderer) renderer).setOutputFile(new File(outputDir, fileName));
@@ -90,13 +98,12 @@ public class TilesMap implements MapApplication {
                 //NOOP
             }
         };
+
+
         Java2DFileRenderer renderer = new Java2DFileRenderer();
         p.setRenderer(renderer);
-        double[] from = testMatrix.getProjecion().getProjected(n1.getLongitude(), n1.getLatitude());
-        double[] to = testMatrix.getProjecion().getProjected(n2.getLongitude(), n2.getLatitude());
-        double aspect = Math.abs((from[0] - to[0]) / (from[1] - to[1]));
-        p.setWidth(800);
-        p.setHeight((int) Math.round(aspect * 800));
+        p.setWidth(256);
+        p.setHeight(256);
         p.process();
         p.release();
     }

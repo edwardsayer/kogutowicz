@@ -29,11 +29,11 @@ public class PngLabelFigure extends Figure {
     }
 
     @Override
-    public List<GeometryElement> drawElements(Projection projection, Element element, Zoom zoom) {
+    public List<GeometryElement> drawElements(Element element, Zoom zoom) {
         List<GeometryElement> elements = new ArrayList();
         if (element instanceof Way) {
             Node point = ((Way) element).getHalfPosition();
-            Icon i = new Icon(convertNodeToPoint(projection, point));
+            Icon i = new Icon(convertNodeToPoint(point));
             String signTag = element.getTagValue("tourism");
             String[] signs = signTag.trim().split(" ");
             for (String sign : signs) {

@@ -42,8 +42,6 @@ public class ProcessMatrix {
 
     private Box boundary;
 
-    private Projection projecion = new Mercator();
-
     private TileDivision division;
 
     /**
@@ -130,10 +128,6 @@ public class ProcessMatrix {
 
     public GeometryCache getGeometries() {
         return geometries;
-    }
-
-    public Projection getProjecion() {
-        return projecion;
     }
 
     /**
@@ -232,10 +226,6 @@ public class ProcessMatrix {
 
     public Box getBoundary() {
         return boundary;
-    }
-
-    public void setProjecion(Projection projecion) {
-        this.projecion = projecion;
     }
 
     public TileCoord getTileEnd() {

@@ -47,12 +47,13 @@ public abstract class AbstractJava2DRenderer implements Renderer {
         graphics.setClip(null);
         if (clip != null) {
 //            graphics.setColor(Color.BLACK);
-
             CoordPair cliptl = clip.getTopLeft().transform(t);
             CoordPair clipbr = clip.getBottomRight().transform(t);
-            Rectangle r = new Rectangle((int) Math.floor(cliptl.getX()), (int) Math.round(cliptl.getY()),
-                    (int) Math.ceil(Math.abs(cliptl.getX() - clipbr.getX())),
-                    (int) Math.round(Math.abs(cliptl.getY() - clipbr.getY())));
+            Rectangle r = new Rectangle(
+                    (int) Math.round(cliptl.getX())-1,
+                    (int) Math.round(cliptl.getY())-1,
+                    (int) Math.round(Math.abs(cliptl.getX() - clipbr.getX()))+1,
+                    (int) Math.round(Math.abs(cliptl.getY() - clipbr.getY()))+1);
 
 //            graphics.draw(r);
             graphics.setClip(r);
