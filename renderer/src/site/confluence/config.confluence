@@ -1,0 +1,10 @@
+h1. Configuration
+
+Currently there is no GUI to the Kogutowicz, so you can use it from command line. You can configure the command line runner over a properties file.
+
+The main entry point is the map property. Choose an implementation of MapApplication and set the map property value to its fully qualified name.
+
+map=......
+
+Now you should set
+

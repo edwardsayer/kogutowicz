@@ -1,0 +1,7 @@
+h1. Getting started
+
+STEP 1: Download the latest binary from the CI server.
+
+STEP 2: Create a properties file for the config parameters. (see [config] page)
+
+STEP 3: Run Kogutowicz with the java -jar kogutowicz-......jar map.properties
