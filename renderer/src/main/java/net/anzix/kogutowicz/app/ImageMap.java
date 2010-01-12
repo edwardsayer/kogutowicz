@@ -41,7 +41,11 @@ public class ImageMap implements MapApplication {
 
     private Boolean verbose = Boolean.FALSE;
 
+    @NotNull
     private Projection inputProjection = new Mercator();
+
+    @Valid
+    private Renderer renderer;
 
     @NotNull
     @Valid
@@ -61,13 +65,11 @@ public class ImageMap implements MapApplication {
         RectangleTileDivision division = new RectangleTileDivision(tl, br, 10, 10);
         ProcessMatrix testMatrix = new ProcessMatrix(tl, br, division, 10, 10);
         QuadraticProcessor p = new QuadraticProcessor(inputProjection, testMatrix, c);
-        Java2DFileRenderer renderer = new Java2DFileRenderer();
-        renderer.setOutputFile(new File(output));
         p.setRenderer(renderer);
         double aspect = Math.abs((tl.getLongitude() - br.getLongitude()) / (tl.getLatitude() - br.getLatitude()));
         System.out.println(aspect);
         p.setWidth(800);
-        p.setHeight((int) Math.round(aspect *p.getWidth()));
+        p.setHeight((int) Math.round(aspect * p.getWidth()));
         p.process();
         p.release();
     }
@@ -150,5 +152,13 @@ public class ImageMap implements MapApplication {
 
     public void setOutput(String output) {
         this.output = output;
+    }
+
+    public Renderer getRenderer() {
+        return renderer;
+    }
+
+    public void setRenderer(Renderer renderer) {
+        this.renderer = renderer;
     }
 }

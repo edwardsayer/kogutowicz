@@ -42,7 +42,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            
+
 
 
             <plugin>
@@ -76,6 +76,11 @@
         </plugins>
     </build>
     <dependencies>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-svggen</artifactId>
+            <version>1.7</version>
+        </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
@@ -161,9 +166,16 @@
             <artifactId>nekohtml</artifactId>
             <version>1.9.6.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-dom</artifactId>
+            <version>1.7</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
 </project>
+
 
 
 

@@ -15,8 +15,9 @@ public class ImageTest {
 
     @Test
     public void test() throws Exception{
-        new ConfigReader(new File("src/it/remete.properties")).start();
-        new ConfigReader(new File("src/it/nk.properties")).start();
+                new ConfigReader(new File("src/it/remete-svg.properties")).start();
+//        new ConfigReader(new File("src/it/remete.properties")).start();
+//        new ConfigReader(new File("src/it/nk.properties")).start();
 
     }
 }
