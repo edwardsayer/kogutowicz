@@ -28,10 +28,9 @@ public class PngRenderer extends AbstractJava2DRenderer implements FileOutputRen
 
     private BufferedImage bi;
 
+    
     @Override
-    public void initSpace(Size size, Transformation baseTransformation, CoordBox clip) {
-        // TYPE_INT_ARGB specifies the image format: 8-bit RGBA packed
-        // into integer pixels
+    public void initSpace(Size size) {
         bi = new BufferedImage(round(size.getWidth()), round(size.getHeight()), BufferedImage.TYPE_INT_ARGB);
 
         setGraphics(bi.createGraphics());

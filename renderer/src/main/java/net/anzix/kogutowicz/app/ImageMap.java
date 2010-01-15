@@ -10,9 +10,7 @@ import net.anzix.kogutowicz.datasource.DataSource;
 import net.anzix.kogutowicz.element.Node;
 import net.anzix.kogutowicz.processor.ProcessMatrix;
 import net.anzix.kogutowicz.processor.QuadraticProcessor;
-import net.anzix.kogutowicz.renderer.Java2DFileRenderer;
 import net.anzix.kogutowicz.renderer.Renderer;
-import net.anzix.kogutowicz.renderer.SystemOutputRenderer;
 import net.anzix.kogutowicz.style.Cartographer;
 import net.anzix.kogutowicz.style.MapStyle;
 

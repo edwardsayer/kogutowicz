@@ -12,6 +12,8 @@ import java.io.Writer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.validation.constraints.NotNull;
+import net.anzix.kogutowicz.Size;
+import net.anzix.kogutowicz.geometry.CoordBox;
 import org.apache.batik.dom.GenericDOMImplementation;
 import org.apache.batik.svggen.SVGGraphics2D;
 import org.w3c.dom.DOMImplementation;
@@ -28,7 +30,7 @@ public class SvgRenderer extends AbstractJava2DRenderer implements FileOutputRen
     private File outputFile;
 
     @Override
-    public void initSpace(double width, double height) {
+    public void initSpace(Size size) {
         DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
 
         String svgNS = "http://www.w3.org/2000/svg";

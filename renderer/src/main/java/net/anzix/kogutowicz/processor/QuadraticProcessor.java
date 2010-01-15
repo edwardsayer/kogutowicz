@@ -10,11 +10,13 @@ import java.util.Date;
 import java.util.List;
 
 import net.anzix.kogutowicz.Projection;
+import net.anzix.kogutowicz.Size;
 import net.anzix.kogutowicz.TileCoord;
 import net.anzix.kogutowicz.TileDivision;
 import net.anzix.kogutowicz.datasource.DataSource;
 import net.anzix.kogutowicz.element.Box;
 import net.anzix.kogutowicz.element.Element;
+import net.anzix.kogutowicz.geometry.CoordBox;
 import net.anzix.kogutowicz.geometry.GeometryElement;
 import net.anzix.kogutowicz.geometry.GeometryElementOnLayer;
 import net.anzix.kogutowicz.renderer.BaseTransformation;
@@ -34,8 +36,6 @@ import org.slf4j.LoggerFactory;
  */
 public class QuadraticProcessor {
 
-    private Transformation transformation;
-
     private Logger logger = LoggerFactory.getLogger(QuadraticProcessor.class);
 
     protected ProcessMatrix matrix;
@@ -46,11 +46,9 @@ public class QuadraticProcessor {
 
     private Renderer renderer;
 
-    private int height;
-
-    private int width;
-
     private Projection projection;
+
+    private Size size = new Size();
 
     public QuadraticProcessor(Projection projection, ProcessMatrix matrix, Cartographer cartographer) {
         this.projection = projection;
@@ -62,10 +60,10 @@ public class QuadraticProcessor {
 
     public void process() {
 
-        initRenderer(renderer);
+        initRenderer(renderer, size);
 
 
-        this.transformation = new BaseTransformation(matrix.getBoundary().getCoordBox(), width, height);
+
         Date start = new Date();
         logger.debug("Starting process");
         init();
@@ -114,39 +112,30 @@ public class QuadraticProcessor {
     }
 
     private void render(TileCoord coord) {
-        Box b = matrix.getDivision().getBox(coord);
         logger.debug("Rendering " + coord);
         GeometryCache cache = matrix.getGeometries();
         Collection<GeometryElementOnLayer> elements = cache.getElements(coord);
         for (GeometryElementOnLayer element : elements) {
-            renderer.renderGeometry(element.getLayer(), element.getElement(), transformation, b.getCoordBox());
+            renderer.renderGeometry(element.getLayer(), element.getElement());
         }
 
         matrix.setTileState(coord, TileState.RENDERED);
     }
 
     public int getHeight() {
-        return height;
+        return size.getHeight();
     }
 
     public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public Transformation getTransformation() {
-        return transformation;
-    }
-
-    public void setTransformation(Transformation transformation) {
-        this.transformation = transformation;
+        size.setHeight(height);
     }
 
     public int getWidth() {
-        return width;
+        return size.getWidth();
     }
 
     public void setWidth(int width) {
-        this.width = width;
+        size.setWidth(width);
     }
 
     public void setRenderer(Renderer renderer) {
@@ -154,13 +143,16 @@ public class QuadraticProcessor {
     }
 
     protected void beforeTileRender(TileCoord coord, Renderer renderer) {
+        Box b = matrix.getDivision().getBox(coord);
+        renderer.setClip(b.getCoordBox());
     }
 
     protected void afterTileRender(TileCoord coord, Renderer renderer) {
     }
 
-    protected void initRenderer(Renderer renderer) {
-        renderer.initSpace(width, height);
+    protected void initRenderer(Renderer renderer, Size size) {
+        renderer.initSpace(size);
+        renderer.setTransformation(new BaseTransformation(matrix.getBoundary().getCoordBox(), size.getWidth(), size.getHeight()));
     }
 
     public TileDivision getDivision() {

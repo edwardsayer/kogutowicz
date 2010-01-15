@@ -37,27 +37,32 @@ import net.anzix.kogutowicz.style.PolygonStyle;
  *
  * @author elek
  */
-public abstract class AbstractJava2DRenderer implements Renderer {
+public abstract class AbstractJava2DRenderer extends AbstractRenderer {
 
     private Graphics2D graphics;
 
     @Override
-    public void renderGeometry(Layer layer, GeometryElement element, Transformation t, CoordBox clip) {
-
-        graphics.setClip(null);
+    public void setClip(CoordBox clip) {
         if (clip != null) {
-//            graphics.setColor(Color.BLACK);
-            CoordPair cliptl = clip.getTopLeft().transform(t);
-            CoordPair clipbr = clip.getBottomRight().transform(t);
+            graphics.setColor(Color.BLACK);
+            CoordPair cliptl = clip.getTopLeft().transform(getCurrentTransformation());
+            CoordPair clipbr = clip.getBottomRight().transform(getCurrentTransformation());
             Rectangle r = new Rectangle(
-                    (int) Math.round(cliptl.getX())-1,
-                    (int) Math.round(cliptl.getY())-1,
-                    (int) Math.round(Math.abs(cliptl.getX() - clipbr.getX()))+1,
-                    (int) Math.round(Math.abs(cliptl.getY() - clipbr.getY()))+1);
+                    (int) Math.round(cliptl.getX()) - 1,
+                    (int) Math.round(cliptl.getY()) - 1,
+                    (int) Math.round(Math.abs(cliptl.getX() - clipbr.getX())) + 1,
+                    (int) Math.round(Math.abs(cliptl.getY() - clipbr.getY())) + 1);
 
 //            graphics.draw(r);
             graphics.setClip(r);
         }
+    }
+
+    @Override
+    public void renderGeometry(Layer layer, GeometryElement element) {
+
+
+
 //        if (style.getPattern() != null) {
 //            ig2.setStroke(new BasicStroke(style.getStrokeWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0f, style.getPattern(), 0f));
 //        } else {
@@ -67,14 +72,14 @@ public abstract class AbstractJava2DRenderer implements Renderer {
 
 //        ig2.setPaint(c);
         if (element instanceof Line) {
-            drawLine((Line) element, t);
+            drawLine((Line) element);
 
         } else if (element instanceof Polygon) {
-            drawPolygons((Polygon) element, t);
+            drawPolygons((Polygon) element);
 
 
         } else if (element instanceof Icon) {
-            drawIcon((Icon) element, t);
+            drawIcon((Icon) element);
 
         }
     }
@@ -83,7 +88,7 @@ public abstract class AbstractJava2DRenderer implements Renderer {
         return (int) Math.round(d);
     }
 
-    private void drawLine(Line le, Transformation t) {
+    private void drawLine(Line le) {
         float[] pattern = le.getStyle().getStyle(LineStyle.PATTERN, new float[0].getClass());
         if (pattern != null) {
             graphics.setStroke(new BasicStroke(le.getStyle().getStyle(LineStyle.WIDTH, Float.class), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0f, pattern, 0));
@@ -97,7 +102,7 @@ public abstract class AbstractJava2DRenderer implements Renderer {
         int y[] = new int[le.getPoints().size()];
 
         for (int i = 0; i < le.getPoints().size(); i++) {
-            Point p1 = le.getPoints().get(i).transform(t);
+            Point p1 = le.getPoints().get(i).transform(getCurrentTransformation());
             x[i] = round(p1.getX());
             y[i] = round(p1.getY());
 
@@ -109,19 +114,19 @@ public abstract class AbstractJava2DRenderer implements Renderer {
         return new Color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
     }
 
-    private void drawPolygons(Polygon polygon, Transformation t) {
+    private void drawPolygons(Polygon polygon) {
         graphics.setStroke(new BasicStroke(polygon.getStyle().getStyle(PolygonStyle.WIDTH, Float.class), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         graphics.setPaint(convertColor(polygon.getStyle().getStyle(PolygonStyle.COLOR, net.anzix.kogutowicz.geometry.Color.class)));
 
         java.awt.Polygon p = new java.awt.Polygon();
         for (Point pp : polygon.getOutline().getPoints()) {
-            Point pt = pp.transform(t);
+            Point pt = pp.transform(getCurrentTransformation());
             p.addPoint(round(pt.getX()), round(pt.getY()));
         }
         graphics.fill(p);
     }
 
-    private void drawIcon(Icon i, Transformation t) {
+    private void drawIcon(Icon i) {
         try {
             int noOfPng = i.getSource().size();
             int sumw = 0;
@@ -144,7 +149,7 @@ public abstract class AbstractJava2DRenderer implements Renderer {
                     //System.out.println("no such icon " + img);
                 }
             }
-            Point p = i.transform(t);
+            Point p = i.transform(getCurrentTransformation());
 
             int cx = round(p.getX() - sumw / 2);
             int cy = round(p.getY() - maxh / 2);
@@ -156,8 +161,8 @@ public abstract class AbstractJava2DRenderer implements Renderer {
                 graphics.drawImage(bimg, round(cx), round(cy), null);
                 cx += w;
             }
-            cx = round(i.transform(t).getX() - sumw / 2);
-            cy = round(i.transform(t).getY() - maxh / 2);
+            cx = round(i.transform(getCurrentTransformation()).getX() - sumw / 2);
+            cy = round(i.transform(getCurrentTransformation()).getY() - maxh / 2);
             graphics.drawRect(cx, cy, sumw, maxh);
 
 

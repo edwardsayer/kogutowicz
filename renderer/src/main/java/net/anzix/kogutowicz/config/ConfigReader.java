@@ -41,7 +41,6 @@ public class ConfigReader {
             props = new Properties();
             props.load(fis);
             fis.close();
-            start();
         } catch (Exception ex) {
             throw new FieldInitializationException("Error on read property file " + propertyFile.getAbsolutePath(), ex);
         } finally {

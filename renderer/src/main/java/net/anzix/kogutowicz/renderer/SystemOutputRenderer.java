@@ -4,6 +4,8 @@
  */
 package net.anzix.kogutowicz.renderer;
 
+
+import net.anzix.kogutowicz.Size;
 import net.anzix.kogutowicz.geometry.CoordBox;
 import net.anzix.kogutowicz.geometry.GeometryElement;
 import net.anzix.kogutowicz.geometry.Line;
@@ -14,14 +16,14 @@ import net.anzix.kogutowicz.style.Layer;
  *
  * @author elek
  */
-public class SystemOutputRenderer implements Renderer {
+public class SystemOutputRenderer extends AbstractRenderer {
 
     @Override
-    public void renderGeometry(Layer layer, GeometryElement element, Transformation t, CoordBox clip) {
+    public void renderGeometry(Layer layer, GeometryElement element) {
         System.out.println("Layer:" + layer + "Render line: " + element.getClass() + " widh style ");
         if (element instanceof Line) {
             for (Point p : ((Line) element).getPoints()) {
-                System.out.println(p.transform(t));
+                System.out.println(p.transform(getCurrentTransformation()));
             }
         }
     }
@@ -32,7 +34,14 @@ public class SystemOutputRenderer implements Renderer {
     }
 
     @Override
-    public void initSpace(double width, double height) {
-        System.out.println("init " + width + " " + height);
+    public void initSpace(Size size) {
+        System.out.println("init " + size.getWidth() + " " + size.getHeight());
     }
+
+    @Override
+    public void setClip(CoordBox clip) {
+        System.out.println("set clip");
+    }
+
+    
 }

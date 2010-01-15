@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import net.anzix.kogutowicz.Size;
+import net.anzix.kogutowicz.geometry.CoordBox;
 
 /**
  * Render gemotery elements to Java2D context.
@@ -26,12 +28,9 @@ public class Java2DFileRenderer extends AbstractJava2DRenderer implements FileOu
 
     private BufferedImage bi;
 
-    @Override
-    public void initSpace(double width, double heght) {
-
-        // TYPE_INT_ARGB specifies the image format: 8-bit RGBA packed
-        // into integer pixels
-        bi = new BufferedImage(round(width), round(heght), BufferedImage.TYPE_INT_ARGB);
+    
+    public void initSpace(Size size) {
+        bi = new BufferedImage(round(size.getWidth()), round(size.getHeight()), BufferedImage.TYPE_INT_ARGB);
 
         setGraphics(bi.createGraphics());
         //  ig2.setComposite(AlphaComposite.getInstance(AlphaComposite.DST_OVER));
@@ -39,7 +38,7 @@ public class Java2DFileRenderer extends AbstractJava2DRenderer implements FileOu
         map.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         getGraphics().setRenderingHints(map);
         getGraphics().setPaint(Color.WHITE);
-        getGraphics().fillRect(0, 0, round(width), round(heght));
+        getGraphics().fillRect(0, 0, round(size.getWidth()), round(size.getHeight()));
         getGraphics().setPaint(Color.black);
 
 
