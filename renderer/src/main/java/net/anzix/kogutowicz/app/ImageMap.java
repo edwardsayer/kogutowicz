@@ -6,11 +6,18 @@ import javax.validation.constraints.NotNull;
 import net.anzix.kogutowicz.Mercator;
 import net.anzix.kogutowicz.Projection;
 import net.anzix.kogutowicz.RectangleTileDivision;
+import net.anzix.kogutowicz.Size;
 import net.anzix.kogutowicz.datasource.DataSource;
+import net.anzix.kogutowicz.decorator.MapRender;
+import net.anzix.kogutowicz.decorator.RenderingWorkspace;
 import net.anzix.kogutowicz.element.Node;
+import net.anzix.kogutowicz.geometry.CoordBox;
+import net.anzix.kogutowicz.geometry.Point;
 import net.anzix.kogutowicz.processor.ProcessMatrix;
 import net.anzix.kogutowicz.processor.QuadraticProcessor;
+import net.anzix.kogutowicz.renderer.BaseTransformation;
 import net.anzix.kogutowicz.renderer.Renderer;
+import net.anzix.kogutowicz.renderer.SystemOutputRenderer;
 import net.anzix.kogutowicz.style.Cartographer;
 import net.anzix.kogutowicz.style.MapStyle;
 
@@ -60,16 +67,38 @@ public class ImageMap implements MapApplication {
         Cartographer c = new Cartographer(datasource);
         mapStyle.applyStyle(c);
 
-        RectangleTileDivision division = new RectangleTileDivision(tl, br, 10, 10);
-        ProcessMatrix testMatrix = new ProcessMatrix(tl, br, division, 10, 10);
-        QuadraticProcessor p = new QuadraticProcessor(inputProjection, testMatrix, c);
-        p.setRenderer(renderer);
         double aspect = Math.abs((tl.getLongitude() - br.getLongitude()) / (tl.getLatitude() - br.getLatitude()));
-        System.out.println(aspect);
-        p.setWidth(800);
-        p.setHeight((int) Math.round(aspect * p.getWidth()));
-        p.process();
-        p.release();
+        int width = 800;
+        int height = (int) Math.round(aspect * width);
+        Size size = new Size(width, height);
+        RenderingWorkspace workspace = new RenderingWorkspace(size, renderer);
+        workspace.init();
+        MapRender map = new MapRender(tl, br, inputProjection, c);
+        map.render(workspace);
+        workspace.release();
+
+//        RectangleTileDivision division = new RectangleTileDivision(tl, br, 10, 10);
+//        ProcessMatrix testMatrix = new ProcessMatrix(tl, br, division, 10, 10);
+//
+//                QuadraticProcessor p = new QuadraticProcessor(inputProjection, testMatrix, c) {
+//
+//            @Override
+//            protected void initRenderer(Renderer renderer, Size size) {
+//                super.initRenderer(renderer, size);
+//                renderer.initSpace(size);
+//                BaseTransformation transf = new BaseTransformation(matrix.getBoundary().getCoordBox(), size.getWidth(), size.getHeight());
+//                renderer.setTransformation(transf);
+//                renderer.setClip(new CoordBox(30, 30, 100, 100));
+//
+//            }
+//        };
+//        p.setRenderer(renderer);
+////        double aspect = Math.abs((tl.getLongitude() - br.getLongitude()) / (tl.getLatitude() - br.getLatitude()));
+////        System.out.println(aspect);
+////        p.setWidth(800);
+////        p.setHeight((int) Math.round(aspect * p.getWidth()));
+//        p.process();
+//        p.release();
     }
 
     public DataSource getDatasource() {

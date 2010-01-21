@@ -4,7 +4,6 @@
  */
 package net.anzix.kogutowicz.processor;
 
-import ch.qos.logback.classic.Level;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -14,14 +13,13 @@ import net.anzix.kogutowicz.Size;
 import net.anzix.kogutowicz.TileCoord;
 import net.anzix.kogutowicz.TileDivision;
 import net.anzix.kogutowicz.datasource.DataSource;
+import net.anzix.kogutowicz.decorator.RenderingWorkspace;
 import net.anzix.kogutowicz.element.Box;
 import net.anzix.kogutowicz.element.Element;
-import net.anzix.kogutowicz.geometry.CoordBox;
 import net.anzix.kogutowicz.geometry.GeometryElement;
 import net.anzix.kogutowicz.geometry.GeometryElementOnLayer;
 import net.anzix.kogutowicz.renderer.BaseTransformation;
 import net.anzix.kogutowicz.renderer.Renderer;
-import net.anzix.kogutowicz.renderer.Transformation;
 import net.anzix.kogutowicz.style.Cartographer;
 import net.anzix.kogutowicz.style.SelectedFigure;
 import net.anzix.kogutowicz.style.SimpleSelector;
@@ -59,11 +57,7 @@ public class QuadraticProcessor {
     }
 
     public void process() {
-
-        initRenderer(renderer, size);
-
-
-
+//        initRenderer(renderer, size);
         Date start = new Date();
         logger.debug("Starting process");
         init();
@@ -79,9 +73,9 @@ public class QuadraticProcessor {
         for (int x = from.getX(); x <= to.getX(); x++) {
             for (int y = from.getY(); y <= to.getY(); y++) {
                 TileCoord current = new TileCoord(x, y);
-                beforeTileRender(current, renderer);
+                beforeTileRender(current);
                 render(current);
-                afterTileRender(current, renderer);
+                afterTileRender(current);
             }
         }
 
@@ -108,7 +102,6 @@ public class QuadraticProcessor {
     }
 
     public void release() {
-        renderer.release();
     }
 
     private void render(TileCoord coord) {
@@ -142,12 +135,12 @@ public class QuadraticProcessor {
         this.renderer = renderer;
     }
 
-    protected void beforeTileRender(TileCoord coord, Renderer renderer) {
+    protected void beforeTileRender(TileCoord coord) {
         Box b = matrix.getDivision().getBox(coord);
         renderer.setClip(b.getCoordBox());
     }
 
-    protected void afterTileRender(TileCoord coord, Renderer renderer) {
+    protected void afterTileRender(TileCoord coord) {
     }
 
     protected void initRenderer(Renderer renderer, Size size) {
@@ -157,5 +150,9 @@ public class QuadraticProcessor {
 
     public TileDivision getDivision() {
         return matrix.getDivision();
+    }
+
+    public Renderer getRenderer() {
+        return renderer;
     }
 }

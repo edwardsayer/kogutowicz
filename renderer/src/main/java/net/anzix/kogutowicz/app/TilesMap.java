@@ -10,6 +10,7 @@ import net.anzix.kogutowicz.Size;
 import net.anzix.kogutowicz.TileCoord;
 import net.anzix.kogutowicz.Zoom;
 import net.anzix.kogutowicz.datasource.DataSource;
+import net.anzix.kogutowicz.decorator.RenderingWorkspace;
 import net.anzix.kogutowicz.element.Box;
 import net.anzix.kogutowicz.element.Node;
 import net.anzix.kogutowicz.geometry.CoordBox;
@@ -19,6 +20,7 @@ import net.anzix.kogutowicz.renderer.BaseTransformation;
 import net.anzix.kogutowicz.renderer.FileOutputRenderer;
 import net.anzix.kogutowicz.renderer.Java2DFileRenderer;
 import net.anzix.kogutowicz.renderer.Renderer;
+import net.anzix.kogutowicz.renderer.SystemOutputRenderer;
 import net.anzix.kogutowicz.renderer.Transformation;
 import net.anzix.kogutowicz.style.Cartographer;
 
@@ -78,20 +80,21 @@ public class TilesMap implements MapApplication {
         QuadraticProcessor p = new QuadraticProcessor(projection, testMatrix, c) {
 
             @Override
-            protected void afterTileRender(TileCoord coord, Renderer renderer) {
-                renderer.release();
+            protected void afterTileRender(TileCoord coord) {
+                getRenderer().release();
             }
 
             @Override
-            protected void beforeTileRender(TileCoord coord, Renderer renderer) {
+            protected void beforeTileRender(TileCoord coord) {
                 Box b = matrix.getDivision().getBox(coord);
-                renderer.initSpace(new Size(256, 256));
-                renderer.setTransformation(new BaseTransformation(getDivision().getBox(coord).getCoordBox(), 256, 256));
-                renderer.setClip(b.getCoordBox());
+                setRenderer(new Java2DFileRenderer());
+                getRenderer().initSpace(new Size(256,256));
+                getRenderer().setTransformation(new BaseTransformation(getDivision().getBox(coord).getCoordBox(), 256, 256));
+                getRenderer().setClip(b.getCoordBox());
 
                 String fileName = zoom + "/" + coord.getX() + "/" + coord.getY() + ".png";
                 System.out.println(fileName);
-                ((FileOutputRenderer) renderer).setOutputFile(new File(outputDir, fileName));
+                ((FileOutputRenderer) getRenderer()).setOutputFile(new File(outputDir, fileName));
 
             }
 
@@ -108,6 +111,7 @@ public class TilesMap implements MapApplication {
 
 
         Java2DFileRenderer renderer = new Java2DFileRenderer();
+
         p.setRenderer(renderer);
         p.setWidth(256);
         p.setHeight(256);

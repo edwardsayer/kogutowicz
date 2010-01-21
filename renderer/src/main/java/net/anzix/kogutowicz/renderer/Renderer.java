@@ -15,6 +15,7 @@ public interface Renderer {
     public void initSpace(Size size);
 
     public void setTransformation(Transformation trafo);
+    
 
     public void setClip(CoordBox clip);
 

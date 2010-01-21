@@ -15,7 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import net.anzix.kogutowicz.Size;
-import net.anzix.kogutowicz.geometry.CoordBox;
 
 /**
  * Render gemotery elements to Java2D context.
