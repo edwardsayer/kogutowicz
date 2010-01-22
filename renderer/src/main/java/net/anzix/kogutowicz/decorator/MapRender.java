@@ -1,9 +1,9 @@
-
 package net.anzix.kogutowicz.decorator;
 
 import net.anzix.kogutowicz.Projection;
 import net.anzix.kogutowicz.RectangleTileDivision;
 import net.anzix.kogutowicz.Size;
+import net.anzix.kogutowicz.Zoom;
 import net.anzix.kogutowicz.element.Node;
 import net.anzix.kogutowicz.geometry.CoordBox;
 import net.anzix.kogutowicz.processor.ProcessMatrix;
@@ -26,18 +26,21 @@ public class MapRender implements Decorator {
 
     private Cartographer c;
 
-    public MapRender(Node tl, Node br, Projection projection, Cartographer c) {
+    private int zoom;
+
+    public MapRender(Node tl, Node br, Projection projection, Cartographer c, int zoom) {
         this.tl = tl;
         this.br = br;
         this.projection = projection;
         this.c = c;
+        this.zoom = zoom;
     }
 
     @Override
     public void render(RenderingWorkspace work) {
         RectangleTileDivision division = new RectangleTileDivision(tl, br, 10, 10);
         ProcessMatrix testMatrix = new ProcessMatrix(tl, br, division, 10, 10);
-
+        testMatrix.setZoom(Zoom.zoom(zoom));
         QuadraticProcessor p = new QuadraticProcessor(projection, testMatrix, c);
 //        {
 //

@@ -1,25 +1,21 @@
 package net.anzix.kogutowicz.app;
 
 import java.io.File;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import net.anzix.kogutowicz.Mercator;
 import net.anzix.kogutowicz.Projection;
-import net.anzix.kogutowicz.RectangleTileDivision;
 import net.anzix.kogutowicz.Size;
 import net.anzix.kogutowicz.datasource.DataSource;
 import net.anzix.kogutowicz.decorator.MapRender;
 import net.anzix.kogutowicz.decorator.RenderingWorkspace;
 import net.anzix.kogutowicz.element.Node;
-import net.anzix.kogutowicz.geometry.CoordBox;
-import net.anzix.kogutowicz.geometry.Point;
-import net.anzix.kogutowicz.processor.ProcessMatrix;
-import net.anzix.kogutowicz.processor.QuadraticProcessor;
-import net.anzix.kogutowicz.renderer.BaseTransformation;
 import net.anzix.kogutowicz.renderer.Renderer;
-import net.anzix.kogutowicz.renderer.SystemOutputRenderer;
 import net.anzix.kogutowicz.style.Cartographer;
 import net.anzix.kogutowicz.style.MapStyle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Render one image block.
@@ -27,6 +23,8 @@ import net.anzix.kogutowicz.style.MapStyle;
  * @author elek
  */
 public class ImageMap implements MapApplication {
+
+    private Logger logger = LoggerFactory.getLogger(ImageMap.class);
 
     private File outputFile;
 
@@ -67,13 +65,15 @@ public class ImageMap implements MapApplication {
         Cartographer c = new Cartographer(datasource);
         mapStyle.applyStyle(c);
 
-        double aspect = Math.abs((tl.getLongitude() - br.getLongitude()) / (tl.getLatitude() - br.getLatitude()));
+        double aspect = Math.abs(  (tl.getLatitude() - br.getLatitude()) / (tl.getLongitude() - br.getLongitude()));
         int width = 800;
+
         int height = (int) Math.round(aspect * width);
         Size size = new Size(width, height);
+        logger.debug("rendering map to size " + size);
         RenderingWorkspace workspace = new RenderingWorkspace(size, renderer);
         workspace.init();
-        MapRender map = new MapRender(tl, br, inputProjection, c);
+        MapRender map = new MapRender(tl, br, inputProjection, c,zoom);
         map.render(workspace);
         workspace.release();
 

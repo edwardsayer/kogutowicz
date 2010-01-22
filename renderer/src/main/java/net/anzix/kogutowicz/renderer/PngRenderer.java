@@ -48,7 +48,7 @@ public class PngRenderer extends AbstractJava2DRenderer implements FileOutputRen
     @Override
     public void release() {
         try {
-            if (!outputFile.getParentFile().exists()) {
+            if (outputFile.getParentFile()!=null && !outputFile.getParentFile().exists()) {
                 outputFile.getParentFile().mkdirs();
             }
             ImageIO.write(bi, "PNG", outputFile);
@@ -64,7 +64,7 @@ public class PngRenderer extends AbstractJava2DRenderer implements FileOutputRen
     }
 
     public void setOutputFile(File outputFile) {
-        if (outputFile != null && !outputFile.getParentFile().exists()) {
+        if (outputFile != null && outputFile.getParentFile()!=null && !outputFile.getParentFile().exists()) {
             outputFile.getParentFile().mkdirs();
         }
         this.outputFile = outputFile;

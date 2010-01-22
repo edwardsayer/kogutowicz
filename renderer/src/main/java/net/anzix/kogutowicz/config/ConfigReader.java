@@ -35,6 +35,9 @@ public class ConfigReader {
     }
 
     public ConfigReader(File propertyFile) {
+        if (!propertyFile.exists()) {
+            throw new IllegalArgumentException("File not found: " + propertyFile.getAbsolutePath());
+        }
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(propertyFile);

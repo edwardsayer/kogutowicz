@@ -5,8 +5,9 @@
 package net.anzix.kogutowicz.it;
 
 import java.io.File;
-import org.junit.Test;
 import net.anzix.kogutowicz.config.ConfigReader;
+import org.junit.Test;
+
 /**
  *
  * @author elek
@@ -14,10 +15,11 @@ import net.anzix.kogutowicz.config.ConfigReader;
 public class ImageTest {
 
     @Test
-    public void test() throws Exception{
-//                new ConfigReader(new File("src/it/remete-svg.properties")).start();
-        new ConfigReader(new File("src/it/remete.properties")).start();
-//        new ConfigReader(new File("src/it/nk.properties")).start();
+    public void test() throws Exception {
+//       new ConfigReader(new File("src/it/remete-svg.properties")).start();
+//       new ConfigReader(new File("src/it/remete.properties")).start();
+//       new ConfigReader(new File("src/it/nk.properties")).start();
 
+        new ConfigReader(new File("/home/elek/projects/kogutowicz.hg/test/hungary.properties")).start();
     }
 }

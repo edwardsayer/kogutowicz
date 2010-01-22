@@ -48,6 +48,7 @@ public class CsvMapStyle implements MapStyle {
             reader.readHeaders();
             Layer currentLayer = null;
             while (reader.readRecord()) {
+                //begining of a file
                 if (!isEmpty(reader.get("layer"))) {
                     currentLayer = new Layer();
                     currentLayer.setName(reader.get("layer"));
@@ -71,6 +72,16 @@ public class CsvMapStyle implements MapStyle {
                     figure.setZindex(Integer.parseInt(zindex));
                 }
 
+                String zoom = reader.get("startZoom");
+                if (!isEmpty(zoom)) {
+                    figure.setStartZoom(Integer.parseInt(zoom));
+                }
+
+                zoom = reader.get("stopZoom");
+                if (!isEmpty(zoom)) {
+                    figure.setEndZoom(Integer.parseInt(zoom));
+                }
+
                 String filter = reader.get("filter");
                 if (!isEmpty(filter)) {
                     figure.setFilter(fp.parse(filter));
@@ -80,9 +91,11 @@ public class CsvMapStyle implements MapStyle {
                     Figure prevFigure = currentLayer.getFigures().get(idx);
                     CombinedFigure cf = new CombinedFigure();
                     cf.add(prevFigure);
-                    cf.add(figure);                    
+                    cf.add(figure);
                     cf.setFilter(prevFigure.getFilter());
                     cf.setZindex(prevFigure.getZindex());
+                    cf.setStartZoom(prevFigure.getStartZoom());
+                    cf.setEndZoom(prevFigure.getEndZoom());
                     prevFigure.setFilter(new AndFilter());
                     currentLayer.getFigures().remove(idx);
                     currentLayer.getFigures().add(idx, cf);

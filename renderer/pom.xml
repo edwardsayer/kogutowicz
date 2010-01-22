@@ -61,11 +61,6 @@
                             </descriptorRefs>
                             <archive>
                                 <manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
-                                <!--manifest>
-                                    <mainClass>net.anzix.kogutowicz.App</mainClass-->
-                                    <!--Plugin-Class>net.anzix.kogutowicz.josm.KogutowiczPlugin</Plugin-Class>
-                                    <Plugin-Mainversion>1724</Plugin-Mainversion-->
-                                <!--/manifest-->
                             </archive>
 
                         </configuration>

@@ -85,7 +85,8 @@ public class LineFigure extends Figure {
             elements.add(l);
             return elements;
         } else {
-            throw new IllegalArgumentException("LineFigure can draw only ways");
+            return new ArrayList();
+            //throw new IllegalArgumentException("LineFigure can draw only ways");
         }
     }
 

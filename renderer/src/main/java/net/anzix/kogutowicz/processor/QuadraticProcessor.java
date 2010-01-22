@@ -59,7 +59,7 @@ public class QuadraticProcessor {
     public void process() {
 //        initRenderer(renderer, size);
         Date start = new Date();
-        logger.debug("Starting process");
+        logger.debug("Starting process (zoom " + matrix.getZoom()+")");
         init();
         logger.debug("datasources are loaded");
         TileCoord from = matrix.getTileStart();

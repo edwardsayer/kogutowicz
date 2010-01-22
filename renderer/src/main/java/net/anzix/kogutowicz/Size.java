@@ -61,9 +61,11 @@ public class Size {
         this.width = width;
     }
 
-    public void multiplyResolution(double m){
-        
-
+    public void multiplyResolution(double m) {
     }
 
+    @Override
+    public String toString() {
+        return getWidth() + "x" + getHeight();
+    }
 }

@@ -35,9 +35,13 @@ public class CsvMapStyleTest {
         assertEquals(CombinedFigure.class, streets.getFigures().get(0).getClass());
         CombinedFigure cf = (CombinedFigure) streets.getFigures().get(0);
         assertEquals(2, cf.getFigures().size());
+        assertEquals(10, cf.getStartZoom());
+        assertEquals(13, cf.getEndZoom());
 
         LineFigure l1 = (LineFigure) cf.getFigures().get(0);
+        
         LineFigure l2 = (LineFigure) cf.getFigures().get(1);
+
 
         assertNotNull(cf.getFilter());
 

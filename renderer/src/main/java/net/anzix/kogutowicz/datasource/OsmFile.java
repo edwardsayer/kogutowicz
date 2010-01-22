@@ -3,6 +3,7 @@ package net.anzix.kogutowicz.datasource;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -79,6 +80,7 @@ public class OsmFile implements DataSource {
         this.projection = targetProjection;
         this.division = division;
         if (!initialized) {
+            Date start = new Date();
             logger.debug("init osmFile dataSource " + osmFile);
             XmlReader reader = new XmlReader(osmFile, true, CompressionMethod.None);
             //FastXmlReader reader = new FastXmlReader(new File("/home/elek/Documents/nagykovacsi.osm"), true, CompressionMethod.None);
@@ -164,6 +166,7 @@ public class OsmFile implements DataSource {
                 }
             });
             reader.run();
+            logger.debug("file loaded in " + (new Date().getTime() - start.getTime()) / 1000 + " sec");
         }
     }
 
