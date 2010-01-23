@@ -15,7 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import net.anzix.kogutowicz.Size;
-import net.anzix.kogutowicz.geometry.CoordBox;
 
 /**
  * Render gemotery elements to Java2D context.
@@ -29,6 +28,7 @@ public class Java2DFileRenderer extends AbstractJava2DRenderer implements FileOu
     private BufferedImage bi;
 
     
+    @Override
     public void initSpace(Size size) {
         bi = new BufferedImage(round(size.getWidth()), round(size.getHeight()), BufferedImage.TYPE_INT_ARGB);
 

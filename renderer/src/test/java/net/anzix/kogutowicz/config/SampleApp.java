@@ -10,11 +10,11 @@ import net.anzix.kogutowicz.app.MapApplication;
  *
  * @author elek
  */
-public class TestApp implements MapApplication {
+public class SampleApp implements MapApplication {
 
     private Parent parent;
 
-    private TestApp thiz;
+    private SampleApp thiz;
 
     @Override
     public void run() {
@@ -29,11 +29,11 @@ public class TestApp implements MapApplication {
         this.parent = parent;
     }
 
-    public TestApp getThiz() {
+    public SampleApp getThiz() {
         return thiz;
     }
 
-    public void setThiz(TestApp thiz) {
+    public void setThiz(SampleApp thiz) {
         this.thiz = thiz;
     }
 

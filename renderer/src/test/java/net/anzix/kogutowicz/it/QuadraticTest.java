@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.anzix.kogutowicz.EqualProjection;
 import net.anzix.kogutowicz.RectangleTileDivision;
+import net.anzix.kogutowicz.Size;
 import net.anzix.kogutowicz.TileCoord;
 import net.anzix.kogutowicz.style.TuhuStyleFactory;
 import net.anzix.kogutowicz.datasource.InMemory;
@@ -68,6 +69,7 @@ public class QuadraticTest {
 
         QuadraticProcessor p = new QuadraticProcessor(new EqualProjection(),testMatrix, c);
         Java2DFileRenderer renderer = new Java2DFileRenderer();
+        renderer.initSpace(new Size(800,800));
         renderer.setOutputFile(new File("target/test.png"));
         p.setRenderer(renderer);
         p.setWidth(800);

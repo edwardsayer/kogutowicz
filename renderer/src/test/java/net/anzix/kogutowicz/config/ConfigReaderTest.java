@@ -33,13 +33,13 @@ public class ConfigReaderTest {
         //given
 
         Properties p = new Properties();
-        p.put("map", TestApp.class.getCanonicalName());
+        p.put("map", SampleApp.class.getCanonicalName());
         p.put("map.parent", Parent.class.getCanonicalName());
         p.put("map.parent.child", Child.class.getCanonicalName());
         ConfigReader instance = new ConfigReader(p);
 
         //then
-        TestApp app = (TestApp) instance.start();
+        SampleApp app = (SampleApp) instance.start();
         assertNotNull(app);
         app = app.getThiz();
         assertNotNull(app.getParent());
