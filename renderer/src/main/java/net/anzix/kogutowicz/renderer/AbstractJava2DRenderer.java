@@ -4,6 +4,7 @@
  */
 package net.anzix.kogutowicz.renderer;
 
+import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -114,6 +115,13 @@ public abstract class AbstractJava2DRenderer extends AbstractRenderer {
         graphics.setStroke(new BasicStroke(polygon.getStyle().getStyle(PolygonStyle.WIDTH, Float.class), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         graphics.setPaint(convertColor(polygon.getStyle().getStyle(PolygonStyle.COLOR, net.anzix.kogutowicz.geometry.Color.class)));
 
+        int alpha = polygon.getStyle().getStyle(PolygonStyle.COLOR, net.anzix.kogutowicz.geometry.Color.class).getAlpha();
+        if (alpha != 255) {
+            float fl = alpha / 255f;
+            graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, fl));
+        } else {
+            graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+        }
         java.awt.Polygon p = new java.awt.Polygon();
         for (Point pp : polygon.getOutline().getPoints()) {
             Point pt = pp.transform(getCurrentTransformation());

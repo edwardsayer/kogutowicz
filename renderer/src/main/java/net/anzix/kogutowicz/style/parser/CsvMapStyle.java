@@ -6,6 +6,7 @@ package net.anzix.kogutowicz.style.parser;
 
 import net.anzix.kogutowicz.style.*;
 import com.csvreader.CsvReader;
+import com.google.inject.Inject;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -15,12 +16,17 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.validation.constraints.NotNull;
+import net.anzix.kogutowicz.processor.RenderContext;
 
 /**
  *
  * @author elek
  */
 public class CsvMapStyle implements MapStyle {
+
+    @NotNull
+    @Inject
+    private RenderContext ctx;
 
     @NotNull
     private File source;

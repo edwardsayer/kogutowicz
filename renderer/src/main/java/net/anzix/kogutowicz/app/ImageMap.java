@@ -1,5 +1,6 @@
 package net.anzix.kogutowicz.app;
 
+import com.google.inject.Inject;
 import java.io.File;
 
 import javax.validation.Valid;
@@ -11,6 +12,7 @@ import net.anzix.kogutowicz.datasource.DataSource;
 import net.anzix.kogutowicz.decorator.MapRender;
 import net.anzix.kogutowicz.decorator.RenderingWorkspace;
 import net.anzix.kogutowicz.element.Node;
+import net.anzix.kogutowicz.processor.RenderContext;
 import net.anzix.kogutowicz.renderer.Renderer;
 import net.anzix.kogutowicz.style.Cartographer;
 import net.anzix.kogutowicz.style.MapStyle;
@@ -23,6 +25,10 @@ import org.slf4j.LoggerFactory;
  * @author elek
  */
 public class ImageMap implements MapApplication {
+
+    @Inject
+    @NotNull
+    private RenderContext ctx;
 
     private Logger logger = LoggerFactory.getLogger(ImageMap.class);
 
@@ -65,7 +71,7 @@ public class ImageMap implements MapApplication {
         Cartographer c = new Cartographer(datasource);
         mapStyle.applyStyle(c);
 
-        double aspect = Math.abs(  (tl.getLatitude() - br.getLatitude()) / (tl.getLongitude() - br.getLongitude()));
+        double aspect = Math.abs((tl.getLatitude() - br.getLatitude()) / (tl.getLongitude() - br.getLongitude()));
         int width = 800;
 
         int height = (int) Math.round(aspect * width);
@@ -73,7 +79,7 @@ public class ImageMap implements MapApplication {
         logger.debug("rendering map to size " + size);
         RenderingWorkspace workspace = new RenderingWorkspace(size, renderer);
         workspace.init();
-        MapRender map = new MapRender(tl, br, inputProjection, c,zoom);
+        MapRender map = new MapRender(tl, br, inputProjection, c, zoom);
         map.render(workspace);
         workspace.release();
 

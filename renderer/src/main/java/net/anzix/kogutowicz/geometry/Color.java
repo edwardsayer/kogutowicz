@@ -14,16 +14,23 @@ import java.util.Map;
 public class Color {
 
     private int red;
+
     private int green;
+
     private int blue;
+
     private int alpha = 255;
+
     public static final Color WHITE = new Color(255, 255, 255);
+
     public static final Color BLACK = new Color(0, 0, 0);
+
     public static final Color GREEN = new Color(0, 255, 0);
+
     private static Map<String, String> colors;
 
     public Color(String color) {
-        this(convertFromString(color));
+        this(color.length(), convertFromString(color));
     }
 
     public static String getColorFromString(String name) {
@@ -34,10 +41,22 @@ public class Color {
         return colors.get(name);
     }
 
-    public Color(int color) {
-        this.red = (color & 0xFF0000) >> 16;
-        this.green = (color & 0x00FF00) >> 8;
-        this.blue = color & 0x0000FF;
+    public Color(long color) {
+        this(6, color);
+    }
+
+    public Color(int size, long color) {
+        if (size < 10) {
+            this.red = (int) ((color & 0xFF0000) >> 16);
+            this.green = (int) ((color & 0x00FF00) >> 8);
+            this.blue = (int) (color & 0x0000FF);
+        } else {
+            this.red = (int) ((color & 0xFF000000) >> 24);
+            this.green = (int) ((color & 0x00FF0000) >> 16);
+            this.blue = (int) ((color & 0x0000FF00) >> 8);
+            this.alpha = (int) (color & 0x000000FF);
+        }
+
     }
 
     public Color(int red, int green, int blue) {
@@ -53,7 +72,7 @@ public class Color {
         this.alpha = alpha;
     }
 
-    private static int convertFromString(String color) {
+    private static long convertFromString(String color) {
         String c;
         if (color.startsWith("#")) {
             c = color.substring(1);
@@ -70,7 +89,7 @@ public class Color {
         } else {
             c = color;
         }
-        return Integer.parseInt(c, 16);
+        return Long.parseLong(c, 16);
     }
 
     public int getBlue() {

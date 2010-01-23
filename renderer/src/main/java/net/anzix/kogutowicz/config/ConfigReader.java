@@ -4,6 +4,10 @@
  */
 package net.anzix.kogutowicz.config;
 
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -18,6 +22,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
 import net.anzix.kogutowicz.app.MapApplication;
+import net.anzix.kogutowicz.processor.RenderContext;
 
 /**
  * Build object hierarchy based on a property file.
@@ -30,14 +35,23 @@ public class ConfigReader {
 
     private Properties props = new Properties();
 
+    private Injector injector;
+
+    @Inject
+    private RenderContext context;
+
     public ConfigReader(Properties props) {
+        initGuice();
         this.props = props;
+
     }
 
     public ConfigReader(File propertyFile) {
+        initGuice();
         if (!propertyFile.exists()) {
             throw new IllegalArgumentException("File not found: " + propertyFile.getAbsolutePath());
         }
+        context.setBasedir(propertyFile.getParentFile());
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(propertyFile);
@@ -53,9 +67,16 @@ public class ConfigReader {
                 throw new FieldInitializationException("Error on closing property file.", ex);
             }
         }
+
     }
 
     public ConfigReader() {
+        initGuice();
+    }
+
+    public void initGuice() {
+        injector = Guice.createInjector(new IocModule());
+        injector.injectMembers(this);
     }
 
     private void setProperty(String key, Object o, String propertyName, Object value) throws IntrospectionException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
@@ -92,7 +113,7 @@ public class ConfigReader {
         } else if (clazz == Float.class) {
             return Float.valueOf(value);
         } else if (clazz == File.class) {
-            return new File(value);
+            return context.getAbsolutePath(value);
         } else {
             try {
                 getClass().getClassLoader().loadClass(value);
@@ -141,7 +162,7 @@ public class ConfigReader {
             if (clazz == null) {
                 throw new FieldInitializationException("No such class " + clazzName);
             }
-            Object o = clazz.newInstance();
+            Object o = injector.getInstance(clazz);
             //iterate over properties
             for (Object key : props.keySet()) {
                 String keyStr = key.toString();
@@ -154,7 +175,6 @@ public class ConfigReader {
             }
             return o;
         } catch (Exception ex) {
-
             throw new FieldInitializationException(ex);
         }
     }

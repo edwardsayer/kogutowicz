@@ -119,7 +119,7 @@ public class LineFigure extends Figure {
         if (parameters.length > 0) {
             String color = parameters[0];
             if (!color.contains(":")) {
-                setColor(new Color(StringUtil.parseString(color)));
+                setColor(new Color(color));
             } else {
                 style.addStyle(LineStyle.COLOR, new ZoomStyleValue(color));
             }
