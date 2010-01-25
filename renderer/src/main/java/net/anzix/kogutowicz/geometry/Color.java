@@ -45,8 +45,8 @@ public class Color {
         this(6, color);
     }
 
-    public Color(int size, long color) {
-        if (size < 10) {
+    private Color(int size, long color) {
+        if (size < 9) {
             this.red = (int) ((color & 0xFF0000) >> 16);
             this.green = (int) ((color & 0x00FF00) >> 8);
             this.blue = (int) (color & 0x0000FF);
