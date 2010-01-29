@@ -60,4 +60,17 @@ public class TagFilter implements Filter {
     public String getKey() {
         return key;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder b = new StringBuilder();
+        b.append(" ");
+        b.append(key);
+        b.append(" = ");
+        for (String value : values) {
+            b.append("-");
+            b.append(value);
+        }
+        return b.toString();
+    }
 }

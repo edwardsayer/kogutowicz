@@ -19,7 +19,7 @@ import net.anzix.kogutowicz.element.Element;
  * inmemory datasource for testingsources.
  * @author elek
  */
-public class InMemory implements DataSource {
+public class InMemory implements Datasource {
 
     private Projection projection = new EqualProjection();
 

@@ -67,6 +67,14 @@ public class PolygonFigure extends Figure {
         style.addStyle(PolygonStyle.COLOR, new ConstantStyleValue<Color>(new Color(color)));
     }
 
+    public Color getColor(Zoom zoom) {
+        return (Color) ((StyleValue) style.getStyles().get(PolygonStyle.COLOR)).getValue(zoom);
+    }
+
+    public Float getStroke(Zoom zoom) {
+        return (Float) ((StyleValue) style.getStyles().get(PolygonStyle.WIDTH)).getValue(zoom);
+    }
+
     public PolygonFigure setStroke(Float stroke) {
         style.addStyle(PolygonStyle.WIDTH, new ConstantStyleValue<Float>(stroke));
         return this;

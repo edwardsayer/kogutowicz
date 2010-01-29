@@ -9,7 +9,7 @@ import net.anzix.kogutowicz.Projection;
 import net.anzix.kogutowicz.Size;
 import net.anzix.kogutowicz.TileCoord;
 import net.anzix.kogutowicz.Zoom;
-import net.anzix.kogutowicz.datasource.DataSource;
+import net.anzix.kogutowicz.datasource.Datasource;
 import net.anzix.kogutowicz.decorator.RenderingWorkspace;
 import net.anzix.kogutowicz.element.Box;
 import net.anzix.kogutowicz.element.Node;
@@ -42,7 +42,7 @@ public class TilesMap implements MapApplication {
 
     @NotNull
     @Valid
-    private DataSource datasource;
+    private Datasource datasource;
 
     private Integer zoom;
 
@@ -119,11 +119,11 @@ public class TilesMap implements MapApplication {
         p.release();
     }
 
-    public DataSource getDatasource() {
+    public Datasource getDatasource() {
         return datasource;
     }
 
-    public void setDatasource(DataSource datasource) {
+    public void setDatasource(Datasource datasource) {
         this.datasource = datasource;
     }
 

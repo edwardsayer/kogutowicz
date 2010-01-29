@@ -23,4 +23,9 @@ public class NotFilter implements Filter {
     public boolean is(Element element, Zoom zoom) {
         return !filter.is(element, zoom);
     }
+
+    @Override
+    public String toString() {
+        return " NOT ( " + filter + " )";
+    }
 }

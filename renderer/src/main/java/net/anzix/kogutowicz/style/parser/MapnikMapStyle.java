@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz.style.parser;
 
 import java.awt.Color;
@@ -11,18 +7,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import net.anzix.kogutowicz.element.Way;
+import org.slf4j.Logger;
 import net.anzix.kogutowicz.style.Cartographer;
 import net.anzix.kogutowicz.style.Layer;
+import net.anzix.kogutowicz.style.LineFigure;
 import net.anzix.kogutowicz.style.MapStyle;
 import net.anzix.kogutowicz.style.PolygonFigure;
-import net.anzix.kogutowicz.style.TrueFilter;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
+import org.slf4j.LoggerFactory;
 
 /**
- * Import mapnik style xml and convert to internal style definition.
+ * Import mapnik style xml and convert to inte  rnal style definition.
  *
  * @author elek
  */
@@ -32,6 +29,9 @@ public class MapnikMapStyle implements MapStyle {
      * mapnik sylte xml file.
      */
     private File source;
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
     private FilterParser fp;
 
     public MapnikMapStyle() {
@@ -43,32 +43,44 @@ public class MapnikMapStyle implements MapStyle {
         try {
             Document d = new SAXBuilder().build(source);
             Element rootElement = d.getRootElement();
-
+            int zindex = 100000;
+            int layerw = 0;
             //iterate over style
             for (Element element : (List<Element>) rootElement.getChildren("Layer")) {
                 String layerName = element.getAttribute("name").getValue();
-
+                logger.debug("parsing layer: {}", layerName);
+                MapnikLayer ml = new MapnikLayer(element);
+                if (!ml.getSourceType().equals("postgis")) {
+                    continue;
+                }
                 //iterate over styles
                 for (Element style : (List<Element>) element.getChildren("StyleName")) {
                     String styleName = style.getValue();
+                    logger.debug("parsing style: {}", styleName);
                     Element st = findStyleElement(style.getValue(), rootElement);
                     if (st == null) {
-                        System.err.println("Style " + style.getValue() + " is not found.");
+                        logger.error("Style " + style.getValue() + " is not found.");
                         continue;
                     }
-                    String prevLayer = null;
+
+                    //generate a layer
+                    String name = layerName + "__" + styleName;
+                    Layer l = simpleMap.getLayer(layerName);
+                    if (l == null) {
+                        l = new Layer(name);
+                        l.setWeight(layerw++);
+                        simpleMap.addLayer(name, l);
+                    }
+                    
+
                     for (Element rule : (List<Element>) st.getChildren("Rule")) {
+
                         Long maxScale = getChildIntValue(rule, "MaxScaleDenominator");
                         Long minScale = getChildIntValue(rule, "MinScaleDenominator");
                         String filter = getChildValue(rule, "Filter");
                         filter = filter.replaceAll("''", "#EMPTY#").replaceAll("[\\]\\[']", "").replaceAll("=", " = ").replaceAll("\\s{2,}", " ").trim();
 
-                        String name = layerName + "__" + styleName;
-                        Layer l = simpleMap.getLayer(layerName);
-                        if (l == null) {
-                            l = new Layer(name);
-                            simpleMap.addLayer(name, l);
-                        }
+
 
 
                         Set<StyleItem> stparams = new HashSet();
@@ -76,23 +88,53 @@ public class MapnikMapStyle implements MapStyle {
                         loadParams(stparams, rule);
 
                         for (StyleItem stylep : stparams) {
-                            PolygonFigure figure = new PolygonFigure();
-                            if (maxScale != null) {
-                                figure.startZoom(convertScaleToZoomLevel(maxScale));
-                            }
-                            if (minScale != null) {
-                                figure.startZoom(convertScaleToZoomLevel(minScale));
-                            }
-                            if (stylep.getAttrs().get("color") != null) {
-                                //set color
-                                figure.setColor(stylep.getAttrs().get("color").toString());
-                            }
-                            try {
-                                figure.setFilter(fp.parse(filter));
-                                l.addFigure(figure);
-                            } catch (IllegalArgumentException exc) {
-                                System.out.println("error in filter" + filter);
-                                exc.printStackTrace();
+                            if ("polygon".equals(stylep.getStyle())) {
+                                PolygonFigure figure = new PolygonFigure();
+                                if (maxScale != null) {
+                                    figure.startZoom(convertScaleToZoomLevel(maxScale));
+                                }
+                                if (minScale != null) {
+                                    figure.endZoom(convertScaleToZoomLevel(minScale));
+                                }
+                                if (stylep.getAttrs().get("color") != null) {
+                                    //set color
+                                    figure.setColor(stylep.getAttrs().get("color").toString());
+                                }
+                                try {
+                                    if (!filter.trim().isEmpty()) {
+                                        figure.setFilter(fp.parse(filter));
+                                    }
+                                    figure.setZindex(zindex--);
+                                    l.addFigure(figure);
+                                } catch (Exception exc) {
+                                    System.out.println("error in filter" + filter);
+                                    exc.printStackTrace();
+                                }
+                            } else if ("line".equals(stylep.getStyle()) || "roads".equals(stylep.getStyle())) {
+                                LineFigure figure = new LineFigure();
+                                if (maxScale != null) {
+                                    figure.startZoom(convertScaleToZoomLevel(maxScale));
+                                }
+                                if (minScale != null) {
+                                    figure.endZoom(convertScaleToZoomLevel(minScale));
+                                }
+                                if (stylep.getAttrs().get("stroke") != null) {
+                                    //set color
+                                    figure.setColor(stylep.getAttrs().get("stroke").toString());
+                                }
+                                if (stylep.getAttrs().get("stroke-width") != null) {
+                                    figure.setStroke(Float.valueOf(stylep.getAttrs().get("stroke-width")));
+                                }
+                                try {
+                                    if (!filter.trim().isEmpty()) {
+                                        figure.setFilter(fp.parse(filter));
+                                    }
+                                    figure.setZindex(zindex--);
+                                    l.addFigure(figure);
+                                } catch (Exception exc) {
+                                    System.out.println("error in filter" + filter);
+                                    exc.printStackTrace();
+                                }
                             }
                         }
 
@@ -157,11 +199,26 @@ public class MapnikMapStyle implements MapStyle {
             }
             stparams.add(style);
         }
+        polys = rule.getChildren("LineSymbolizer");
+        for (Element poly : polys) {
+            StyleItem style = new StyleItem("line");
+
+            String inp;
+            inp = getCssParam(poly, "stroke");
+            if (inp != null) {
+                style.addAttr("stroke", normalizeColor(inp));
+            }
+            inp = getCssParam(poly, "stroke-width");
+            if (inp != null) {
+                style.addAttr("stroke-width", inp);
+            }
+            stparams.add(style);
+        }
     }
 
     private String getCssParam(Element poly, String string) {
         for (Element e : (List<Element>) poly.getChildren("CssParameter")) {
-            if (e.getAttribute("name") != null && e.getAttributeValue("name").equals("fill")) {
+            if (e.getAttribute("name") != null && e.getAttributeValue("name").equals(string)) {
                 return e.getValue();
             }
         }
@@ -200,8 +257,12 @@ public class MapnikMapStyle implements MapStyle {
 
     public String normalizeColor(String color) {
         Map<String, Color> colors = new HashMap<String, Color>();
+
         colors.put("pink", Color.PINK);
         colors.put("green", Color.GREEN);
+        colors.put("grey", Color.GRAY);
+        colors.put("white", Color.WHITE);
+        colors.put("black", Color.black);
 
         String c = color.trim();
         if (c.startsWith("#")) {
@@ -211,14 +272,14 @@ public class MapnikMapStyle implements MapStyle {
                 return "0x" + color.substring(1);
             }
         } else {
-            Color col = colors.get(color.toLowerCase());
-            if (col == null) {
-                throw new IllegalArgumentException("unknown color " + color);
+            try {
+                Color col = (Color) java.awt.Color.class.getField(color).get(null);
+                return "0x" + getHex(col.getRed()) + getHex(col.getGreen()) + getHex(col.getBlue());
+            } catch (Exception ex) {
+                logger.warn("Unknown color{}" + color);
+                return "0x000000";
             }
-            return "0x" + getHex(col.getRed()) + getHex(col.getGreen()) + getHex(col.getBlue());
         }
-
-
     }
 
     public String getHex(int num) {

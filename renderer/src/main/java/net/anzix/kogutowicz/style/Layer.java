@@ -6,8 +6,7 @@ package net.anzix.kogutowicz.style;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.anzix.kogutowicz.datasource.DataSource;
-import net.anzix.kogutowicz.element.Element;
+import net.anzix.kogutowicz.datasource.Datasource;
 
 /**
  * A map layer.
@@ -30,7 +29,7 @@ public class Layer {
 
     private List<Figure> figures = new ArrayList();
 
-    private DataSource source;
+    private Datasource source;
 
     public Layer(String name) {
         this.name = name;
@@ -71,16 +70,20 @@ public class Layer {
         this.figures = figures;
     } 
 
-    public DataSource getSource() {
+    public Datasource getSource() {
         return source;
     }
 
-    public void setSource(DataSource source) {
+    public void setSource(Datasource source) {
         this.source = source;
     }
 
     public int getWeight() {
         return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
     @Override

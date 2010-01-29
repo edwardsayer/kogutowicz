@@ -10,7 +10,7 @@ import net.anzix.kogutowicz.EqualProjection;
 import net.anzix.kogutowicz.SimpleTileDivision;
 import net.anzix.kogutowicz.TileCoord;
 import net.anzix.kogutowicz.Zoom;
-import net.anzix.kogutowicz.datasource.DataSource;
+import net.anzix.kogutowicz.datasource.Datasource;
 import net.anzix.kogutowicz.datasource.InMemory;
 import net.anzix.kogutowicz.element.Box;
 import net.anzix.kogutowicz.element.Node;
@@ -55,7 +55,7 @@ public class QuadraticProcessorTest {
 
         InMemory m = new InMemory();
         m.add(new TileCoord(3, 3), new Way());
-        List<DataSource> ds = new ArrayList();
+        List<Datasource> ds = new ArrayList();
         ds.add(m);
 
         when(c.getDataSources()).thenReturn(ds);

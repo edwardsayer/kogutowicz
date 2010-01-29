@@ -14,7 +14,7 @@ import net.anzix.kogutowicz.element.Element;
  *
  * @author elek
  */
-public interface DataSource {
+public interface Datasource {
 
 
     public void init(TileDivision division,Projection targetProjection);

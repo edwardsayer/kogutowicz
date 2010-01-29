@@ -6,7 +6,7 @@ package net.anzix.kogutowicz.style;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.anzix.kogutowicz.datasource.DataSource;
+import net.anzix.kogutowicz.datasource.Datasource;
 import net.anzix.kogutowicz.element.Element;
 
 /**
@@ -20,11 +20,11 @@ public class Cartographer {
 
     private List<Layer> layers = new ArrayList();
 
-    private List<DataSource> dataSources = new ArrayList();
+    private List<Datasource> dataSources = new ArrayList();
 
-    private DataSource defaultDataSource;
+    private Datasource defaultDataSource;
 
-    public Cartographer(DataSource defaultDataSource) {
+    public Cartographer(Datasource defaultDataSource) {
         this.defaultDataSource = defaultDataSource;
         dataSources.add(defaultDataSource);
     }
@@ -61,7 +61,7 @@ public class Cartographer {
         return l;
     }
 
-    public List<DataSource> getDataSources() {
+    public List<Datasource> getDataSources() {
         return dataSources;
     }
 }

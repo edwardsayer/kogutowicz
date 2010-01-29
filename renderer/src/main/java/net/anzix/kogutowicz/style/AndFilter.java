@@ -19,7 +19,7 @@ public class AndFilter implements Filter {
     private List<Filter> filters = new ArrayList();
 
     public AndFilter(Filter... fs) {
-        for (Filter f : fs){
+        for (Filter f : fs) {
             filters.add(f);
         }
     }
@@ -37,5 +37,22 @@ public class AndFilter implements Filter {
 
     public void addFilter(Filter filter) {
         filters.add(filter);
+    }
+
+    public List<Filter> getFilters() {
+        return filters;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder b = new StringBuilder();
+        String sep = "";
+        for (Filter f : filters) {
+            b.append(sep);
+            b.append(f.toString());
+            sep = " AND ";
+
+        }
+        return b.toString();
     }
 }

@@ -16,26 +16,39 @@ import net.anzix.kogutowicz.element.Element;
  */
 public class OrFilter implements Filter {
 
-	private List<Filter> filters = new ArrayList();
+    private List<Filter> filters = new ArrayList();
 
-	public OrFilter(Filter... fs) {
-		for (Filter f : fs) {
-			filters.add(f);
-		}
-	}
+    public OrFilter(Filter... fs) {
+        for (Filter f : fs) {
+            filters.add(f);
+        }
+    }
 
-	@Override
-	public boolean is(Element element, Zoom zoom) {
-		for (Filter filter : filters) {
-			if (filter.is(element, zoom)) {
-				return true;
-			}
-		}
+    @Override
+    public boolean is(Element element, Zoom zoom) {
+        for (Filter filter : filters) {
+            if (filter.is(element, zoom)) {
+                return true;
+            }
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	public void addFilter(Filter filter) {
-		filters.add(filter);
-	}
+    public void addFilter(Filter filter) {
+        filters.add(filter);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder b = new StringBuilder();
+        String sep = "";
+        for (Filter f : filters) {
+            b.append(sep);
+            b.append(f.toString());
+            sep = " OR ";
+
+        }
+        return b.toString();
+    }
 }

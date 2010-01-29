@@ -128,4 +128,9 @@ public class Color {
         colors.put("white", "#FFFFFF");
         colors.put("black", "#000000");
     }
+
+    @Override
+    public String toString() {
+        return "COLOR: " + red + "," + green + "," + blue + "," + alpha;
+    }
 }

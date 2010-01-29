@@ -95,6 +95,14 @@ public class LineFigure extends Figure {
         return this;
     }
 
+    public Float getStroke(Zoom zoom) {
+        return (Float) style.getStyles().get(LineStyle.WIDTH).getValue(zoom);
+    }
+
+    public Color getColor(Zoom zoom) {
+        return (Color) style.getStyles().get(LineStyle.COLOR).getValue(zoom);
+    }
+
     public LineFigure setColor(Color color) {
         style.addStyle(LineStyle.COLOR, new ConstantStyleValue<Color>(color));
         return this;

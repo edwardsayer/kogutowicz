@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import net.anzix.kogutowicz.Mercator;
 import net.anzix.kogutowicz.Projection;
 import net.anzix.kogutowicz.Size;
-import net.anzix.kogutowicz.datasource.DataSource;
+import net.anzix.kogutowicz.datasource.Datasource;
 import net.anzix.kogutowicz.decorator.MapRender;
 import net.anzix.kogutowicz.decorator.RenderingWorkspace;
 import net.anzix.kogutowicz.element.Node;
@@ -36,7 +36,7 @@ public class ImageMap implements MapApplication {
 
     @NotNull
     @Valid
-    private DataSource datasource;
+    private Datasource datasource;
 
     private Integer zoom;
 
@@ -107,11 +107,11 @@ public class ImageMap implements MapApplication {
 //        p.release();
     }
 
-    public DataSource getDatasource() {
+    public Datasource getDatasource() {
         return datasource;
     }
 
-    public void setDatasource(DataSource datasource) {
+    public void setDatasource(Datasource datasource) {
         this.datasource = datasource;
     }
 

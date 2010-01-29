@@ -5,7 +5,6 @@
 package net.anzix.kogutowicz.style;
 
 import java.util.List;
-import net.anzix.kogutowicz.Projection;
 import net.anzix.kogutowicz.Zoom;
 import net.anzix.kogutowicz.element.Element;
 import net.anzix.kogutowicz.element.Node;

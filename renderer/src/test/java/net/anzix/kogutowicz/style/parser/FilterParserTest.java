@@ -39,6 +39,32 @@ public class FilterParserTest {
         assertEquals("natural", tokens.get(4));
         assertEquals(EqualOperator.class, tokens.get(5).getClass());
         assertEquals(OrOperator.class, tokens.get(6).getClass());
+
+        fltr = "landuse = residential OR ( area = natural )";
+        tokens = fp.shuttingYard(fltr);
+        for (Object s :fp.shuttingYard(fltr)){
+            System.out.println(s);
+        }
+        assertEquals(7, tokens.size());
+        assertEquals("landuse", tokens.get(0));
+        assertEquals("residential", tokens.get(1));
+        assertEquals(EqualOperator.class, tokens.get(2).getClass());
+        assertEquals("area", tokens.get(3));
+        assertEquals("natural", tokens.get(4));
+        assertEquals(EqualOperator.class, tokens.get(5).getClass());
+        assertEquals(OrOperator.class, tokens.get(6).getClass());
+
+        fltr = "landuse = residential OR NOT ( area = natural )";
+        tokens = fp.shuttingYard(fltr);
+        assertEquals(8, tokens.size());
+        assertEquals("landuse", tokens.get(0));
+        assertEquals("residential", tokens.get(1));
+        assertEquals(EqualOperator.class, tokens.get(2).getClass());
+        assertEquals("area", tokens.get(3));
+        assertEquals("natural", tokens.get(4));
+        assertEquals(EqualOperator.class, tokens.get(5).getClass());
+        assertEquals(NotFunction.class, tokens.get(6).getClass());
+        assertEquals(OrOperator.class, tokens.get(7).getClass());
     }
 
     @Test
@@ -57,6 +83,17 @@ public class FilterParserTest {
 
         fltr = "landuse=residential";
         f = fp.parse(fltr);
+    }
+
+    @Test
+    public void testParseNot() {
+        String fltr = "highway = motorway_link and not (tunnel = yes or tunnel = true)";
+        FilterParser fp = new FilterParser();
+        Filter f = fp.parse(fltr);
+        assertEquals(AndFilter.class, f.getClass());
+        assertEquals(NotFilter.class, ((AndFilter) f).getFilters().get(1).getClass());
+
+
     }
 
 //    @Test

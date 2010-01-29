@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author elek
  */
-public class OsmFile implements DataSource {
+public class OsmFile implements Datasource {
 
     private Logger logger = LoggerFactory.getLogger(OsmFile.class);
 
@@ -120,7 +120,12 @@ public class OsmFile implements DataSource {
                         copyTags(way, e);
 
                         for (WayNode wn : w.getWayNodes()) {
-                            way.addNode((net.anzix.kogutowicz.element.Node) elements.get(new Element.Id(net.anzix.kogutowicz.element.Node.class, wn.getNodeId())));
+                            net.anzix.kogutowicz.element.Node n = (net.anzix.kogutowicz.element.Node) elements.get(new Element.Id(net.anzix.kogutowicz.element.Node.class, wn.getNodeId()));
+                            if (n == null) {
+                                logger.warn("The related node does'n exists way={} node={}", w.getId(), wn.getNodeId());
+                                return;
+                            }
+                            way.addNode(n);
                         }
                         elements.put(way.getId(), way);
                         indexWay(way);

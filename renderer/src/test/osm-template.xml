@@ -2342,7 +2342,7 @@ type="png" width="16" height="16" />
       </LineSymbolizer>
     </Rule>
     <Rule>
-      <Filter>[highway] = 'service' and not ([service]='parking_aisle' or[tunnel]='yes' or [tunnel]='true')</Filter>
+      <Filter>[highway] = 'service' and not ([service]='parking_aisle' or [tunnel]='yes' or [tunnel]='true')</Filter>
       <MaxScaleDenominator>25000</MaxScaleDenominator>
       <MinScaleDenominator>1000</MinScaleDenominator>
       <LineSymbolizer>

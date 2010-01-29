@@ -17,21 +17,33 @@ public class FilterParser {
 
     private List<Operator> operators = new ArrayList();
 
+    private List<Function> functions = new ArrayList();
+
     public FilterParser() {
         operators.add(new EqualOperator());
         operators.add(new OrOperator());
         operators.add(new NotEqualOperator());
         operators.add(new AndOperator());
+        functions.add(new NotFunction());
     }
 
     public Filter parse(String str) {
         str = str.replaceAll("=", " = ");
+        str = str.replaceAll("<>", " <> ");
+        str = str.replaceAll("\\(", " ( ");
+        str = str.replaceAll("\\)", " ) ");
         str = str.replaceAll("\\s+", " ");
         List rpn = shuttingYard(str);
         Stack stack = new Stack();
         for (Object o : rpn) {
             if (o instanceof String) {
                 stack.push(o);
+            } else if (o instanceof Function) {
+                Function op = (Function) o;
+                Object[] parameters = new Object[1];
+                parameters[0] = stack.pop();
+                Filter f = op.createFilter(parameters);
+                stack.push(f);
             } else {
                 Operator op = (Operator) o;
                 Object[] parameters = new Object[2];
@@ -51,30 +63,54 @@ public class FilterParser {
     public List shuttingYard(String str) {
         String[] tokens = str.split(" ");
         List output = new ArrayList();
-        Stack<Operator> stack = new Stack();
+        Stack<Object> stack = new Stack();
 
+        tok:
         for (String token : tokens) {
-            boolean operator = false;
-            for (Operator op : operators) {
-                if (op.is(token)) {
-                    operator = true;
-                    if (stack.size() > 0) {
-                        Operator op2 = stack.peek();
-                        if (op2.getPrecendece() < op.getPrecendece()) {
-                            output.add(stack.pop());
-                        }
+            if (token.equals(")")) {
+                Object t;
+                while (!(t = stack.pop()).equals("(") && !stack.empty()) {
+                    if (!t.equals("(")) {
+                        output.add(t);
                     }
-                    stack.push(op);
+                    if (stack.size() > 9 && stack.peek() instanceof Function) {
+                        output.add(stack.pop());
+                    }
                 }
-            }
-            if (!operator) {
+            } else if (token.equals("(")) {
+                stack.push(token);
+            } else {
+                for (Function function : functions) {
+                    if (function.is(token)) {
+                        stack.push(function);
+                        continue tok;
+                    }
+
+                }
+                for (Operator op : operators) {
+                    if (op.is(token)) {
+                        if (stack.size() > 0 && stack.peek() instanceof Operator) {
+                            Operator op2 = (Operator) stack.peek();
+                            if (op2.getPrecendece() < op.getPrecendece()) {
+                                output.add(stack.pop());
+                            }
+                        }
+                        stack.push(op);
+                        continue tok;
+                    }
+
+                }
+
                 output.add(token);
+
+
             }
         }
         while (stack.size() > 0) {
             output.add(stack.pop());
         }
         return output;
+
 
     }
 }
