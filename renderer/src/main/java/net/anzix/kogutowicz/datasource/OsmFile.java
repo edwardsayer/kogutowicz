@@ -17,6 +17,7 @@ import net.anzix.kogutowicz.Projection;
 import net.anzix.kogutowicz.TileCoord;
 import net.anzix.kogutowicz.TileDivision;
 import net.anzix.kogutowicz.element.Element;
+import org.kohsuke.MetaInfServices;
 
 import org.openstreetmap.osmosis.core.container.v0_6.EntityContainer;
 import org.openstreetmap.osmosis.core.domain.v0_6.Entity;
@@ -35,6 +36,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author elek
  */
+@MetaInfServices
 public class OsmFile implements Datasource {
 
     private Logger logger = LoggerFactory.getLogger(OsmFile.class);

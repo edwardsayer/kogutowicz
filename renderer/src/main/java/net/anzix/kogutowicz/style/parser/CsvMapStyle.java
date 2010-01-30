@@ -17,11 +17,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.validation.constraints.NotNull;
 import net.anzix.kogutowicz.processor.RenderContext;
+import org.kohsuke.MetaInfServices;
 
 /**
  *
  * @author elek
  */
+@MetaInfServices
 public class CsvMapStyle implements MapStyle {
 
     @NotNull

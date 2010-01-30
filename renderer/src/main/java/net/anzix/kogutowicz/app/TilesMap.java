@@ -25,6 +25,7 @@ import net.anzix.kogutowicz.renderer.Transformation;
 import net.anzix.kogutowicz.style.Cartographer;
 
 import net.anzix.kogutowicz.style.MapStyle;
+import org.kohsuke.MetaInfServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,6 +34,7 @@ import org.slf4j.LoggerFactory;
  * 
  * @author elek
  */
+@MetaInfServices
 public class TilesMap implements MapApplication {
 
     private Logger logger = LoggerFactory.getLogger(MapApplication.class);

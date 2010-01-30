@@ -16,6 +16,7 @@ import net.anzix.kogutowicz.processor.RenderContext;
 import net.anzix.kogutowicz.renderer.Renderer;
 import net.anzix.kogutowicz.style.Cartographer;
 import net.anzix.kogutowicz.style.MapStyle;
+import org.kohsuke.MetaInfServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +25,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author elek
  */
+@MetaInfServices
 public class ImageMap implements MapApplication {
 
     @Inject

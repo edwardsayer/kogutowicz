@@ -15,12 +15,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import net.anzix.kogutowicz.Size;
+import org.kohsuke.MetaInfServices;
 
 /**
  * Render gemotery elements to Java2D context.
  *
  * @author elek
  */
+@MetaInfServices
 public class PngRenderer extends AbstractJava2DRenderer implements FileOutputRenderer {
 
     private File outputFile;

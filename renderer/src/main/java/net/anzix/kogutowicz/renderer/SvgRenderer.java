@@ -16,6 +16,7 @@ import net.anzix.kogutowicz.Size;
 import net.anzix.kogutowicz.geometry.CoordBox;
 import org.apache.batik.dom.GenericDOMImplementation;
 import org.apache.batik.svggen.SVGGraphics2D;
+import org.kohsuke.MetaInfServices;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 
@@ -24,6 +25,7 @@ import org.w3c.dom.Document;
  *
  * @author elek
  */
+@MetaInfServices
 public class SvgRenderer extends AbstractJava2DRenderer implements FileOutputRenderer {
 
     @NotNull

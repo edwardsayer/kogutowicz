@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz.config;
 
 import com.google.inject.Guice;
@@ -12,9 +8,12 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 import java.util.Set;
@@ -23,6 +22,8 @@ import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
 import net.anzix.kogutowicz.app.MapApplication;
 import net.anzix.kogutowicz.processor.RenderContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Build object hierarchy based on a property file.
@@ -30,6 +31,8 @@ import net.anzix.kogutowicz.processor.RenderContext;
  * @author elek
  */
 public class ConfigReader {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     public static final String BASE_NAME = "map";
 
@@ -117,26 +120,47 @@ public class ConfigReader {
         } else {
             try {
                 getClass().getClassLoader().loadClass(value);
-                return createClass(property, value);
-            } catch (ClassNotFoundException ex) {
-                System.err.println("Error on processing property value: " + key + "=" + value);
+                return createClass(property, clazz);
+            } catch (Exception ex) {
+                logger.error("Error on processing property value: " + key + "=" + value);
                 return null;
             }
         }
     }
 
-    public MapApplication start() {
-        MapApplication o = (MapApplication) createClass(BASE_NAME);
-        ValidatorFactory fact = Validation.buildDefaultValidatorFactory();
-        Set<ConstraintViolation<MapApplication>> errors = fact.getValidator().validate(o);
-        if (errors.size() > 0) {
-            for (ConstraintViolation<MapApplication> error : errors) {
-                System.err.println(BASE_NAME + "." + error.getPropertyPath() + " " + error.getMessage());
+    protected Class findImplementation(Class ifce, String name) throws IOException, ClassNotFoundException {
+        InputStream is = getClass().getResourceAsStream("/META-INF/services/" + ifce.getCanonicalName());
+        if (is != null) {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            while (reader.ready()) {
+                String line = reader.readLine().trim();
+                if (line.endsWith("." + name)) {
+                    return getClass().getClassLoader().loadClass(line);
+                }
             }
-        } else {
-            o.run();
         }
-        return o;
+        return null;
+
+
+    }
+
+    public MapApplication start() {
+        try {
+            MapApplication o = (MapApplication) createClass(BASE_NAME, MapApplication.class);
+            ValidatorFactory fact = Validation.buildDefaultValidatorFactory();
+            Set<ConstraintViolation<MapApplication>> errors = fact.getValidator().validate(o);
+            if (errors.size() > 0) {
+                for (ConstraintViolation<MapApplication> error : errors) {
+                    System.err.println(BASE_NAME + "." + error.getPropertyPath() + " " + error.getMessage());
+                }
+            } else {
+                o.run();
+            }
+            return o;
+        } catch (Exception ex) {
+            logger.error("Error on loading config", ex);
+            return null;
+        }
     }
 
     /**
@@ -145,8 +169,13 @@ public class ConfigReader {
      * @param the perfix for the field properties and the class name
      * @return the new instance
      */
-    private Object createClass(String k) {
-        return createClass(k, props.getProperty(k));
+    public Object createClass(String k, Class interfaceClass) throws IOException, ClassNotFoundException {
+        Class clz = findImplementation(MapApplication.class, props.getProperty(k));
+        if (clz != null) {
+            return createClass(k, clz.getCanonicalName());
+        } else {
+            return createClass(k, props.getProperty(k));
+        }
     }
 
     /**
