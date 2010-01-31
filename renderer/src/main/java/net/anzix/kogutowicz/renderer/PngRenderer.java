@@ -22,7 +22,7 @@ import org.kohsuke.MetaInfServices;
  *
  * @author elek
  */
-@MetaInfServices
+@MetaInfServices(Renderer.class)
 public class PngRenderer extends AbstractJava2DRenderer implements FileOutputRenderer {
 
     private File outputFile;

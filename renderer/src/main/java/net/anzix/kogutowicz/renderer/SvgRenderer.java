@@ -25,7 +25,7 @@ import org.w3c.dom.Document;
  *
  * @author elek
  */
-@MetaInfServices
+@MetaInfServices(Renderer.class)
 public class SvgRenderer extends AbstractJava2DRenderer implements FileOutputRenderer {
 
     @NotNull
