@@ -20,6 +20,6 @@ public class ImageTest {
         new ConfigReader(new File("src/it/remete.properties")).start();
         new ConfigReader(new File("src/it/nk.properties")).start();
         new ConfigReader(new File("src/it/mapnik.properties")).start();
-        new ConfigReader(new File("/home/elek/projects/kogutowicz.hg/test/hungary.properties")).start();
+//        new ConfigReader(new File("/home/elek/projects/kogutowicz.hg/test/hungary.properties")).start();
     }
 }
