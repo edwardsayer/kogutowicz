@@ -150,4 +150,8 @@ public class LineFigure extends Figure {
 
         }
     }
+
+    public FigureStyle<LineStyle> getStyle() {
+        return style;
+    }    
 }

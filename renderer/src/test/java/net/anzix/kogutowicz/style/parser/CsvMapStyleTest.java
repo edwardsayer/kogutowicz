@@ -5,7 +5,6 @@
 package net.anzix.kogutowicz.style.parser;
 
 import net.anzix.kogutowicz.style.*;
-import net.anzix.kogutowicz.style.parser.CsvMapStyle;
 import java.io.File;
 import org.junit.Test;
 import static org.junit.Assert.*;

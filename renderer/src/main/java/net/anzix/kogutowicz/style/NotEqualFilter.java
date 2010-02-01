@@ -27,4 +27,10 @@ public class NotEqualFilter implements Filter {
         String value = element.getTagValue(key);
         return value == null || !value.equals(key);
     }
+
+    @Override
+    public String toString() {
+        return key +" <> "+value;
+    }
+
 }

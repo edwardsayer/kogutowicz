@@ -59,6 +59,10 @@ public class PolygonFigure extends Figure {
         }
     }
 
+    public FigureStyle<PolygonStyle> getStyle() {
+        return style;
+    }
+
     public void setColor(Color color) {
         style.addStyle(PolygonStyle.COLOR, new ConstantStyleValue<Color>(color));
     }

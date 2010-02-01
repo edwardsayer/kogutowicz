@@ -64,13 +64,22 @@ public class TagFilter implements Filter {
     @Override
     public String toString() {
         StringBuilder b = new StringBuilder();
-        b.append(" ");
-        b.append(key);
-        b.append(" = ");
-        for (String value : values) {
-            b.append("-");
-            b.append(value);
+        if (values.size() == 1 && values.get(0).equals(EMPTY)) {
+            b.append("TODO");
+        } else if (values.size() == 0) {
+            b.append(key);
+            b.append(" = ");
+        } else {
+            String sep = "";
+            for (String v : values) {
+                b.append(sep);
+                b.append(key);
+                b.append(" = ");
+                b.append(v);
+                sep = " AND ";
+            }
         }
+
         return b.toString();
     }
 }

@@ -71,7 +71,7 @@ public class MapnikMapStyle implements MapStyle {
                         l.setWeight(layerw++);
                         simpleMap.addLayer(name, l);
                     }
-                    
+
 
                     for (Element rule : (List<Element>) st.getChildren("Rule")) {
 
@@ -94,7 +94,7 @@ public class MapnikMapStyle implements MapStyle {
                                     figure.startZoom(convertScaleToZoomLevel(maxScale));
                                 }
                                 if (minScale != null) {
-                                    figure.endZoom(convertScaleToZoomLevel(minScale));
+                                    figure.endZoom(convertScaleToZoomLevel(minScale) - 1);
                                 }
                                 if (stylep.getAttrs().get("color") != null) {
                                     //set color
@@ -116,7 +116,7 @@ public class MapnikMapStyle implements MapStyle {
                                     figure.startZoom(convertScaleToZoomLevel(maxScale));
                                 }
                                 if (minScale != null) {
-                                    figure.endZoom(convertScaleToZoomLevel(minScale));
+                                    figure.endZoom(convertScaleToZoomLevel(minScale) - 1);
                                 }
                                 if (stylep.getAttrs().get("stroke") != null) {
                                     //set color
@@ -263,6 +263,10 @@ public class MapnikMapStyle implements MapStyle {
         colors.put("grey", Color.GRAY);
         colors.put("white", Color.WHITE);
         colors.put("black", Color.black);
+        colors.put("brown", new Color(150, 75, 0));
+        colors.put("salmon", new Color(0xFA, 0x80, 0x72));
+        colors.put("purple", new Color(128, 0, 128));
+
 
         String c = color.trim();
         if (c.startsWith("#")) {
@@ -272,6 +276,10 @@ public class MapnikMapStyle implements MapStyle {
                 return "0x" + color.substring(1);
             }
         } else {
+            if (colors.get(c) != null) {
+                Color col = colors.get(c);
+                return "0x" + getHex(col.getRed()) + getHex(col.getGreen()) + getHex(col.getBlue());
+            }
             try {
                 Color col = (Color) java.awt.Color.class.getField(color).get(null);
                 return "0x" + getHex(col.getRed()) + getHex(col.getGreen()) + getHex(col.getBlue());

@@ -131,6 +131,15 @@ public class Color {
 
     @Override
     public String toString() {
-        return "COLOR: " + red + "," + green + "," + blue + "," + alpha;
+        return "0x" + hex(red) + hex(green) + hex(blue) + (alpha == 255 ? "" : hex(alpha));
+    }
+
+    private String hex(int red) {
+        String hex = Integer.toHexString(red);
+        if (hex.length() == 1) {
+            return "0" + hex;
+        } else {
+            return hex;
+        }
     }
 }

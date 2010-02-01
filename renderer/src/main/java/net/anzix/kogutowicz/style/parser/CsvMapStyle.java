@@ -66,7 +66,7 @@ public class CsvMapStyle implements MapStyle {
                 Figure figure = figureClazz.newInstance();
 
                 List<String> params = new ArrayList();
-                for (int i = 7; i < reader.getColumnCount(); i++) {
+                for (int i = 6; i < reader.getColumnCount(); i++) {
                     String colValue = reader.get(i);
                     if (!isEmpty(colValue)) {
                         params.add(colValue);

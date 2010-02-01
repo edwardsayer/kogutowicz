@@ -22,4 +22,10 @@ public class ConstantStyleValue<T> implements StyleValue<T> {
     public T getValue(Zoom zoom) {
         return value;
     }
+
+    @Override
+    public String toString() {
+        return value.toString();
+    }
+
 }
