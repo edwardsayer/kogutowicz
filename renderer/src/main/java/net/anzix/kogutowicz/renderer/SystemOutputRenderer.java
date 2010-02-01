@@ -4,23 +4,24 @@
  */
 package net.anzix.kogutowicz.renderer;
 
-
 import net.anzix.kogutowicz.Size;
 import net.anzix.kogutowicz.geometry.CoordBox;
 import net.anzix.kogutowicz.geometry.GeometryElement;
 import net.anzix.kogutowicz.geometry.Line;
 import net.anzix.kogutowicz.geometry.Point;
 import net.anzix.kogutowicz.style.Layer;
+import org.kohsuke.MetaInfServices;
 
 /**
  *
  * @author elek
  */
+@MetaInfServices(Renderer.class)
 public class SystemOutputRenderer extends AbstractRenderer {
 
     @Override
     public void renderGeometry(Layer layer, GeometryElement element) {
-        System.out.println("Layer:" + layer + "Render line: " + element.getClass() + " widh style ");
+        System.out.println("Layer:" + layer + " (" + layer.getWeight() + ") Render element: " + element.getClass() + " zindex "+element.getZindex());
         if (element instanceof Line) {
             for (Point p : ((Line) element).getPoints()) {
                 System.out.println(p.transform(getCurrentTransformation()));
@@ -42,6 +43,4 @@ public class SystemOutputRenderer extends AbstractRenderer {
     public void setClip(CoordBox clip) {
         System.out.println("set clip");
     }
-
-    
 }

@@ -81,7 +81,7 @@ public class LineFigure extends Figure {
             for (Node n : ((Way) element).getNodes()) {
                 l.addPoint(convertNodeToPoint(n));
             }
-
+            l.setZindex(getZindex());
             elements.add(l);
             return elements;
         } else {

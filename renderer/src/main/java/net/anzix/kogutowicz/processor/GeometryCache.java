@@ -37,7 +37,7 @@ public class GeometryCache {
             }
             i = new Integer(o1.getElement().getZindex()).compareTo(new Integer(o2.getElement().getZindex()));
             if (i != 0) {
-                return i;
+                return i ;
             }
 
             return -1;
@@ -72,5 +72,4 @@ public class GeometryCache {
     public Collection<GeometryElementOnLayer> getGeometries(TileCoord coord) {
         return geometries.get(coord);
     }
-
 }

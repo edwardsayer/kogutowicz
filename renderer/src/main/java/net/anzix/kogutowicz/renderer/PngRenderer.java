@@ -29,7 +29,6 @@ public class PngRenderer extends AbstractJava2DRenderer implements FileOutputRen
 
     private BufferedImage bi;
 
-    
     @Override
     public void initSpace(Size size) {
         bi = new BufferedImage(round(size.getWidth()), round(size.getHeight()), BufferedImage.TYPE_INT_ARGB);
@@ -50,7 +49,7 @@ public class PngRenderer extends AbstractJava2DRenderer implements FileOutputRen
     @Override
     public void release() {
         try {
-            if (outputFile.getParentFile()!=null && !outputFile.getParentFile().exists()) {
+            if (outputFile.getParentFile() != null && !outputFile.getParentFile().exists()) {
                 outputFile.getParentFile().mkdirs();
             }
             ImageIO.write(bi, "PNG", outputFile);
@@ -66,7 +65,7 @@ public class PngRenderer extends AbstractJava2DRenderer implements FileOutputRen
     }
 
     public void setOutputFile(File outputFile) {
-        if (outputFile != null && outputFile.getParentFile()!=null && !outputFile.getParentFile().exists()) {
+        if (outputFile != null && outputFile.getParentFile() != null && !outputFile.getParentFile().exists()) {
             outputFile.getParentFile().mkdirs();
         }
         this.outputFile = outputFile;

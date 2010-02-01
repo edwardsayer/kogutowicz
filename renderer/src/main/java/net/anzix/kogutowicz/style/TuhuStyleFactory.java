@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz.style;
 
 import net.anzix.kogutowicz.*;
@@ -9,7 +5,7 @@ import net.anzix.kogutowicz.element.Element;
 import net.anzix.kogutowicz.geometry.Color;
 
 /**
- *
+ * Sample style definition with Java API.
  * @author elek
  */
 public class TuhuStyleFactory implements MapStyle {
@@ -77,34 +73,6 @@ public class TuhuStyleFactory implements MapStyle {
 
         streets.addFigure(new LineFigure(0xcccccc, 1f).startZoom(8).startZoom(9).addFilter(
                 new TagFilter("railway", "narrow_gauge", "tram")));
-
-
-
-
-
-
-        Layer turismSings = map.createLayer("tourismSign");
-        LineFigure turismWay = new LineFigure();
-        turismWay.setStroke(3f);
-        turismWay.setColor(new Color(200, 0, 0, 100));
-        turismWay.addFilter(new AndFilter(
-                new NotFilter(new PolygonFilter()),
-                new TagFilter("tourism")));
-
-        turismSings.addFigure(turismWay);
-
-        PngLabelFigure turismSign = new PngLabelFigure();
-        turismSign.setStroke(3f);
-        turismSign.setPattern(new float[]{5.0f});
-
-        turismSign.setFilter(new Filter() {
-
-            @Override
-            public boolean is(Element element, Zoom zoom) {
-                return element.containsTag("tourism");
-            }
-        });
-        turismSings.addFigure(turismSign);
 
 
 

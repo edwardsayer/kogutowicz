@@ -50,7 +50,7 @@ public class PolygonFigure extends Figure {
             for (Node n : ((Way) element).getNodes()) {
                 p.addPoint(convertNodeToPoint(n));
             }
-
+            p.setZindex(getZindex());
             elements.add(p);
             return elements;
 
