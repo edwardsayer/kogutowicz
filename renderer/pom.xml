@@ -23,7 +23,7 @@
             <url>http://anzix.net/nexus/content/groups/public/</url>
         </repository>
     </repositories>
-
+ 
     <build>
 
         <plugins>
@@ -189,7 +189,7 @@
             <type>jar</type>
         </dependency>
     </dependencies>
-
+   
 </project>
 
 
