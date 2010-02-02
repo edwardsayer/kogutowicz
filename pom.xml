@@ -20,13 +20,13 @@
     </scm>
     <properties>
         <hg.repo.url>https://kogutowicz.googlecode.com/hg/</hg.repo.url>
-        <staging.mvn.repo.url>file://${project.build.directory}/target-maven-repo</staging.mvn.repo.url>
     </properties>
     <profiles>
         <profile>
             <id>release</id>
             <properties>
-                <hg.repo.url>file://${project.build.directory}/dummy-hg-repo</hg.repo.url>
+                <staging.mvn.repo.url>file:///tmp/target-maven-repo</staging.mvn.repo.url>
+                <hg.repo.url>file:///tmp/dummy-hg-repo</hg.repo.url>
                 <altDeploymentRepository>release-repo-hudson::default::${staging.mvn.repo.url}</altDeploymentRepository>
             </properties>
 
@@ -47,8 +47,8 @@
                                     <executable>rm</executable>
                                     <arguments>
                                         <argument>-rf</argument>
-                                        <argument>${project.build.directory}/dummy-hg-repo</argument>
-                                        <argument>${project.build.directory}/maven-repo</argument>
+                                        <argument>/tmp/dummy-hg-repo</argument>
+                                        <argument>/tmp/maven-repo</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -63,8 +63,8 @@
                                     <executable>mkdir</executable>
                                     <arguments>
                                         <argument>-p</argument>
-                                        <argument>${project.build.directory}/dummy-hg-repo</argument>
-                                        <argument>${project.build.directory}/maven-repo</argument>
+                                        <argument>/tmp/dummy-hg-repo</argument>
+                                        <argument>/tmp/maven-repo</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -78,7 +78,7 @@
                                 <inherited>false</inherited>
                                 <configuration>
                                     <executable>hg</executable>
-                                    <workingDirectory>${project.build.directory}/dummy-hg-repo</workingDirectory>
+                                    <workingDirectory>/tmp/dummy-hg-repo</workingDirectory>
                                     <arguments>
                                         <argument>init</argument>
                                     </arguments>
