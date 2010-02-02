@@ -49,7 +49,7 @@
                                     <arguments>
                                         <argument>-rf</argument>
                                         <argument>/tmp/dummy-hg-repo</argument>
-                                        <argument>/tmp/maven-repo</argument>
+                                        <argument>/tmp/target-maven-repo</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -65,7 +65,7 @@
                                     <arguments>
                                         <argument>-p</argument>
                                         <argument>/tmp/dummy-hg-repo</argument>
-                                        <argument>/tmp/maven-repo</argument>
+                                        <argument>/tmp/target-maven-repo</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
