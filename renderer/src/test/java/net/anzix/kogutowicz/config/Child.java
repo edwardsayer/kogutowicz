@@ -9,7 +9,7 @@ package net.anzix.kogutowicz.config;
  *
  * @author elek
  */
-public class Child {
+public class Child implements ChildInterface{
     private Double d;
 
     public Double getD() {
@@ -18,6 +18,11 @@ public class Child {
 
     public void setD(Double d) {
         this.d = d;
+    }
+
+    @Override
+    public void asd() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }

@@ -51,7 +51,7 @@ public class ConfigReaderTest {
         Properties p = new Properties();
         p.put("map", SampleApp.class.getCanonicalName());
         p.put("map.parent", Parent.class.getCanonicalName());
-        p.put("map.parent.child", Child.class.getCanonicalName());
+        p.put("map.parent.child", Child.class.getSimpleName());
         ConfigReader instance = new ConfigReader(p);
 
         //then

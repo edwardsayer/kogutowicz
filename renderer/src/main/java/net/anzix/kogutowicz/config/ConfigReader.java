@@ -119,7 +119,6 @@ public class ConfigReader {
             return context.getAbsolutePath(value);
         } else {
             try {
-                getClass().getClassLoader().loadClass(value);
                 return createClass(property, clazz);
             } catch (Exception ex) {
                 logger.error("Error on processing property value: " + key + "=" + value);
@@ -170,7 +169,7 @@ public class ConfigReader {
      * @return the new instance
      */
     public Object createClass(String k, Class interfaceClass) throws IOException, ClassNotFoundException {
-        Class clz = findImplementation(MapApplication.class, props.getProperty(k));
+        Class clz = findImplementation(interfaceClass, props.getProperty(k));
         if (clz != null) {
             return createClass(k, clz.getCanonicalName());
         } else {

@@ -10,7 +10,7 @@ package net.anzix.kogutowicz.config;
  */
 public class Parent {
 
-    private Child child;
+    private ChildInterface child;
 
     private String name;
 
@@ -22,12 +22,13 @@ public class Parent {
         this.name = name;
     }
 
-    public Child getChild() {
+    public ChildInterface getChild() {
         return child;
     }
 
-    public void setChild(Child child) {
+    public void setChild(ChildInterface child) {
         this.child = child;
     }
-    
+
+        
 }
