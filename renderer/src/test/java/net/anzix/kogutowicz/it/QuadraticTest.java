@@ -1,14 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz.it;
 
 import java.io.File;
 import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
-import net.anzix.kogutowicz.EqualProjection;
 import net.anzix.kogutowicz.RectangleTileDivision;
 import net.anzix.kogutowicz.Size;
 import net.anzix.kogutowicz.TileCoord;
@@ -17,7 +12,6 @@ import net.anzix.kogutowicz.style.TuhuStyleFactory;
 import net.anzix.kogutowicz.datasource.InMemory;
 import net.anzix.kogutowicz.element.Node;
 import net.anzix.kogutowicz.element.Way;
-import net.anzix.kogutowicz.processor.ProcessMatrix;
 import net.anzix.kogutowicz.processor.QuadraticProcessor;
 import net.anzix.kogutowicz.processor.RenderContext;
 import net.anzix.kogutowicz.renderer.Java2DFileRenderer;

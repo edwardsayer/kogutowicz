@@ -5,7 +5,6 @@ import net.anzix.kogutowicz.Projection;
 import net.anzix.kogutowicz.RectangleTileDivision;
 import net.anzix.kogutowicz.Zoom;
 import net.anzix.kogutowicz.element.Node;
-import net.anzix.kogutowicz.processor.ProcessMatrix;
 import net.anzix.kogutowicz.processor.QuadraticProcessor;
 import net.anzix.kogutowicz.processor.RenderContext;
 import net.anzix.kogutowicz.renderer.BaseTransformation;
