@@ -5,12 +5,12 @@
     <groupId>net.anzix.kogutowicz</groupId>
     <artifactId>renderer</artifactId>
     <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1-SNAPSHOT</version>
     <name>kogutowicz renderer</name>
     <parent>
         <artifactId>root</artifactId>
         <groupId>net.anzix.kogutowicz</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>0.1-SNAPSHOT</version>
     </parent>
     <repositories>
         <repository>
