@@ -1,15 +1,14 @@
 package net.anzix.kogutowicz.decorator;
 
+import com.google.inject.Inject;
 import net.anzix.kogutowicz.Projection;
 import net.anzix.kogutowicz.RectangleTileDivision;
-import net.anzix.kogutowicz.Size;
 import net.anzix.kogutowicz.Zoom;
 import net.anzix.kogutowicz.element.Node;
-import net.anzix.kogutowicz.geometry.CoordBox;
 import net.anzix.kogutowicz.processor.ProcessMatrix;
 import net.anzix.kogutowicz.processor.QuadraticProcessor;
+import net.anzix.kogutowicz.processor.RenderContext;
 import net.anzix.kogutowicz.renderer.BaseTransformation;
-import net.anzix.kogutowicz.renderer.Renderer;
 import net.anzix.kogutowicz.style.Cartographer;
 
 /**
@@ -18,30 +17,19 @@ import net.anzix.kogutowicz.style.Cartographer;
  */
 public class MapRender implements Decorator {
 
-    private Node tl;
+    @Inject
+    RenderContext context;
 
-    private Node br;
+    @Inject
+    private QuadraticProcessor p;
 
-    private Projection projection;
-
-    private Cartographer c;
-
-    private int zoom;
-
-    public MapRender(Node tl, Node br, Projection projection, Cartographer c, int zoom) {
-        this.tl = tl;
-        this.br = br;
-        this.projection = projection;
-        this.c = c;
-        this.zoom = zoom;
+    public MapRender() {
     }
 
     @Override
     public void render(RenderingWorkspace work) {
-        RectangleTileDivision division = new RectangleTileDivision(tl, br, 10, 10);
-        ProcessMatrix testMatrix = new ProcessMatrix(tl, br, division, 10, 10);
-        testMatrix.setZoom(Zoom.zoom(zoom));
-        QuadraticProcessor p = new QuadraticProcessor(projection, testMatrix, c);
+        RectangleTileDivision division = new RectangleTileDivision(context.getTopLeft(), context.getBottomRight(), 10, 10);
+        context.setDivision(division);
 //        {
 //
 //            @Override
@@ -53,7 +41,7 @@ public class MapRender implements Decorator {
 //
 //            }
 //        };
-        BaseTransformation transf = new BaseTransformation(testMatrix.getBoundary().getCoordBox(), work.getSize().getX(), work.getSize().getY());
+        BaseTransformation transf = new BaseTransformation(context.getBoundary().getCoordBox(), work.getSize().getX(), work.getSize().getY());
         work.setTransformation(transf);
         p.setRenderer(work);
         p.setWidth((int) Math.round(work.getSize().getX()));

@@ -37,18 +37,16 @@ public class QuadraticProcessorTest {
     public void testProcess() {
         //given
         Cartographer c = mock(Cartographer.class);
-        ProcessMatrix matrix = mock(ProcessMatrix.class);
 
 
-
-        when(matrix.getTileStart()).thenReturn(new TileCoord(2, 2));
-        when(matrix.getTileEnd()).thenReturn(new TileCoord(3, 3));
-
-        when(matrix.getBoundary()).thenReturn(new Box(47, 19, 46, 20));
-        when(matrix.getDivision()).thenReturn(new SimpleTileDivision(Zoom.zoom(13), new Node(47, 19), new Node(46, 20)));
-        when(matrix.getGeometries()).thenReturn(new GeometryCache(matrix));
-
-        QuadraticProcessor p = new QuadraticProcessor(new EqualProjection(), matrix, c);
+        RenderContext context = new RenderContext();
+        context.setZoom(Zoom.zoom(14));
+        context.setTopLeft(new Node(47, 19));
+        context.setBottomRight(new Node(46, 20));
+        context.setDivision(new SimpleTileDivision(Zoom.zoom(13), new Node(47, 19), new Node(46, 20)));
+        QuadraticProcessor p = new QuadraticProcessor();
+        p.setContext(context);
+        context.setCartographer(c);
         p.setWidth(1000);
         p.setHeight(1000);
         p.setRenderer(new SystemOutputRenderer());

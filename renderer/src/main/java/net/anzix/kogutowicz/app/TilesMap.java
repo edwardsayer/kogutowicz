@@ -1,27 +1,18 @@
 package net.anzix.kogutowicz.app;
 
+import com.google.inject.Inject;
 import java.io.File;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import net.anzix.kogutowicz.Mercator;
 import net.anzix.kogutowicz.OSMTileDivision;
 import net.anzix.kogutowicz.Projection;
-import net.anzix.kogutowicz.Size;
-import net.anzix.kogutowicz.TileCoord;
 import net.anzix.kogutowicz.Zoom;
 import net.anzix.kogutowicz.datasource.Datasource;
-import net.anzix.kogutowicz.decorator.RenderingWorkspace;
-import net.anzix.kogutowicz.element.Box;
 import net.anzix.kogutowicz.element.Node;
-import net.anzix.kogutowicz.geometry.CoordBox;
-import net.anzix.kogutowicz.processor.ProcessMatrix;
-import net.anzix.kogutowicz.processor.QuadraticProcessor;
-import net.anzix.kogutowicz.renderer.BaseTransformation;
-import net.anzix.kogutowicz.renderer.FileOutputRenderer;
+import net.anzix.kogutowicz.processor.QuadraticTileProcessor;
+import net.anzix.kogutowicz.processor.RenderContext;
 import net.anzix.kogutowicz.renderer.Java2DFileRenderer;
-import net.anzix.kogutowicz.renderer.Renderer;
-import net.anzix.kogutowicz.renderer.SystemOutputRenderer;
-import net.anzix.kogutowicz.renderer.Transformation;
 import net.anzix.kogutowicz.style.Cartographer;
 
 import net.anzix.kogutowicz.style.MapStyle;
@@ -68,6 +59,12 @@ public class TilesMap implements MapApplication {
 
     private Projection projection = new Mercator();
 
+    @Inject
+    private QuadraticTileProcessor processor;
+
+    @Inject
+    RenderContext context;
+
     @Override
     public void run() {
         Node n1 = Node.valueOf(projection, west, north);
@@ -76,49 +73,18 @@ public class TilesMap implements MapApplication {
         mapStyle.applyStyle(c);
 
         OSMTileDivision division = new OSMTileDivision(Zoom.zoom(zoom));
+        context.setDivision(division);
 
-
-        ProcessMatrix testMatrix = new ProcessMatrix(n1, n2, division, 10, 10);
-        QuadraticProcessor p = new QuadraticProcessor(projection, testMatrix, c) {
-
-            @Override
-            protected void afterTileRender(TileCoord coord) {
-                getRenderer().release();
-            }
-
-            @Override
-            protected void beforeTileRender(TileCoord coord) {
-                Box b = matrix.getDivision().getBox(coord);
-                setRenderer(new Java2DFileRenderer());
-                getRenderer().initSpace(new Size(256,256));
-                getRenderer().setTransformation(new BaseTransformation(getDivision().getBox(coord).getCoordBox(), 256, 256));
-                getRenderer().setClip(b.getCoordBox());
-
-                String fileName = zoom + "/" + coord.getX() + "/" + coord.getY() + ".png";
-                System.out.println(fileName);
-                ((FileOutputRenderer) getRenderer()).setOutputFile(new File(outputDir, fileName));
-
-            }
-
-            @Override
-            protected void initRenderer(Renderer renderer, Size size) {
-                //NOOP
-            }
-
-            @Override
-            public void release() {
-                //NOOP
-            }
-        };
-
+        context.setCartographer(c);
+        processor.setOutputDir(outputDir);
 
         Java2DFileRenderer renderer = new Java2DFileRenderer();
 
-        p.setRenderer(renderer);
-        p.setWidth(256);
-        p.setHeight(256);
-        p.process();
-        p.release();
+        processor.setRenderer(renderer);
+        processor.setWidth(256);
+        processor.setHeight(256);
+        processor.process();
+        processor.release();
     }
 
     public Datasource getDatasource() {

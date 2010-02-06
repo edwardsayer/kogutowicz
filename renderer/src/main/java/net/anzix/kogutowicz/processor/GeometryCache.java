@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -37,19 +38,13 @@ public class GeometryCache {
             }
             i = new Integer(o1.getElement().getZindex()).compareTo(new Integer(o2.getElement().getZindex()));
             if (i != 0) {
-                return i ;
+                return i;
             }
 
             return -1;
 
         }
     };
-
-    private ProcessMatrix matrix;
-
-    public GeometryCache(ProcessMatrix matrix) {
-        this.matrix = matrix;
-    }
 
     public void addGeometry(TileCoord coord, Layer layer, GeometryElement geometry) {
         SortedSet<GeometryElementOnLayer> elements = geometries.get(coord);
@@ -71,5 +66,11 @@ public class GeometryCache {
 
     public Collection<GeometryElementOnLayer> getGeometries(TileCoord coord) {
         return geometries.get(coord);
+    }
+
+    public void addGeometries(TileCoord coord, Layer layer, List<GeometryElement> elements) {
+        for (GeometryElement element : elements) {
+            addGeometry(coord, layer, element);
+        }
     }
 }

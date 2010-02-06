@@ -1,18 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz.processor;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.anzix.kogutowicz.Mercator;
 import net.anzix.kogutowicz.OSMTileDivision;
-import net.anzix.kogutowicz.Projection;
 import net.anzix.kogutowicz.TileCoord;
 import net.anzix.kogutowicz.TileDivision;
 import net.anzix.kogutowicz.Zoom;
@@ -44,16 +37,6 @@ public class ProcessMatrix {
 
     private TileDivision division;
 
-    /**
-     * Width of one tile.
-     */
-    private double width;
-
-    /**
-     * Width of one tile.
-     */
-    private double height;
-
     private TileCoord tileStart;
 
     private TileCoord tileEnd;
@@ -74,9 +57,7 @@ public class ProcessMatrix {
         tileSize = new TileCoord(noXTile, noYTile);
         this.zoom = division.getZoom();
         this.boundary = new Box(topLeft, bottomRight);
-        height = (topLeft.getLatitude() - bottomRight.getLatitude()) / noYTile;
-        width = (bottomRight.getLongitude() - topLeft.getLongitude()) / noXTile;
-        this.geometries = new GeometryCache(this);
+        this.geometries = new GeometryCache();
 
         this.division = division;
         tileStart = division.getTileCoord(topLeft);
@@ -147,25 +128,9 @@ public class ProcessMatrix {
      */
     public double getProjectedHeight() {
         return 0;
-        //return projecion.getY(getBoundary().getTopLeft().getLatitude()) - projecion.getY(getBoundary().getBottomRight().getLatitude());
     }
 
-//    public Collection<TileRectangle> getRectangles(CoordBox boundingBox) {
-//        double[] tl = projecion.getLanLon(boundingBox.getTopLeft().getX(), boundingBox.getTopLeft().getY());
-//        double[] br = projecion.getLanLon(boundingBox.getBottomRight().getX(), boundingBox.getBottomRight().getY());
-//        TileCoord start = (division.getTileCoord(new Node(tl[0], tl[1]))).substract(tileStart);
-//
-//        TileCoord stop = division.getTileCoord(new Node(br[0], br[1])).substract(tileStart);
-//        List<TileRectangle> result = new ArrayList();
-//        for (int x = start.getX(); x <= stop.getX(); x++) {
-//            for (int y = start.getY(); y <= stop.getY(); y++) {
-//                if (x >= 0 && y >= 0 && tiles.get(new Integer(x)) != null && tiles.get(new Integer(x)).get(new Integer(y)) != null) {
-//                    result.add(getTileRectangle(new Integer(x), new Integer(y)));
-//                }
-//            }
-//        }
-//        return result;
-//    }
+
     public static class TilePosition {
 
         private int x;

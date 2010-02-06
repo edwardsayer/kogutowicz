@@ -8,7 +8,6 @@ import net.anzix.kogutowicz.Size;
 import net.anzix.kogutowicz.geometry.CoordBox;
 import net.anzix.kogutowicz.geometry.GeometryElement;
 import net.anzix.kogutowicz.geometry.Point;
-import net.anzix.kogutowicz.renderer.BaseTransformation;
 import net.anzix.kogutowicz.renderer.CompositeTransformation;
 import net.anzix.kogutowicz.renderer.OffsetTransformation;
 import net.anzix.kogutowicz.renderer.Renderer;

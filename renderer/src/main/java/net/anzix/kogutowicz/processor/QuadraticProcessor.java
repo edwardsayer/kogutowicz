@@ -1,9 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz.processor;
 
+import com.google.inject.Inject;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +10,6 @@ import net.anzix.kogutowicz.Size;
 import net.anzix.kogutowicz.TileCoord;
 import net.anzix.kogutowicz.TileDivision;
 import net.anzix.kogutowicz.datasource.Datasource;
-import net.anzix.kogutowicz.decorator.RenderingWorkspace;
 import net.anzix.kogutowicz.element.Box;
 import net.anzix.kogutowicz.element.Element;
 import net.anzix.kogutowicz.geometry.GeometryElement;
@@ -36,34 +32,30 @@ public class QuadraticProcessor {
 
     private Logger logger = LoggerFactory.getLogger(QuadraticProcessor.class);
 
-    protected ProcessMatrix matrix;
-
-    private Cartographer cartographer;
-
     private SimpleSelector selector;
 
     private Renderer renderer;
 
-    private Projection projection;
-
     private Size size = new Size();
 
-    public QuadraticProcessor(Projection projection, ProcessMatrix matrix, Cartographer cartographer) {
-        this.projection = projection;
-        this.matrix = matrix;
-        this.cartographer = cartographer;
-        this.selector = new SimpleSelector(cartographer);
+    @Inject
+    protected RenderContext context;
+
+    private GeometryCache geoms = new GeometryCache();
+
+    public QuadraticProcessor() {
+        this.selector = new SimpleSelector();
 
     }
 
     public void process() {
 //        initRenderer(renderer, size);
         Date start = new Date();
-        logger.debug("Starting process (zoom " + matrix.getZoom()+")");
+        logger.debug("Starting process (zoom " + context.getZoom() + ")");
         init();
         logger.debug("datasources are loaded");
-        TileCoord from = matrix.getTileStart();
-        TileCoord to = matrix.getTileEnd();
+        TileCoord from = context.getTileStart();
+        TileCoord to = context.getTileEnd();
         for (int x = from.getX(); x <= to.getX(); x++) {
             for (int y = from.getY(); y <= to.getY(); y++) {
                 processDataSource(new TileCoord(x, y));
@@ -84,20 +76,20 @@ public class QuadraticProcessor {
     }
 
     private void processDataSource(TileCoord tile) {
-        for (Datasource ds : cartographer.getDataSources()) {
+        for (Datasource ds : context.getCartographer().getDataSources()) {
             for (Element element : ds.getElements(tile)) {
-                List<SelectedFigure> figures = selector.getItem(element, matrix.getZoom());
+                List<SelectedFigure> figures = selector.getItem(context.getCartographer(), element, context.getZoom());
                 for (SelectedFigure figure : figures) {
-                    List<GeometryElement> geometries = figure.getFigure().drawElements(element, matrix.getZoom());
-                    matrix.addGeometries(tile, figure.getLayer(), geometries);
+                    List<GeometryElement> geometries = figure.getFigure().drawElements(element, context.getZoom());
+                    geoms.addGeometries(tile, figure.getLayer(), geometries);
                 }
             }
         }
     }
 
     public void init() {
-        for (Datasource ds : cartographer.getDataSources()) {
-            ds.init(matrix.getDivision(), projection);
+        for (Datasource ds : context.getCartographer().getDataSources()) {
+            ds.init(context.getDivision(), context.getProjection());
         }
     }
 
@@ -106,13 +98,10 @@ public class QuadraticProcessor {
 
     private void render(TileCoord coord) {
         logger.debug("Rendering " + coord);
-        GeometryCache cache = matrix.getGeometries();
-        Collection<GeometryElementOnLayer> elements = cache.getElements(coord);
+        Collection<GeometryElementOnLayer> elements = geoms.getElements(coord);
         for (GeometryElementOnLayer element : elements) {
             renderer.renderGeometry(element.getLayer(), element.getElement());
         }
-
-        matrix.setTileState(coord, TileState.RENDERED);
     }
 
     public int getHeight() {
@@ -136,7 +125,7 @@ public class QuadraticProcessor {
     }
 
     protected void beforeTileRender(TileCoord coord) {
-        Box b = matrix.getDivision().getBox(coord);
+        Box b = context.getDivision().getBox(coord);
         renderer.setClip(b.getCoordBox());
     }
 
@@ -145,14 +134,23 @@ public class QuadraticProcessor {
 
     protected void initRenderer(Renderer renderer, Size size) {
         renderer.initSpace(size);
-        renderer.setTransformation(new BaseTransformation(matrix.getBoundary().getCoordBox(), size.getWidth(), size.getHeight()));
+        renderer.setTransformation(new BaseTransformation(context.getBoundary().getCoordBox(), size.getWidth(), size.getHeight()));
     }
 
     public TileDivision getDivision() {
-        return matrix.getDivision();
+        return context.getDivision();
     }
 
     public Renderer getRenderer() {
         return renderer;
     }
+
+    public RenderContext getContext() {
+        return context;
+    }
+
+    public void setContext(RenderContext context) {
+        this.context = context;
+    }
+
 }

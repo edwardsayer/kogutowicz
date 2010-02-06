@@ -16,13 +16,7 @@ import net.anzix.kogutowicz.element.Element;
  */
 public class SimpleSelector {
 
-    private Cartographer cartographer;
-
-    public SimpleSelector(Cartographer cartographer) {
-        this.cartographer = cartographer;
-    }
-
-    public List<SelectedFigure> getItem(Element entity, Zoom zoom) {
+    public List<SelectedFigure> getItem(Cartographer cartographer, Element entity, Zoom zoom) {
         List<SelectedFigure> result = new ArrayList();
         for (Layer layer : cartographer.getLayers()) {
             for (Figure f : layer.getFigures()) {

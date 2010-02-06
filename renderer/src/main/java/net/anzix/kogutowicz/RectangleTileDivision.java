@@ -15,8 +15,6 @@ public class RectangleTileDivision implements TileDivision {
 
     private Node tl = new Node(18, 47);
 
-    private Node br = new Node(19, 46.5);
-
     private int xSize = 10;
 
     private int ySize = 5;
@@ -29,7 +27,6 @@ public class RectangleTileDivision implements TileDivision {
 
     public RectangleTileDivision(Node tl, Node br, int xSize, int ySize) {
         this.tl = tl;
-        this.br = br;
         this.xSize = xSize;
         this.ySize = ySize;
         width = (br.getLongitude() - tl.getLongitude()) / xSize;

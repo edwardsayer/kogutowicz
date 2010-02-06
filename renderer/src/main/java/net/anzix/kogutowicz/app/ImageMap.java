@@ -64,13 +64,23 @@ public class ImageMap implements MapApplication {
 
     private String output;
 
+    @Inject
+    private MapRender map;
+
+    @Inject
+    RenderContext context;
+
     @Override
     public void run() {
 
         Node tl = Node.valueOf(inputProjection, west, north);
         Node br = Node.valueOf(inputProjection, east, south);
 
+        context.setTopLeft(tl);
+        context.setBottomRight(br);
         Cartographer c = new Cartographer(datasource);
+        context.setCartographer(c);
+        context.setProjection(inputProjection);
         mapStyle.applyStyle(c);
 
         double aspect = Math.abs((tl.getLatitude() - br.getLatitude()) / (tl.getLongitude() - br.getLongitude()));
@@ -81,7 +91,6 @@ public class ImageMap implements MapApplication {
         logger.debug("rendering map to size " + size);
         RenderingWorkspace workspace = new RenderingWorkspace(size, renderer);
         workspace.init();
-        MapRender map = new MapRender(tl, br, inputProjection, c, zoom);
         map.render(workspace);
         workspace.release();
 

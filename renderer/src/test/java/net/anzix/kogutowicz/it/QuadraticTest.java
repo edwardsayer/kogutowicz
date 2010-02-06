@@ -12,12 +12,14 @@ import net.anzix.kogutowicz.EqualProjection;
 import net.anzix.kogutowicz.RectangleTileDivision;
 import net.anzix.kogutowicz.Size;
 import net.anzix.kogutowicz.TileCoord;
+import net.anzix.kogutowicz.Zoom;
 import net.anzix.kogutowicz.style.TuhuStyleFactory;
 import net.anzix.kogutowicz.datasource.InMemory;
 import net.anzix.kogutowicz.element.Node;
 import net.anzix.kogutowicz.element.Way;
 import net.anzix.kogutowicz.processor.ProcessMatrix;
 import net.anzix.kogutowicz.processor.QuadraticProcessor;
+import net.anzix.kogutowicz.processor.RenderContext;
 import net.anzix.kogutowicz.renderer.Java2DFileRenderer;
 import net.anzix.kogutowicz.style.Cartographer;
 import net.anzix.kogutowicz.style.Layer;
@@ -65,11 +67,16 @@ public class QuadraticTest {
         c = new TuhuStyleFactory().applyStyle(c);
 
 
-        ProcessMatrix testMatrix = new ProcessMatrix(no1, no2, division, 2, 2);        
-
-        QuadraticProcessor p = new QuadraticProcessor(new EqualProjection(),testMatrix, c);
+        RenderContext context = new RenderContext();
+        context.setZoom(Zoom.zoom(14));
+        context.setTopLeft(no1);
+        context.setBottomRight(no2);
+        context.setDivision(division);
+        QuadraticProcessor p = new QuadraticProcessor();
+        p.setContext(context);
+        context.setCartographer(c);
         Java2DFileRenderer renderer = new Java2DFileRenderer();
-        renderer.initSpace(new Size(800,800));
+        renderer.initSpace(new Size(800, 800));
         renderer.setOutputFile(new File("target/test.png"));
         p.setRenderer(renderer);
         p.setWidth(800);
