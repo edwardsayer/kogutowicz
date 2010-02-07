@@ -52,6 +52,8 @@ public class ImageMap implements MapApplication {
 
     private Boolean verbose = Boolean.FALSE;
 
+    private Integer size;
+
     @NotNull
     private Projection inputProjection = new Mercator();
 
@@ -84,38 +86,16 @@ public class ImageMap implements MapApplication {
         mapStyle.applyStyle(c);
 
         double aspect = Math.abs((tl.getLatitude() - br.getLatitude()) / (tl.getLongitude() - br.getLongitude()));
-        int width = 800;
-
+        int width = size;
         int height = (int) Math.round(aspect * width);
-        Size size = new Size(width, height);
-        logger.debug("rendering map to size " + size);
-        RenderingWorkspace workspace = new RenderingWorkspace(size, renderer);
+        Size sz = new Size(width, height);
+        logger.debug("rendering map to size " + sz);
+        RenderingWorkspace workspace = new RenderingWorkspace(sz, renderer);
         workspace.init();
         map.render(workspace);
         workspace.release();
 
-//        RectangleTileDivision division = new RectangleTileDivision(tl, br, 10, 10);
-//        ProcessMatrix testMatrix = new ProcessMatrix(tl, br, division, 10, 10);
-//
-//                QuadraticProcessor p = new QuadraticProcessor(inputProjection, testMatrix, c) {
-//
-//            @Override
-//            protected void initRenderer(Renderer renderer, Size size) {
-//                super.initRenderer(renderer, size);
-//                renderer.initSpace(size);
-//                BaseTransformation transf = new BaseTransformation(matrix.getBoundary().getCoordBox(), size.getWidth(), size.getHeight());
-//                renderer.setTransformation(transf);
-//                renderer.setClip(new CoordBox(30, 30, 100, 100));
-//
-//            }
-//        };
-//        p.setRenderer(renderer);
-////        double aspect = Math.abs((tl.getLongitude() - br.getLongitude()) / (tl.getLatitude() - br.getLatitude()));
-////        System.out.println(aspect);
-////        p.setWidth(800);
-////        p.setHeight((int) Math.round(aspect * p.getWidth()));
-//        p.process();
-//        p.release();
+
     }
 
     public Datasource getDatasource() {
@@ -205,4 +185,15 @@ public class ImageMap implements MapApplication {
     public void setRenderer(Renderer renderer) {
         this.renderer = renderer;
     }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+
+    
+    
 }

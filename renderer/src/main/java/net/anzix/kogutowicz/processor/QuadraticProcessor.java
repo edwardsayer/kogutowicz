@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import net.anzix.kogutowicz.Projection;
 import net.anzix.kogutowicz.Size;
 import net.anzix.kogutowicz.TileCoord;
 import net.anzix.kogutowicz.TileDivision;
@@ -16,7 +15,6 @@ import net.anzix.kogutowicz.geometry.GeometryElement;
 import net.anzix.kogutowicz.geometry.GeometryElementOnLayer;
 import net.anzix.kogutowicz.renderer.BaseTransformation;
 import net.anzix.kogutowicz.renderer.Renderer;
-import net.anzix.kogutowicz.style.Cartographer;
 import net.anzix.kogutowicz.style.SelectedFigure;
 import net.anzix.kogutowicz.style.SimpleSelector;
 import org.slf4j.Logger;
@@ -36,12 +34,12 @@ public class QuadraticProcessor {
 
     private Renderer renderer;
 
-    private Size size = new Size();
-
     @Inject
     protected RenderContext context;
 
     private GeometryCache geoms = new GeometryCache();
+
+    private Size size;
 
     public QuadraticProcessor() {
         this.selector = new SimpleSelector();
@@ -49,7 +47,10 @@ public class QuadraticProcessor {
     }
 
     public void process() {
-//        initRenderer(renderer, size);
+        if (size == null) {
+            size = context.getSize();
+        }
+        initRenderer(renderer, size);
         Date start = new Date();
         logger.debug("Starting process (zoom " + context.getZoom() + ")");
         init();
@@ -105,18 +106,30 @@ public class QuadraticProcessor {
     }
 
     public int getHeight() {
+        if (size == null) {
+            size = new Size();
+        }
         return size.getHeight();
     }
 
     public void setHeight(int height) {
+        if (size == null) {
+            size = new Size();
+        }
         size.setHeight(height);
     }
 
     public int getWidth() {
+        if (size == null) {
+            size = new Size();
+        }
         return size.getWidth();
     }
 
     public void setWidth(int width) {
+        if (size == null) {
+            size = new Size();
+        }
         size.setWidth(width);
     }
 
@@ -152,5 +165,4 @@ public class QuadraticProcessor {
     public void setContext(RenderContext context) {
         this.context = context;
     }
-
 }

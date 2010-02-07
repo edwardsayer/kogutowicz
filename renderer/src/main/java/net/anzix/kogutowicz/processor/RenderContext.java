@@ -27,7 +27,7 @@ public class RenderContext {
 
     private File basedir;
 
-    private Size size;
+    private Size size = new Size();
 
     private Zoom zoom = Zoom.zoom(14);
 
@@ -103,11 +103,11 @@ public class RenderContext {
         return new Box(topLeft, bottomRight);
     }
 
-    public TileCoord getTileStart(){
-         return division.getTileCoord(topLeft);
+    public TileCoord getTileStart() {
+        return division.getTileCoord(topLeft);
     }
 
-    public TileCoord getTileEnd(){
+    public TileCoord getTileEnd() {
         return division.getTileCoord(bottomRight);
     }
 
@@ -118,6 +118,4 @@ public class RenderContext {
     public void setCartographer(Cartographer cartographer) {
         this.cartographer = cartographer;
     }
-
-    
 }
