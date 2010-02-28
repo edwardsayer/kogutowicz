@@ -12,7 +12,8 @@
 
     <modules>
         <module>renderer</module>
-    </modules>
+    <module>assembly</module>
+  </modules>
     <scm>
         <connection>scm:hg:https://kogutowicz.googlecode.com/hg/</connection>
         <developerConnection>scm:hg:${hg.repo.url}</developerConnection>

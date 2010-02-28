@@ -64,28 +64,7 @@
                 </configuration>
             </plugin-->
 
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
-                        <phase>package</phase> <!-- append to the packaging phase. -->
-                        <goals>
-                            <goal>assembly</goal> <!-- goals == mojos -->
-                        </goals>
-
-                        <configuration>
-                            <descriptorRefs>
-                                <descriptorRef>jar-with-dependencies</descriptorRef>
-                            </descriptorRefs>
-                            <archive>
-                                <manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
-                            </archive>
-
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
