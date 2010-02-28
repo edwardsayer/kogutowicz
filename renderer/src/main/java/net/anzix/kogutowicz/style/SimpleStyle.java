@@ -1,14 +1,12 @@
 package net.anzix.kogutowicz.style;
 
-import net.anzix.kogutowicz.*;
-import net.anzix.kogutowicz.element.Element;
 import net.anzix.kogutowicz.geometry.Color;
 
 /**
  * Sample style definition with Java API.
  * @author elek
  */
-public class TuhuStyleFactory implements MapStyle {
+public class SimpleStyle implements MapStyle {
 
     @Override
     public Cartographer applyStyle(Cartographer map) {

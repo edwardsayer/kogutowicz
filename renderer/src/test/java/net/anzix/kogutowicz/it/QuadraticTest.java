@@ -8,7 +8,7 @@ import net.anzix.kogutowicz.RectangleTileDivision;
 import net.anzix.kogutowicz.Size;
 import net.anzix.kogutowicz.TileCoord;
 import net.anzix.kogutowicz.Zoom;
-import net.anzix.kogutowicz.style.TuhuStyleFactory;
+import net.anzix.kogutowicz.style.SimpleStyle;
 import net.anzix.kogutowicz.datasource.InMemory;
 import net.anzix.kogutowicz.element.Node;
 import net.anzix.kogutowicz.element.Way;
@@ -58,7 +58,7 @@ public class QuadraticTest {
         LineFigure footway = new LineFigure();
         footway.addFilter(new TagFilter("highway", "residential")).startZoom(14);
         streets.addFigure(footway);
-        c = new TuhuStyleFactory().applyStyle(c);
+        c = new SimpleStyle().applyStyle(c);
 
 
         RenderContext context = new RenderContext();
