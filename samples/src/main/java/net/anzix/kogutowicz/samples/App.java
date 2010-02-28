@@ -11,7 +11,12 @@ import net.anzix.kogutowicz.config.ConfigReader;
 public class App {
 
     public static void main(String[] args) {
-        File baseDir = new File("target/classes");
+        //to project wide build
+        File baseDir = new File("samples/target/classes");
+        if (!baseDir.exists()) {
+            baseDir = new File("target/classes");
+        }
+
         for (File file : baseDir.listFiles(new FilenameFilter() {
 
             public boolean accept(File dir, String name) {
