@@ -12,7 +12,7 @@ public abstract class GeometryElement<T extends Style> {
 
     private int zindex = 0;
 
-    private T style;
+    protected T style;
 
     public GeometryElement() {
     }

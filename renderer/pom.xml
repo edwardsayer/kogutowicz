@@ -48,7 +48,7 @@
                 </dependencies>
             </plugin>
 
-            <plugin>
+            <!--plugin>
                 <groupId>org.riedelcastro</groupId>
                 <artifactId>gcupload-maven-plugin</artifactId>
                 <version>0.9.1-SNAPSHOT</version>
@@ -62,7 +62,7 @@
                         </upload>
                     </uploads>
                 </configuration>
-            </plugin>
+            </plugin-->
 
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -202,6 +202,19 @@
             <version>1.7</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>2.1.7</version>
+            <type>jar</type>
+            <exclusions>
+                <exclusion>
+                    <artifactId>bctsp-jdk14</artifactId>
+                    <groupId>bouncycastle</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
     </dependencies>
 
 </project>

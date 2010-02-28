@@ -25,6 +25,7 @@ public class Line extends GeometryElement<Style<LineStyle>> {
     }
 
     public Line() {
+        style = new Style<LineStyle>();
     }
 
     void addPoint(double x, double y) {
