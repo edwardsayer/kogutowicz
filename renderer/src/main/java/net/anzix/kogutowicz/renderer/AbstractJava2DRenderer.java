@@ -85,7 +85,7 @@ public abstract class AbstractJava2DRenderer extends AbstractRenderer {
     private void drawLine(Line le) {
         float[] pattern = le.getStyle().getStyle(LineStyle.PATTERN, new float[0].getClass());
         if (pattern != null) {
-            graphics.setStroke(new BasicStroke(le.getStyle().getStyle(LineStyle.WIDTH, Float.class), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0f, pattern, 0));
+            graphics.setStroke(new BasicStroke(le.getStyle().getStyle(LineStyle.WIDTH, Float.class), BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0f, pattern, 0));
         } else {
             graphics.setStroke(new BasicStroke(le.getStyle().getStyle(LineStyle.WIDTH, Float.class), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         }

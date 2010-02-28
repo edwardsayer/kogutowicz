@@ -24,13 +24,15 @@ public class NotEqualFilter implements Filter {
 
     @Override
     public boolean is(Element element, Zoom zoom) {
-        String value = element.getTagValue(key);
-        return value == null || !value.equals(key);
+        String current = element.getTagValue(key);
+        if (value.equals("#EMPTY#")) {
+            return current != null && current.length() > 0;
+        }
+        return current == null || !current.equals(key);
     }
 
     @Override
     public String toString() {
-        return key +" <> "+value;
+        return key + " <> " + value;
     }
-
 }
