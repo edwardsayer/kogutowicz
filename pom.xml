@@ -37,7 +37,15 @@
     </build>
     <profiles>
         <profile>
-            <id>release</id>
+            <id>release-perform</id>
+            <properties>
+                <staging.mvn.repo.url>file:///tmp/target-maven-repo</staging.mvn.repo.url>
+                <hg.repo.url>file:///tmp/dummy-hg-repo</hg.repo.url>
+                <altDeploymentRepository>release-repo-hudson::default::${staging.mvn.repo.url}</altDeploymentRepository>
+            </properties>
+        </profile>
+        <profile>
+            <id>release-prepare</id>
             <properties>
                 <staging.mvn.repo.url>file:///tmp/target-maven-repo</staging.mvn.repo.url>
                 <hg.repo.url>file:///tmp/dummy-hg-repo</hg.repo.url>
