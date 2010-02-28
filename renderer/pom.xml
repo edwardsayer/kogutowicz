@@ -23,7 +23,7 @@
             <url>http://anzix.net/nexus/content/groups/public/</url>
         </repository>
     </repositories>
- 
+
     <build>
 
         <plugins>
@@ -48,7 +48,21 @@
                 </dependencies>
             </plugin>
 
-
+            <plugin>
+                <groupId>org.riedelcastro</groupId>
+                <artifactId>gcupload-maven-plugin</artifactId>
+                <version>0.9.1-SNAPSHOT</version>
+                <configuration>
+                    <serverId>googlecode</serverId>
+                    <projectName>kogutowicz</projectName>
+                    <allowSnapshots>true</allowSnapshots>
+                    <uploads>
+                        <upload>
+                            <extensions>jar</extensions>
+                        </upload>
+                    </uploads>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -189,7 +203,7 @@
             <type>jar</type>
         </dependency>
     </dependencies>
-   
+
 </project>
 
 
