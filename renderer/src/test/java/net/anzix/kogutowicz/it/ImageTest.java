@@ -13,11 +13,12 @@ import org.junit.Test;
  * @author elek
  */
 public class ImageTest {
- 
+
     @Test
     public void test() throws Exception {
-//        new ConfigReader(new File("src/it/remete-svg.properties")).start();
-        new ConfigReader(new File("src/it/tartu-center.properties")).start();
+        File baseDir = new File("../samples/target/classes");
+        new ConfigReader(new File(baseDir, "remete-tiles.properties")).start();
+//        new ConfigReader(new File("src/it/tartu-center.properties")).start();
 //        new ConfigReader(new File("src/it/nk.properties")).start();
 //        new ConfigReader(new File("src/it/mapnik.properties")).start();
 //        new ConfigReader(new File("/home/elek/projects/kogutowicz.hg/test/hungary.properties")).start();

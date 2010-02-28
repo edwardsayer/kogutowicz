@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz.renderer;
 
 import java.awt.Color;
@@ -12,10 +8,17 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+
+;
+
 import javax.imageio.ImageIO;
+
 import net.anzix.kogutowicz.Size;
+
 import org.kohsuke.MetaInfServices;
+
+import org.slf4j.LoggerFactory;
 
 /**
  * Render gemotery elements to Java2D context.
@@ -24,6 +27,8 @@ import org.kohsuke.MetaInfServices;
  */
 @MetaInfServices(Renderer.class)
 public class PngRenderer extends AbstractJava2DRenderer implements FileOutputRenderer {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     private File outputFile;
 
@@ -55,8 +60,9 @@ public class PngRenderer extends AbstractJava2DRenderer implements FileOutputRen
             ImageIO.write(bi, "PNG", outputFile);
             bi = null;
             setGraphics(null);
+            logger.info("Ouptut is writed to " + outputFile);
         } catch (IOException ex) {
-            Logger.getLogger(PngRenderer.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("Error on write output file " + outputFile, ex);
         }
     }
 

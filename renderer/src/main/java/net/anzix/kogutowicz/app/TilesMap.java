@@ -67,10 +67,16 @@ public class TilesMap implements MapApplication {
 
     @Override
     public void run() {
+
+        
         Node n1 = Node.valueOf(projection, west, north);
         Node n2 = Node.valueOf(projection, east, south);
         Cartographer c = new Cartographer(datasource);
         mapStyle.applyStyle(c);
+        context.setProjection(projection);
+        context.setTopLeft(n1);
+        context.setBottomRight(n2);
+
 
         OSMTileDivision division = new OSMTileDivision(Zoom.zoom(zoom));
         context.setDivision(division);

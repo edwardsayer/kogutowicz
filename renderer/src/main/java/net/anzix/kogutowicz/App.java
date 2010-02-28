@@ -17,9 +17,13 @@ public class App {
 
     public static void main(String args[]) throws Exception {
 
-        logger.info("Start rendering");
-        File propFile = new File(args[0]);
-        new ConfigReader(propFile).start();
+        if (args.length == 0) {
+            System.err.println("Usage: java -jar kogutowicz.jar config.properties");
+        } else {
+            logger.info("Start rendering");
+            File propFile = new File(args[0]);
+            new ConfigReader(propFile).start();
+        }
 
     }
 }

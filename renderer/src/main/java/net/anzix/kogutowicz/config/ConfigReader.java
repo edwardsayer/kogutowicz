@@ -20,6 +20,7 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
+import net.anzix.kogutowicz.RenderException;
 import net.anzix.kogutowicz.app.MapApplication;
 import net.anzix.kogutowicz.processor.RenderContext;
 import org.slf4j.Logger;
@@ -61,6 +62,7 @@ public class ConfigReader {
             props = new Properties();
             props.load(fis);
             fis.close();
+            logger.debug("property file {} is loaded", propertyFile.getAbsolutePath());
         } catch (Exception ex) {
             throw new FieldInitializationException("Error on read property file " + propertyFile.getAbsolutePath(), ex);
         } finally {
@@ -157,8 +159,9 @@ public class ConfigReader {
             }
             return o;
         } catch (Exception ex) {
-            logger.error("Error on loading config", ex);
-            return null;
+            String message = "Error on render execution";
+            logger.error(message, ex);
+            throw new RenderException(message, ex);
         }
     }
 

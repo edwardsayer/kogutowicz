@@ -11,7 +11,7 @@ map.mapStyle.source=../test/mapnik-short.xml
 
 #map.renderer=net.anzix.kogutowicz.renderer.SystemOutputRenderer
 map.renderer=PngRenderer
-map.renderer.outputFile=../../target/samples/mapnik.png
+map.renderer.outputFile=output/mapnik.png
 
 
 map.west=18.921

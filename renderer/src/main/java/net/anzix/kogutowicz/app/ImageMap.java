@@ -52,7 +52,7 @@ public class ImageMap implements MapApplication {
 
     private Boolean verbose = Boolean.FALSE;
 
-    private Integer size;
+    private Integer size = new Integer(800);
 
     @NotNull
     private Projection inputProjection = new Mercator();

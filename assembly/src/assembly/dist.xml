@@ -20,4 +20,19 @@
             <destName>kogutowicz.jar</destName>
         </file>
     </files>
+       <dependencySets>
+        <dependencySet>
+            <includes>
+                <include>net.anzix.kogutowicz:samples</include>
+            </includes>           
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <unpackOptions>
+                <excludes>
+                    <exclude>net/**</exclude>
+                </excludes>
+            </unpackOptions>
+            <outputDirectory>samples</outputDirectory>
+            <unpack>true</unpack>
+        </dependencySet>
+    </dependencySets>
 </assembly>

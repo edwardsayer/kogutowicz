@@ -12,8 +12,9 @@
 
     <modules>
         <module>renderer</module>
-    <module>assembly</module>
-  </modules>
+        <module>assembly</module>
+        <module>samples</module>
+    </modules>
     <scm>
         <connection>scm:hg:https://kogutowicz.googlecode.com/hg/</connection>
         <developerConnection>scm:hg:${hg.repo.url}</developerConnection>
@@ -22,6 +23,18 @@
     <properties>
         <hg.repo.url>https://kogutowicz.googlecode.com/hg/</hg.repo.url>
     </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.0.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <profiles>
         <profile>
             <id>release</id>

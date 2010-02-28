@@ -11,10 +11,13 @@
             <includes>
                 <include>*:*</include>
             </includes>
+            <excludes>
+                <exclude>net.anzix.kogutowicz:samples</exclude>
+            </excludes>
             <useTransitiveDependencies>true</useTransitiveDependencies>
             <unpackOptions>
                 <excludes>
-                    <exclude>META-INF/**</exclude>
+                    <exclude>META-INF/MANIFEST.MF</exclude>
                 </excludes>
             </unpackOptions>
             <unpack>true</unpack>
