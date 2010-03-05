@@ -2,18 +2,18 @@
     <parent>
         <artifactId>root</artifactId>
         <groupId>net.anzix.kogutowicz</groupId>
-        <version>0.1</version>
+        <version>0.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.anzix.kogutowicz</groupId>
     <artifactId>samples</artifactId>
     <name>samples</name>
-    <version>0.1</version>
+    <version>0.2-SNAPSHOT</version>
     <dependencies>
         <dependency>
             <groupId>net.anzix.kogutowicz</groupId>
             <artifactId>renderer</artifactId>
-            <version>0.1</version>
+            <version>0.2-SNAPSHOT</version>
         </dependency>
     </dependencies>
     <build>

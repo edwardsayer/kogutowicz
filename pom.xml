@@ -7,7 +7,7 @@
 
     <groupId>net.anzix.kogutowicz</groupId>
     <artifactId>root</artifactId>
-    <version>0.1</version>
+    <version>0.2-SNAPSHOT</version>
     <name>kogutowicz root</name>
 
     <modules>
