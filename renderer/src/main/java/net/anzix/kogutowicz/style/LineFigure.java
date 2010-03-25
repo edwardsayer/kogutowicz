@@ -1,12 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz.style;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.anzix.kogutowicz.Projection;
 import net.anzix.kogutowicz.Zoom;
 import net.anzix.kogutowicz.element.Element;
 
@@ -18,6 +13,7 @@ import net.anzix.kogutowicz.geometry.Line;
 
 /**
  * Draw a line based on source map element and a given style.
+ * 
  * @author elek
  */
 public class LineFigure extends Figure {
