@@ -1,0 +1,198 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>net.anzix.kogutowicz</groupId>
+    <artifactId>renderer</artifactId>
+    <packaging>jar</packaging>
+    <version>0.2-SNAPSHOT</version>
+    <name>kogutowicz renderer</name>
+    <parent>
+        <artifactId>root</artifactId>
+        <groupId>net.anzix.kogutowicz</groupId>
+        <version>0.2-SNAPSHOT</version>
+    </parent>
+    <repositories>
+        <repository>
+            <id>guice-maven</id>
+            <name>guice maven</name>
+            <url>http://guice-maven.googlecode.com/svn/trunk</url>
+        </repository>
+        <repository>
+            <id>anzix</id>
+            <url>http://anzix.net/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+
+    <build>
+
+        <plugins>
+           
+
+            <plugin>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>2.1</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.doxia</groupId>
+                        <artifactId>doxia-module-confluence</artifactId>
+                        <version>1.1.2</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <!--plugin>
+                <groupId>org.riedelcastro</groupId>
+                <artifactId>gcupload-maven-plugin</artifactId>
+                <version>0.9.1-SNAPSHOT</version>
+                <configuration>
+                    <serverId>googlecode</serverId>
+                    <projectName>kogutowicz</projectName>
+                    <allowSnapshots>true</allowSnapshots>
+                    <uploads>
+                        <upload>
+                            <extensions>jar</extensions>
+                        </upload>
+                    </uploads>
+                </configuration>
+            </plugin-->
+
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>-Xmx787m</argLine>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>org.kohsuke.metainf-services</groupId>
+            <artifactId>metainf-services</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.guice</groupId>
+            <artifactId>guice</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-svggen</artifactId>
+            <version>1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>0.9.17</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>0.9.17</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.6</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openstreetmap</groupId>
+            <artifactId>osmosis</artifactId>
+            <version>0.31</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>1.0.0.GA</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>4.0.2.GA</version>
+        </dependency>
+        <!--dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>8.3-603.jdbc4</version>
+        </dependency>
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgis</artifactId>
+            <version>1.4.0-4175</version>
+        </dependency-->
+        <dependency>
+            <groupId>org.apache.tools</groupId>
+            <artifactId>bzip2</artifactId>
+            <version>20090327</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jhlabs</groupId>
+            <artifactId>javaproj</artifactId>
+            <version>1.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openstreetmap</groupId>
+            <artifactId>josm</artifactId>
+            <version>1779</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom</artifactId>
+            <version>1.1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.javacsv</groupId>
+            <artifactId>javacsv</artifactId>
+            <version>2.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.5.8</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>nekohtml</groupId>
+            <artifactId>nekohtml</artifactId>
+            <version>1.9.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-dom</artifactId>
+            <version>1.7</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>2.1.7</version>
+            <type>jar</type>
+            <exclusions>
+                <exclusion>
+                    <artifactId>bctsp-jdk14</artifactId>
+                    <groupId>bouncycastle</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+    </dependencies>
+
+</project>
+
+
+
+
+
+
+

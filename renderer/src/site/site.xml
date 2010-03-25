@@ -1,0 +1,21 @@
+<project name="Sample Project">
+    <bannerLeft>
+        <name>Kogutowicz</name>
+        <src>images/logo.png</src>
+        <href>http://anzix.net</href>
+    </bannerLeft>
+    <!--skin>
+        <groupId>wicket</groupId>
+        <artifactId>wicket-site-skin</artifactId>
+        <version>1.2.6</version>
+        
+    </skin-->
+    <body>
+        <menu name="Kogutowicz">
+            <item name="Overview" href="index.html"/>
+            <item name="Getting started" href="getting.html"/>
+        </menu>
+        <menu ref="reports"/>
+    </body>
+</project>
+

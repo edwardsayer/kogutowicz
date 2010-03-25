@@ -1,0 +1,39 @@
+h1. Configuration
+
+h2. Structure of the configuration file
+
+Currently there is no GUI to the Kogutowicz, so you can use it from command line. You can configure the command line runner over a properties file.
+
+The main entry point is the map property. Choose an implementation of MapApplication and set the map property value to its fully qualified name.
+
+map=
+
+Now you should set any property on the declared instance using map.property style notation.
+
+map.dataSource=
+
+If the field value is a new instance use the fully qualified Java name:
+
+map.dataSource=
+
+Certainly you can also set propertiy of the new DataSource instance:
+
+map.dataSource.valami=
+
+h2. Available elements
+
+Available applications:
+ImageMap
+TileMap
+
+AvailableDataSources
+
+Available style formats
+Mapnik
+Kosmos
+Css
+Java
+
+Available renderers
+Java2DRenderer
+
