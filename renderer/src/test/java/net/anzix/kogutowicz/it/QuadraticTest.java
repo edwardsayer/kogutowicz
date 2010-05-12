@@ -18,7 +18,7 @@ import net.anzix.kogutowicz.renderer.Java2DFileRenderer;
 import net.anzix.kogutowicz.style.Cartographer;
 import net.anzix.kogutowicz.style.Layer;
 import net.anzix.kogutowicz.style.LineFigure;
-import net.anzix.kogutowicz.style.TagFilter;
+import net.anzix.kogutowicz.style.filter.TagFilter;
 
 /**
  *

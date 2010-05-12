@@ -14,6 +14,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 import java.util.Set;
@@ -85,17 +86,27 @@ public class ConfigReader {
     }
 
     private void setProperty(String key, Object o, String propertyName, Object value) throws IntrospectionException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-        BeanInfo bean = Introspector.getBeanInfo(o.getClass());
-        for (PropertyDescriptor pdsc : bean.getPropertyDescriptors()) {
-            if (pdsc.getName().equals(propertyName)) {
-                Object val = convertFromString(key, propertyName, (String) value, pdsc.getPropertyType());
+        for (Field field : o.getClass().getDeclaredFields()) {
+            if (field.getName().equals(propertyName)) {             
+                Object val = convertFromString(key, propertyName, (String) value, field.getType());
                 if (val != null) {
-                    pdsc.getWriteMethod().invoke(o, val);
+                    field.setAccessible(true);
+                    field.set(o, val);
                 }
-
                 return;
             }
         }
+//        BeanInfo bean = Introspector.getBeanInfo(o.getClass());
+//        for (PropertyDescriptor pdsc : bean.getPropertyDescriptors()) {
+//            if (pdsc.getName().equals(propertyName)) {
+//                Object val = convertFromString(key, propertyName, (String) value, pdsc.getPropertyType());
+//                if (val != null) {
+//                    pdsc.getWriteMethod().invoke(o, val);
+//                }
+//
+//                return;
+//            }
+//        }
         System.out.println("No such property: " + o.getClass().getCanonicalName() + " " + propertyName);
     }
 

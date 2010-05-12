@@ -1,5 +1,7 @@
 package net.anzix.kogutowicz.style;
 
+import net.anzix.kogutowicz.style.filter.OrFilter;
+import net.anzix.kogutowicz.style.filter.TagFilter;
 import net.anzix.kogutowicz.geometry.Color;
 
 /**

@@ -5,8 +5,8 @@
 
 package net.anzix.kogutowicz.style.parser;
 
-import net.anzix.kogutowicz.style.Filter;
-import net.anzix.kogutowicz.style.OrFilter;
+import net.anzix.kogutowicz.style.filter.Filter;
+import net.anzix.kogutowicz.style.filter.OrFilter;
 
 /**
  *
