@@ -7,6 +7,7 @@ import net.anzix.kogutowicz.geometry.GeometryElement;
 import net.anzix.kogutowicz.style.Layer;
 
 /**
+ * Render gemoetries to rendered output.
  *
  * @author elek
  */
@@ -14,8 +15,7 @@ public interface Renderer {
 
     public void initSpace(Size size);
 
-    public void setTransformation(Transformation trafo);
-    
+    public void setTransformation(Transformation trafo);    
 
     public void setClip(CoordBox clip);
 

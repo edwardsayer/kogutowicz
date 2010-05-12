@@ -13,7 +13,7 @@ import net.anzix.kogutowicz.style.Cartographer;
 import net.anzix.kogutowicz.style.Figure;
 import net.anzix.kogutowicz.style.Layer;
 import net.anzix.kogutowicz.style.PolygonFigure;
-import net.anzix.kogutowicz.style.TagFilter;
+import net.anzix.kogutowicz.style.filter.TagFilter;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

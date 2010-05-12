@@ -4,6 +4,7 @@
  */
 package net.anzix.kogutowicz.style;
 
+import net.anzix.kogutowicz.style.filter.TagFilter;
 import java.util.List;
 import net.anzix.kogutowicz.Zoom;
 import net.anzix.kogutowicz.element.Element;

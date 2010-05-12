@@ -4,6 +4,7 @@
  */
 package net.anzix.kogutowicz.style.parser;
 
+import net.anzix.kogutowicz.style.filter.AndFilter;
 import net.anzix.kogutowicz.style.*;
 import com.csvreader.CsvReader;
 import com.google.inject.Inject;
