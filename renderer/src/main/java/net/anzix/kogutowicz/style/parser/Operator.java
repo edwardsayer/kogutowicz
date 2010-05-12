@@ -4,7 +4,7 @@
  */
 package net.anzix.kogutowicz.style.parser;
 
-import net.anzix.kogutowicz.style.Filter;
+import net.anzix.kogutowicz.style.filter.Filter;
 
 /**
  *

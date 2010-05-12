@@ -16,7 +16,6 @@ import net.anzix.kogutowicz.element.Element;
  */
 public interface Datasource {
 
-
     public void init(TileDivision division,Projection targetProjection);
 
     public void reset();

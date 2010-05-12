@@ -4,6 +4,11 @@
  */
 package net.anzix.kogutowicz.style.parser;
 
+import net.anzix.kogutowicz.style.filter.AndFilter;
+import net.anzix.kogutowicz.style.filter.OrFilter;
+import net.anzix.kogutowicz.style.filter.Filter;
+import net.anzix.kogutowicz.style.filter.TagFilter;
+import net.anzix.kogutowicz.style.filter.NotFilter;
 import net.anzix.kogutowicz.style.*;
 import java.util.List;
 import javax.lang.model.element.Element;

@@ -32,14 +32,17 @@ public class RenderingWorkspace implements Renderer {
         renderer.initSpace(originSize);
     }
 
+    @Override
     public void release() {
         renderer.release();
     }
 
+    @Override
     public void setTransformation(Transformation trafo) {
         renderer.setTransformation(new CompositeTransformation(trafo, new OffsetTransformation(origin.getX(), origin.getY())));
     }
 
+    @Override
     public void renderGeometry(Layer layer, GeometryElement element) {
         renderer.renderGeometry(layer, element);
     }

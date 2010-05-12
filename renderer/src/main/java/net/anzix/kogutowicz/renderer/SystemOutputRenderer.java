@@ -4,6 +4,7 @@
  */
 package net.anzix.kogutowicz.renderer;
 
+import java.io.File;
 import net.anzix.kogutowicz.Size;
 import net.anzix.kogutowicz.geometry.CoordBox;
 import net.anzix.kogutowicz.geometry.GeometryElement;
@@ -17,7 +18,7 @@ import org.kohsuke.MetaInfServices;
  * @author elek
  */
 @MetaInfServices(Renderer.class)
-public class SystemOutputRenderer extends AbstractRenderer {
+public class SystemOutputRenderer extends AbstractRenderer implements FileOutputRenderer {
 
     @Override
     public void renderGeometry(Layer layer, GeometryElement element) {
@@ -42,5 +43,10 @@ public class SystemOutputRenderer extends AbstractRenderer {
     @Override
     public void setClip(CoordBox clip) {
         System.out.println("set clip");
+    }
+
+    @Override
+    public void setOutputFile(File outputFile) {
+        System.out.println("set output file to "+outputFile.getAbsolutePath());
     }
 }

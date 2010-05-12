@@ -16,7 +16,7 @@ import net.anzix.kogutowicz.TileDivision;
 import net.anzix.kogutowicz.element.Element;
 
 /**
- * inmemory datasource for testingsources.
+ * In memory datasource for testing.
  * @author elek
  */
 public class InMemory implements Datasource {
