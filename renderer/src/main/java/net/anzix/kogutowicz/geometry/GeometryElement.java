@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz.geometry;
 
 /**
- *
+ * Dump drwawable geometric shape.
  * @author elek
  */
 public abstract class GeometryElement {

@@ -7,6 +7,7 @@ package net.anzix.kogutowicz.geometry;
 import net.anzix.kogutowicz.style.Layer;
 
 /**
+ * Geometry eElement with an additional layer location.
  *
  * @author elek
  */
@@ -62,5 +63,4 @@ public class GeometryElementOnLayer {
         hash = 61 * hash + (this.layer != null ? this.layer.hashCode() : 0);
         return hash;
     }
-
 }
