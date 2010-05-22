@@ -8,7 +8,8 @@ import net.anzix.kogutowicz.element.Box;
 import net.anzix.kogutowicz.element.Node;
 
 /**
- *
+ * Divide areas to equal rectangles.
+ * 
  * @author elek
  */
 public class RectangleTileDivision implements TileDivision {

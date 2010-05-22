@@ -6,7 +6,8 @@
 package net.anzix.kogutowicz;
 
 /**
- *
+ * ANy axception on rendering.
+ * 
  * @author elek
  */
 public class RenderException extends RuntimeException{

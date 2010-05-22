@@ -1,14 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz;
 
 import net.anzix.kogutowicz.element.Box;
 import net.anzix.kogutowicz.element.Node;
 
 /**
- *
+ * Divide a map equals to the Open Street Map tiles.
  * @author elek
  */
 public class OSMTileDivision implements TileDivision {

@@ -1,14 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz;
 
 import com.jhlabs.map.proj.ProjectionFactory;
-import java.awt.geom.Point2D;
 
 /**
- *
+ * Standard Mercator projection used by Open Street Map.
  * @author elek
  */
 public class Mercator extends Projection {

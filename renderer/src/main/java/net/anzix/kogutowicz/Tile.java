@@ -1,13 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz;
 
 import net.anzix.kogutowicz.element.Node;
 
 /**
  * Object represents a tile.
+ *
+ * Tile is the subpart of tile division. It you use OSMTileDivision then a tile
+ * object represent a slipy map tile
  *
  * @see http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames
  * @author elek
