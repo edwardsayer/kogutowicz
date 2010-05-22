@@ -8,23 +8,13 @@ package net.anzix.kogutowicz.geometry;
  *
  * @author elek
  */
-public abstract class GeometryElement<T extends Style> {
+public abstract class GeometryElement {
 
     private int zindex = 0;
-
-    protected T style;
 
     public GeometryElement() {
     }
 
-    public GeometryElement(T style) {
-        this.style = style;
-    }
-
-    public T getStyle() {
-        return style;
-    }
-   
     public int getZindex() {
         return zindex;
     }

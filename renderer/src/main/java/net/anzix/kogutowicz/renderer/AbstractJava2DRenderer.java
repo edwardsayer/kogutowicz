@@ -1,4 +1,3 @@
-
 package net.anzix.kogutowicz.renderer;
 
 import java.awt.AlphaComposite;
@@ -23,8 +22,6 @@ import net.anzix.kogutowicz.geometry.Line;
 import net.anzix.kogutowicz.geometry.Point;
 import net.anzix.kogutowicz.geometry.Polygon;
 import net.anzix.kogutowicz.style.Layer;
-import net.anzix.kogutowicz.style.LineStyle;
-import net.anzix.kogutowicz.style.PolygonStyle;
 
 /**
  * 
@@ -76,6 +73,9 @@ public abstract class AbstractJava2DRenderer extends AbstractRenderer {
             drawIcon((Icon) element);
 
         }
+//        else if (element instanceof Label){
+//            drawLabel((Label)element);
+//        }
     }
 
     public int round(double d) {
@@ -83,13 +83,13 @@ public abstract class AbstractJava2DRenderer extends AbstractRenderer {
     }
 
     private void drawLine(Line le) {
-        float[] pattern = le.getStyle().getStyle(LineStyle.PATTERN, new float[0].getClass());
-        if (pattern != null) {
-            graphics.setStroke(new BasicStroke(le.getStyle().getStyle(LineStyle.WIDTH, Float.class), BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0f, pattern, 0));
+        float[] pattern = le.getPattern();
+        if (pattern != null && pattern.length > 0) {
+            graphics.setStroke(new BasicStroke(le.getWidth(), BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0f, pattern, 0));
         } else {
-            graphics.setStroke(new BasicStroke(le.getStyle().getStyle(LineStyle.WIDTH, Float.class), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+            graphics.setStroke(new BasicStroke(le.getWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         }
-        graphics.setPaint(convertColor(le.getStyle().getStyle(LineStyle.COLOR, net.anzix.kogutowicz.geometry.Color.class)));
+        graphics.setPaint(convertColor(le.getColor()));
 
 
         int x[] = new int[le.getPoints().size()];
@@ -109,10 +109,10 @@ public abstract class AbstractJava2DRenderer extends AbstractRenderer {
     }
 
     private void drawPolygons(Polygon polygon) {
-        graphics.setStroke(new BasicStroke(polygon.getStyle().getStyle(PolygonStyle.WIDTH, Float.class), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-        graphics.setPaint(convertColor(polygon.getStyle().getStyle(PolygonStyle.COLOR, net.anzix.kogutowicz.geometry.Color.class)));
+        graphics.setStroke(new BasicStroke(polygon.getWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+        graphics.setPaint(convertColor(polygon.getColor()));
 
-        int alpha = polygon.getStyle().getStyle(PolygonStyle.COLOR, net.anzix.kogutowicz.geometry.Color.class).getAlpha();
+        int alpha = polygon.getColor().getAlpha();
         if (alpha != 255) {
             float fl = alpha / 255f;
             graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, fl));

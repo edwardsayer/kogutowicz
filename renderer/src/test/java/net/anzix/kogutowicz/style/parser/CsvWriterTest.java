@@ -8,16 +8,10 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import net.anzix.kogutowicz.datasource.EmptyDatasource;
 import net.anzix.kogutowicz.geometry.Color;
-import net.anzix.kogutowicz.renderer.SystemOutputRenderer;
 import net.anzix.kogutowicz.style.Cartographer;
-import net.anzix.kogutowicz.style.Figure;
 import net.anzix.kogutowicz.style.Layer;
 import net.anzix.kogutowicz.style.PolygonFigure;
 import net.anzix.kogutowicz.style.filter.TagFilter;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

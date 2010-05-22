@@ -18,7 +18,7 @@ import net.anzix.kogutowicz.geometry.Text;
  */
 public class LabelFigure extends Figure {
 
-    private String tag;
+    private String message;
 
     @Override
     public List<GeometryElement> drawElements(Element element, Zoom zoom) {

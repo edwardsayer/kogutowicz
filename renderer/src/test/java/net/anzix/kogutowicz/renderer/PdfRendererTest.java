@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz.renderer;
 
 import java.io.File;
@@ -9,9 +5,7 @@ import net.anzix.kogutowicz.Size;
 import net.anzix.kogutowicz.geometry.Color;
 import net.anzix.kogutowicz.geometry.Line;
 import net.anzix.kogutowicz.geometry.Point;
-import net.anzix.kogutowicz.geometry.Style;
 import net.anzix.kogutowicz.style.Layer;
-import net.anzix.kogutowicz.style.LineStyle;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -33,18 +27,21 @@ public class PdfRendererTest {
         renderer.setOutputFile(new File("target/pdf-test.pdf"));
         renderer.initSpace(new Size(100, 100));
 
-        Style<LineStyle> style = new Style<LineStyle>();
-        style.addStyle(LineStyle.WIDTH, 4f);
-        style.addStyle(LineStyle.COLOR, Color.BLACK);
-        style.addStyle(LineStyle.PATTERN, new float[]{1, 2});
+        Line line = new Line();
+        line.setWidth(4f);
+        line.setColor(Color.BLACK);
+        line.setPattern(new float[]{1, 2});
 
-        Line line = new Line(style);
+
         line.addPoint(new Point(0, 0));
         line.addPoint(new Point(100, 100));
 
         renderer.renderGeometry(Layer.ZERO, line);
 
-        line = new Line(style);
+        line = new Line();
+        line.setWidth(4f);
+        line.setColor(Color.BLACK);
+        line.setPattern(new float[]{1, 2});
         line.addPoint(new Point(0, 100));
         line.addPoint(new Point(100, 0));
 
