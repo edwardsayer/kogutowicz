@@ -8,7 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * Platform independent color object.
+ * 
  * @author elek
  */
 public class Color {

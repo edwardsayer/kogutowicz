@@ -1,13 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz.geometry;
 
 import net.anzix.kogutowicz.renderer.Transformation;
 
 /**
- *
+ * Location of the geometry space.
+ * 
  * @author elek
  */
 public class CoordPair {
@@ -72,5 +69,4 @@ public class CoordPair {
         hash = 71 * hash + (int) (Double.doubleToLongBits(this.x) ^ (Double.doubleToLongBits(this.x) >>> 32));
         return hash;
     }
-    
 }

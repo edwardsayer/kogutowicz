@@ -3,6 +3,7 @@ package net.anzix.kogutowicz.renderer;
 import java.io.File;
 import net.anzix.kogutowicz.Size;
 import net.anzix.kogutowicz.geometry.Color;
+import net.anzix.kogutowicz.geometry.Label;
 import net.anzix.kogutowicz.geometry.Line;
 import net.anzix.kogutowicz.geometry.Point;
 import net.anzix.kogutowicz.style.Layer;
@@ -32,7 +33,6 @@ public class PdfRendererTest {
         line.setColor(Color.BLACK);
         line.setPattern(new float[]{1, 2});
 
-
         line.addPoint(new Point(0, 0));
         line.addPoint(new Point(100, 100));
 
@@ -46,6 +46,11 @@ public class PdfRendererTest {
         line.addPoint(new Point(100, 0));
 
         renderer.renderGeometry(Layer.ZERO, line);
+
+        Label l = new Label(50,25);
+        l.setMessages("TEST");
+
+        renderer.renderGeometry(Layer.ZERO, l);
 
         renderer.release();
         assertNotNull(renderer);

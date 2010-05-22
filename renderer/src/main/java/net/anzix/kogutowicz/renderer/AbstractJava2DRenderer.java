@@ -3,6 +3,8 @@ package net.anzix.kogutowicz.renderer;
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -18,6 +20,7 @@ import net.anzix.kogutowicz.geometry.CoordBox;
 import net.anzix.kogutowicz.geometry.CoordPair;
 import net.anzix.kogutowicz.geometry.GeometryElement;
 import net.anzix.kogutowicz.geometry.Icon;
+import net.anzix.kogutowicz.geometry.Label;
 import net.anzix.kogutowicz.geometry.Line;
 import net.anzix.kogutowicz.geometry.Point;
 import net.anzix.kogutowicz.geometry.Polygon;
@@ -72,10 +75,9 @@ public abstract class AbstractJava2DRenderer extends AbstractRenderer {
         } else if (element instanceof Icon) {
             drawIcon((Icon) element);
 
+        } else if (element instanceof Label) {
+            drawLabel((Label) element);
         }
-//        else if (element instanceof Label){
-//            drawLabel((Label)element);
-//        }
     }
 
     public int round(double d) {
@@ -179,5 +181,14 @@ public abstract class AbstractJava2DRenderer extends AbstractRenderer {
 
     public void setGraphics(Graphics2D graphics) {
         this.graphics = graphics;
+    }
+
+    private void drawLabel(Label label) {
+        Point p = label.transform(getCurrentTransformation());
+        Font font = new Font("Dialog", Font.PLAIN, label.getSize());
+        FontMetrics metrics = graphics.getFontMetrics(font);
+        int adv = metrics.stringWidth(label.getMessages());
+        graphics.drawString(label.getMessages(), ((float) p.getX() - adv / 2), (float) p.getY());
+
     }
 }
