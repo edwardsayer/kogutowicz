@@ -8,7 +8,7 @@ import net.anzix.kogutowicz.element.Box;
 import net.anzix.kogutowicz.element.Node;
 
 /**
- * Split a map to working units.
+ * Split a map to working units (smaller rectangles).
  * 
  * @author elek
  */

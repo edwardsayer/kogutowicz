@@ -6,7 +6,6 @@ package net.anzix.kogutowicz.renderer;
 
 
 import net.anzix.kogutowicz.Size;
-import net.anzix.kogutowicz.geometry.CoordBox;
 
 /**
  *

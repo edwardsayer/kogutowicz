@@ -4,10 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
-import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,8 +13,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
+import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Set;
+import java.util.logging.Level;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
@@ -42,42 +42,30 @@ public class ConfigReader {
 
     private Injector injector;
 
+    private ClassLoader loader;
+
     @Inject
     private RenderContext context;
 
     public ConfigReader(Properties props) {
-        initGuice();
+        this();
         this.props = props;
 
     }
 
     public ConfigReader(File propertyFile) {
-        initGuice();
-        if (!propertyFile.exists()) {
-            throw new IllegalArgumentException("File not found: " + propertyFile.getAbsolutePath());
-        }
-        context.setBasedir(propertyFile.getParentFile());
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(propertyFile);
-            props = new Properties();
-            props.load(fis);
-            fis.close();
-            logger.debug("property file {} is loaded", propertyFile.getAbsolutePath());
-        } catch (Exception ex) {
-            throw new FieldInitializationException("Error on read property file " + propertyFile.getAbsolutePath(), ex);
-        } finally {
-            try {
-                fis.close();
-            } catch (IOException ex) {
-                throw new FieldInitializationException("Error on closing property file.", ex);
-            }
-        }
-
+        this();
+        processProperties(propertyFile);
     }
 
     public ConfigReader() {
         initGuice();
+        this.loader = getClass().getClassLoader();
+    }
+
+    public ConfigReader(File propFile, ClassLoader loader) {
+        this(propFile);
+        this.loader = loader;
     }
 
     public void initGuice() {
@@ -87,7 +75,7 @@ public class ConfigReader {
 
     private void setProperty(String key, Object o, String propertyName, Object value) throws IntrospectionException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         for (Field field : o.getClass().getDeclaredFields()) {
-            if (field.getName().equals(propertyName)) {             
+            if (field.getName().equals(propertyName)) {
                 Object val = convertFromString(key, propertyName, (String) value, field.getType());
                 if (val != null) {
                     field.setAccessible(true);
@@ -134,26 +122,34 @@ public class ConfigReader {
             try {
                 return createClass(property, clazz);
             } catch (Exception ex) {
-                logger.error("Error on processing property value: " + key + "=" + value);
+                logger.error("Error on processing property value: " + key + "=" + value, ex);
                 return null;
             }
         }
     }
 
-    protected Class findImplementation(Class ifce, String name) throws IOException, ClassNotFoundException {
-        InputStream is = getClass().getResourceAsStream("/META-INF/services/" + ifce.getCanonicalName());
-        if (is != null) {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            while (reader.ready()) {
-                String line = reader.readLine().trim();
-                if (line.endsWith("." + name)) {
-                    return getClass().getClassLoader().loadClass(line);
+    protected Class findImplementation(Class ifce, String name, ClassLoader classloader) throws IOException, ClassNotFoundException {
+        Enumeration<URL> urls = classloader.getResources("META-INF/services/" + ifce.getCanonicalName());
+        while (urls.hasMoreElements()) {
+            URL url = urls.nextElement();
+            System.out.println("URL " + url);
+            InputStream is = url.openStream();
+            if (is != null) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+                while (reader.ready()) {
+                    String line = reader.readLine().trim();
+                    if (line.endsWith("." + name)) {
+                        return classloader.loadClass(line);
+                    }
                 }
             }
+            is.close();
         }
         return null;
+    }
 
-
+    protected Class findImplementation(Class ifce, String name) throws IOException, ClassNotFoundException {
+        return findImplementation(ifce, name, loader);
     }
 
     public MapApplication start() {
@@ -200,7 +196,7 @@ public class ConfigReader {
      */
     private Object createClass(String k, String clazzName) {
         try {
-            Class clazz = Class.forName(clazzName);
+            Class clazz = loader.loadClass(clazzName);
             if (clazz == null) {
                 throw new FieldInitializationException("No such class " + clazzName);
             }
@@ -219,5 +215,29 @@ public class ConfigReader {
         } catch (Exception ex) {
             throw new FieldInitializationException(ex);
         }
+    }
+
+    public void processProperties(File propertyFile) {
+        if (!propertyFile.exists()) {
+            throw new IllegalArgumentException("File not found: " + propertyFile.getAbsolutePath());
+        }
+        context.setBasedir(propertyFile.getParentFile());
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(propertyFile);
+            props = new Properties();
+            props.load(fis);
+            fis.close();
+            logger.debug("property file {} is loaded", propertyFile.getAbsolutePath());
+        } catch (Exception ex) {
+            throw new FieldInitializationException("Error on read property file " + propertyFile.getAbsolutePath(), ex);
+        } finally {
+            try {
+                fis.close();
+            } catch (IOException ex) {
+                throw new FieldInitializationException("Error on closing property file.", ex);
+            }
+        }
+
     }
 }

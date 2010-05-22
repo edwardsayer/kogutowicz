@@ -1,11 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz;
 
 /**
- *
+ * Tile coorditation betwwen a tile division.
+ * 
  * @author elek
  */
 public class TileCoord {

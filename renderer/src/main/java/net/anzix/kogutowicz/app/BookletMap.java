@@ -3,7 +3,6 @@ package net.anzix.kogutowicz.app;
 import com.google.inject.Inject;
 import java.io.File;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -20,13 +19,11 @@ import net.anzix.kogutowicz.element.Node;
 import net.anzix.kogutowicz.geometry.GeometryElement;
 import net.anzix.kogutowicz.geometry.GeometryElementOnLayer;
 import net.anzix.kogutowicz.processor.GeometryCache;
-import net.anzix.kogutowicz.processor.QuadraticTileProcessor;
 import net.anzix.kogutowicz.processor.RenderContext;
 import net.anzix.kogutowicz.renderer.BaseTransformation;
 import net.anzix.kogutowicz.renderer.FileOutputRenderer;
 import net.anzix.kogutowicz.renderer.Java2DFileRenderer;
 import net.anzix.kogutowicz.renderer.Renderer;
-import net.anzix.kogutowicz.renderer.SystemOutputRenderer;
 import net.anzix.kogutowicz.style.Cartographer;
 import net.anzix.kogutowicz.style.MapStyle;
 import net.anzix.kogutowicz.style.SelectedFigure;
@@ -36,7 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
+ * Render a book style atlas (eg. road atlas).
  * @author elek
  */
 @MetaInfServices

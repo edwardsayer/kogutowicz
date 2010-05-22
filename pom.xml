@@ -14,7 +14,8 @@
         <module>renderer</module>
         <module>assembly</module>
         <module>samples</module>
-    </modules>
+    <module>pluginsample</module>
+  </modules>
     <scm>
         <connection>scm:hg:https://kogutowicz.googlecode.com/hg/</connection>
         <developerConnection>scm:hg:${hg.repo.url}</developerConnection>

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.anzix.kogutowicz.renderer;
+package net.anzix.kogutowicz.pluginsample;
 
 import java.io.File;
 import net.anzix.kogutowicz.Size;
@@ -10,6 +10,9 @@ import net.anzix.kogutowicz.geometry.CoordBox;
 import net.anzix.kogutowicz.geometry.GeometryElement;
 import net.anzix.kogutowicz.geometry.Line;
 import net.anzix.kogutowicz.geometry.Point;
+import net.anzix.kogutowicz.renderer.AbstractRenderer;
+import net.anzix.kogutowicz.renderer.FileOutputRenderer;
+import net.anzix.kogutowicz.renderer.Renderer;
 import net.anzix.kogutowicz.style.Layer;
 import org.kohsuke.MetaInfServices;
 

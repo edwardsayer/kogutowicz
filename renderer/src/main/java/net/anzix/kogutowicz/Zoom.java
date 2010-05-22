@@ -1,7 +1,8 @@
 package net.anzix.kogutowicz;
 
 /**
- *
+ * Zoom object to define map details.
+ * 
  * @author elek
  */
 public class Zoom {
