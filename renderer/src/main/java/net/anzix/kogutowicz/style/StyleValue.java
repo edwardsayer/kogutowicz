@@ -7,6 +7,9 @@ package net.anzix.kogutowicz.style;
 import net.anzix.kogutowicz.Zoom;
 
 /**
+ * Conditional value for style element.
+ *
+ * Style parameters could be depend on zoom level.
  *
  * @author elek
  */

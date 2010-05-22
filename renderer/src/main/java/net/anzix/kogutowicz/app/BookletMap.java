@@ -78,9 +78,6 @@ public class BookletMap implements MapApplication {
     private Projection projection = new Mercator();
 
     @Inject
-    private QuadraticTileProcessor processor;
-
-    @Inject
     RenderContext context;
 
     private SimpleSelector selector = new SimpleSelector();

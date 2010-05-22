@@ -18,19 +18,20 @@ import net.anzix.kogutowicz.geometry.Line;
  */
 public class LineFigure extends Figure {
 
-    private FigureStyle<LineStyle> style = new FigureStyle();
+    private StyleValue<Color> color = new ConstantStyleValue<Color>(Color.BLACK);
+
+    private StyleValue<Float> width = new ConstantStyleValue<Float>(1f);
+
+    private StyleValue<float[]> pattern = new ConstantStyleValue<float[]>(new float[0]);
 
     public LineFigure(int color) {
-        setStroke(1f);
-        setColor(Color.BLACK);
-        setPattern(null);
+        setColor(new Color(color));
         setType(Way.class);
     }
 
     public LineFigure(int color, float width) {
         setStroke(width);
         setColor(new Color(color));
-        setPattern(null);
         setType(Way.class);
     }
 
@@ -42,16 +43,15 @@ public class LineFigure extends Figure {
     }
 
     public LineFigure(int color, String width, float[] pattern) {
-        style.addStyle(LineStyle.WIDTH, new ZoomStyleValue(width));
+        this.width = new ZoomStyleValue(width);
         setColor(new Color(color));
         setPattern(pattern);
         setType(Way.class);
     }
 
     public LineFigure(int color, String width) {
-        style.addStyle(LineStyle.WIDTH, new ZoomStyleValue(width));
+        this.width = new ZoomStyleValue(width);
         setColor(new Color(color));
-        setPattern(null);
         setType(Way.class);
     }
 
@@ -63,9 +63,6 @@ public class LineFigure extends Figure {
     }
 
     public LineFigure() {
-        setStroke(1f);
-        setColor(Color.BLACK);
-        setPattern(null);
         setType(Way.class);
     }
 
@@ -73,7 +70,16 @@ public class LineFigure extends Figure {
     public List<GeometryElement> drawElements(Element element, Zoom zoom) {
         List<GeometryElement> elements = new ArrayList();
         if (element instanceof Way) {
-            Line l = new Line(convertStyle(style, zoom));
+            Line l = new Line();
+            if (width != null) {
+                l.setWidth(width.getValue(zoom));
+            }
+            if (zoom != null) {
+                l.setPattern(pattern.getValue(zoom));
+            }
+            if (color != null) {
+                l.setColor(color.getValue(zoom));
+            }
             for (Node n : ((Way) element).getNodes()) {
                 l.addPoint(convertNodeToPoint(n));
             }
@@ -87,30 +93,30 @@ public class LineFigure extends Figure {
     }
 
     public LineFigure setStroke(Float stroke) {
-        style.addStyle(LineStyle.WIDTH, new ConstantStyleValue<Float>(stroke));
+        this.width = new ConstantStyleValue<Float>(stroke);
         return this;
     }
 
     public Float getStroke(Zoom zoom) {
-        return (Float) style.getStyles().get(LineStyle.WIDTH).getValue(zoom);
+        return width.getValue(zoom);
     }
 
     public Color getColor(Zoom zoom) {
-        return (Color) style.getStyles().get(LineStyle.COLOR).getValue(zoom);
+        return color.getValue(zoom);
     }
 
     public LineFigure setColor(Color color) {
-        style.addStyle(LineStyle.COLOR, new ConstantStyleValue<Color>(color));
+        this.color = new ConstantStyleValue<Color>(color);
         return this;
     }
 
     public LineFigure setColor(String color) {
-        style.addStyle(LineStyle.COLOR, new ConstantStyleValue<Color>(new Color(color)));
+        this.color = new ConstantStyleValue<Color>(new Color(color));
         return this;
     }
 
     public LineFigure setPattern(float[] f) {
-        style.addStyle(LineStyle.PATTERN, new ConstantStyleValue<float[]>(f));
+        this.pattern = new ConstantStyleValue<float[]>(f);
         return this;
     }
 
@@ -125,7 +131,7 @@ public class LineFigure extends Figure {
             if (!color.contains(":")) {
                 setColor(new Color(color));
             } else {
-                style.addStyle(LineStyle.COLOR, new ZoomStyleValue(color));
+                throw new IllegalArgumentException("Not implemented");
             }
 
         }
@@ -133,7 +139,7 @@ public class LineFigure extends Figure {
             if (!parameters[1].contains(":")) {
                 setStroke(Float.valueOf(parameters[1]));
             } else {
-                style.addStyle(LineStyle.WIDTH, new ZoomStyleValue(parameters[1]));
+                this.width = new ZoomStyleValue(parameters[1]);
             }
         }
         if (parameters.length > 2) {
@@ -142,12 +148,22 @@ public class LineFigure extends Figure {
             for (int i = 0; i < pattern.length; i++) {
                 p[i] = Float.parseFloat(pattern[i]);
             }
-            style.addStyle(LineStyle.PATTERN, new ConstantStyleValue<float[]>(p));
+            this.pattern = new ConstantStyleValue<float[]>(p);
 
         }
     }
 
-    public FigureStyle<LineStyle> getStyle() {
-        return style;
-    }    
+    public StyleValue<Color> getColor() {
+        return color;
+    }
+
+    public StyleValue<float[]> getPattern() {
+        return pattern;
+    }
+
+    public StyleValue<Float> getWidth() {
+        return width;
+    }
+
+
 }

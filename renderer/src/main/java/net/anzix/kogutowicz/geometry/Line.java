@@ -6,27 +6,22 @@ package net.anzix.kogutowicz.geometry;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.anzix.kogutowicz.style.FigureStyle;
-import net.anzix.kogutowicz.style.LineStyle;
-import net.anzix.kogutowicz.style.LineStyle;
 
 /**
  *
  * @author elek
  */
-public class Line extends GeometryElement<Style<LineStyle>> {
+public class Line extends GeometryElement {
 
     private List<Point> points = new ArrayList();
 
     private CoordBox box = null;
 
-    public Line(Style<LineStyle> style) {
-        super(style);
-    }
+    private float width = 1f;
 
-    public Line() {
-        style = new Style<LineStyle>();
-    }
+    private float[] pattern;
+
+    private Color color = Color.BLACK;
 
     void addPoint(double x, double y) {
         points.add(new Point(x, y));
@@ -75,4 +70,30 @@ public class Line extends GeometryElement<Style<LineStyle>> {
         }
         return box;
     }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public float[] getPattern() {
+        return pattern;
+    }
+
+    public void setPattern(float[] pattern) {
+        this.pattern = pattern;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    
 }

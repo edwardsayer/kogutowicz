@@ -4,7 +4,6 @@
  */
 package net.anzix.kogutowicz.geometry;
 
-import net.anzix.kogutowicz.style.PolygonStyle;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -16,7 +15,7 @@ public class PolygonTest {
 
     @Test
     public void testGetBoundingBox() {
-        Polygon p = new Polygon(new Style<PolygonStyle>());
+        Polygon p = new Polygon();
         p.addPoint(new Point(0, 5));
         p.addPoint(new Point(5, 10));
         p.addPoint(new Point(10, 5));

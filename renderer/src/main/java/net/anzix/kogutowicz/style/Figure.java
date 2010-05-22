@@ -69,14 +69,6 @@ public abstract class Figure {
         return this;
     }
 
-    public <T extends Object> Style<T> convertStyle(FigureStyle<T> from, Zoom zoom) {
-        Style<T> st = new Style<T>();
-        for (T key : from.getStyles().keySet()) {
-            st.addStyle(key, from.getStyles().get(key).getValue(zoom));
-        }
-        return st;
-    }
-
     public int getZindex() {
         return zindex;
     }
