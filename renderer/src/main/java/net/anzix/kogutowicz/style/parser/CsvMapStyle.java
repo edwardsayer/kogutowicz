@@ -41,6 +41,8 @@ public class CsvMapStyle implements MapStyle {
     public CsvMapStyle() {
         figures.put("polygon", PolygonFigure.class);
         figures.put("line", LineFigure.class);
+        figures.put("icon", PngLabelFigure.class);
+        figures.put("label", LabelFigure.class);
         fp = new FilterParser();
     }
 
@@ -63,7 +65,11 @@ public class CsvMapStyle implements MapStyle {
                     currentLayer.setName(reader.get("layer"));
                     simpleMap.addLayer(reader.get("layer"), currentLayer);
                 }
-                Class<? extends Figure> figureClazz = figures.get(reader.get("type"));
+                String type = reader.get("type");
+                Class<? extends Figure> figureClazz = figures.get(type);
+                if (figureClazz == null) {
+                    throw new IllegalArgumentException("Unknown style element " + type);
+                }
                 Figure figure = figureClazz.newInstance();
 
                 List<String> params = new ArrayList();

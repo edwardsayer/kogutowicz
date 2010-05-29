@@ -283,3 +283,4 @@
 ,,"polygon",9,20,"building <> station AND building <> supermarket AND building <> #EMPTY#","0xcc9999","1.0",
 ,,"polygon",11,20,"aeroway = terminal","0xcc99ff","1.0",
 ,,"line",13,20,"aeroway = terminal","0x330066","0.2",
+"icon",,"icon",13,20,"amenity = cafe ","cafe.p.16",,

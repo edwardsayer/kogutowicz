@@ -138,7 +138,10 @@ public abstract class AbstractJava2DRenderer extends AbstractRenderer {
             List<BufferedImage> images = new ArrayList<BufferedImage>();
             for (int j = 0; j < noOfPng; j++) {
                 String img = i.getSource().get(j);
-                InputStream is = getClass().getResourceAsStream("/icons/" + img + ".png");
+                if (!img.endsWith(".png")) {
+                    img += ".png";
+                }
+                InputStream is = getClass().getResourceAsStream("/icons/" + img);
                 if (is != null) {
                     BufferedImage bimg = ImageIO.read(is);
 
@@ -164,9 +167,9 @@ public abstract class AbstractJava2DRenderer extends AbstractRenderer {
                 graphics.drawImage(bimg, round(cx), round(cy), null);
                 cx += w;
             }
-            cx = round(i.transform(getCurrentTransformation()).getX() - sumw / 2);
-            cy = round(i.transform(getCurrentTransformation()).getY() - maxh / 2);
-            graphics.drawRect(cx, cy, sumw, maxh);
+//            cx = round(i.transform(getCurrentTransformation()).getX() - sumw / 2);
+//            cy = round(i.transform(getCurrentTransformation()).getY() - maxh / 2);
+//            graphics.drawRect(cx, cy, sumw, maxh);
 
 
 

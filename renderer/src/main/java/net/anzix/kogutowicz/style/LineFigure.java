@@ -125,7 +125,7 @@ public class LineFigure extends Figure {
     }
 
     @Override
-    public void init(String... parameters) {
+    public Figure init(String... parameters) {
         if (parameters.length > 0) {
             String color = parameters[0];
             if (!color.contains(":")) {
@@ -151,6 +151,7 @@ public class LineFigure extends Figure {
             this.pattern = new ConstantStyleValue<float[]>(p);
 
         }
+        return this;
     }
 
     public StyleValue<Color> getColor() {

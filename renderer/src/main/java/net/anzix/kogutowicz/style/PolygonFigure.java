@@ -84,7 +84,7 @@ public class PolygonFigure extends Figure {
     }
 
     @Override
-    public void init(String... parameters) {
+    public Figure init(String... parameters) {
         if (parameters.length > 0) {
             String color = parameters[0];
             if (!color.contains(":")) {
@@ -96,6 +96,7 @@ public class PolygonFigure extends Figure {
                 setStroke(Float.valueOf(parameters[1]));
             }
         }
+        return this;
     }
 
     public StyleValue<Color> getColor() {

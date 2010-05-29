@@ -31,6 +31,7 @@ public class LabelFigure extends Figure {
     }
 
     @Override
-    public void init(String... parameters) {
+    public Figure init(String... parameters) {
+        return this;
     }
 }

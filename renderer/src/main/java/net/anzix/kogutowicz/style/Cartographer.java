@@ -29,6 +29,10 @@ public class Cartographer {
         dataSources.add(defaultDataSource);
     }
 
+    public void addLayer(Layer l) {
+        addLayer(l.getName(), l);
+    }
+
     public Layer addLayer(String name, Layer layer) {
         layers.add(layer);
         layer.setName(name);
@@ -56,7 +60,7 @@ public class Cartographer {
     }
 
     public Layer createLayer(String name) {
-        Layer l = new Layer();       
+        Layer l = new Layer();
         addLayer(name, l);
         return l;
     }
