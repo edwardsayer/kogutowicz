@@ -16,15 +16,18 @@ public class App {
         if (!baseDir.exists()) {
             baseDir = new File("target/classes");
         }
+        if (args.length > 0) {
+            new ConfigReader(new File(baseDir, args[0] + ".properties")).start();
+        } else {
+            for (File file : baseDir.listFiles(new FilenameFilter() {
 
-        for (File file : baseDir.listFiles(new FilenameFilter() {
-
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.endsWith(".properties") && !name.contains("MANUAL");
+                @Override
+                public boolean accept(File dir, String name) {
+                    return name.endsWith(".properties") && !name.contains("MANUAL");
+                }
+            })) {
+                new ConfigReader(file).start();
             }
-        })) {
-            new ConfigReader(file).start();
         }
 
     }
