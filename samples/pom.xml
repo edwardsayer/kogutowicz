@@ -19,7 +19,6 @@
     <build>
         <plugins>
             <plugin>
-
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.1.1</version>
@@ -28,7 +27,7 @@
                         <goals>
                             <goal>java</goal>
                         </goals>
-                        <phase>test</phase>
+                        <phase>prepare-package</phase>
                         <configuration>
                             <mainClass>net.anzix.kogutowicz.samples.App</mainClass>
                         </configuration>
