@@ -35,7 +35,7 @@ public abstract class Figure {
     // private Style style = new Style();
     public abstract List<GeometryElement> drawElements(Element element, Zoom zoom);
 
-    public abstract void init(String... parameters);
+    public abstract Figure init(String... parameters);
 
     public Point convertNodeToPoint(Node n) {
         return new Point(n.getLongitude(), n.getLatitude());
