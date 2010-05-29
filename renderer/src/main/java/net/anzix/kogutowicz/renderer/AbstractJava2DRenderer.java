@@ -6,8 +6,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -129,7 +131,7 @@ public abstract class AbstractJava2DRenderer extends AbstractRenderer {
         graphics.fill(p);
     }
 
-    private void drawIcon(Icon i) {
+    protected void drawIcon(Icon i) {
         try {
             int noOfPng = i.getSource().size();
             int sumw = 0;
