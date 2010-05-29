@@ -4,6 +4,7 @@
  */
 package net.anzix.kogutowicz.renderer;
 
+import java.awt.Dimension;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -38,7 +39,9 @@ public class SvgRenderer extends AbstractJava2DRenderer implements FileOutputRen
         String svgNS = "http://www.w3.org/2000/svg";
         Document document = domImpl.createDocument(svgNS, "svg", null);
 
-        setGraphics(new SVGGraphics2D(document));
+        SVGGraphics2D svg = new SVGGraphics2D(document);
+        svg.setSVGCanvasSize(new Dimension(size.getWidth(), size.getHeight()));
+        setGraphics(svg);
     }
 
     @Override
