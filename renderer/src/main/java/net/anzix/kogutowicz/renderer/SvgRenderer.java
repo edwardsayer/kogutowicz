@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.validation.constraints.NotNull;
 import net.anzix.kogutowicz.Size;
-import net.anzix.kogutowicz.geometry.CoordBox;
+import net.anzix.kogutowicz.geometry.Icon;
 import org.apache.batik.dom.GenericDOMImplementation;
 import org.apache.batik.svggen.SVGGraphics2D;
 import org.kohsuke.MetaInfServices;
@@ -73,5 +73,9 @@ public class SvgRenderer extends AbstractJava2DRenderer implements FileOutputRen
 
     public File getOutputFile() {
         return outputFile;
+    }
+
+    protected void drawIcon(Icon i) {
+        //icon drawing is not supported in svg renderer (yet)
     }
 }

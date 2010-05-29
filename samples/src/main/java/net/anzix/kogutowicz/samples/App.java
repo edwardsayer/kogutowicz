@@ -19,8 +19,9 @@ public class App {
 
         for (File file : baseDir.listFiles(new FilenameFilter() {
 
+            @Override
             public boolean accept(File dir, String name) {
-                return name.endsWith(".properties");
+                return name.endsWith(".properties") && !name.contains("MANUAL");
             }
         })) {
             new ConfigReader(file).start();
