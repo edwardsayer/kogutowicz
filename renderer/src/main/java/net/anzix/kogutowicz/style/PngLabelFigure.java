@@ -9,12 +9,12 @@ import java.util.List;
 import net.anzix.kogutowicz.Zoom;
 import net.anzix.kogutowicz.element.Element;
 import net.anzix.kogutowicz.element.Node;
-import net.anzix.kogutowicz.element.Way;
 import net.anzix.kogutowicz.geometry.GeometryElement;
 import net.anzix.kogutowicz.geometry.Icon;
 
 /**
- *
+ * Draw a png icon to the map.
+ * 
  * @author elek
  */
 public class PngLabelFigure extends Figure {

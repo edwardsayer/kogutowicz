@@ -16,6 +16,7 @@ import net.anzix.kogutowicz.geometry.GeometryElement;
 import net.anzix.kogutowicz.geometry.Polygon;
 
 /**
+ * Draw a polygon to the map.
  *
  * @author elek
  */
