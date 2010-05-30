@@ -56,7 +56,9 @@ public abstract class AbstractJava2DRenderer extends AbstractRenderer {
 
     @Override
     public void renderGeometry(Layer layer, GeometryElement element) {
-
+        if (element.isHidden()) {
+            return;
+        }
 
 
 //        if (style.getPattern() != null) {

@@ -21,9 +21,9 @@ public class SimpleSelector {
         for (Layer layer : cartographer.getLayers()) {
             for (Figure f : layer.getFigures()) {
                 if ((f.getType() == null || (f.getType().equals(entity.getClass())))
-                        && f.getFilter().is(entity, zoom)
                         && f.getStartZoom() <= zoom.getLevel()
-                        && f.getEndZoom() >= zoom.getLevel()) {
+                        && f.getEndZoom() >= zoom.getLevel()
+                        && f.getFilter().is(entity, zoom)) {
                     result.add(new SelectedFigure(layer, f));
                 }
             }

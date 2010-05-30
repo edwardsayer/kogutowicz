@@ -95,5 +95,14 @@ public class Line extends GeometryElement {
         this.width = width;
     }
 
-    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Line [");
+        for (Point p : points) {
+            sb.append(p.toString() + ",");
+        }
+        sb.append("]");
+        return sb.toString();
+    }
 }

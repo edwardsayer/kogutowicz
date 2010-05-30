@@ -2,9 +2,12 @@ package net.anzix.kogutowicz.geometry;
 
 /**
  * Dump drwawable geometric shape.
+ * 
  * @author elek
  */
 public abstract class GeometryElement {
+
+    private boolean hidden = false;
 
     private int zindex = 0;
 
@@ -20,4 +23,14 @@ public abstract class GeometryElement {
     }
 
     public abstract CoordBox getBoundingBox();
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
+
+    
 }

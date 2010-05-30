@@ -1,8 +1,6 @@
 package net.anzix.kogutowicz.datasource;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,7 +12,6 @@ import java.util.Set;
 import javax.validation.constraints.NotNull;
 import net.anzix.kogutowicz.Mercator;
 import net.anzix.kogutowicz.Projection;
-import net.anzix.kogutowicz.TileCoord;
 import net.anzix.kogutowicz.TileDivision;
 import net.anzix.kogutowicz.element.Element;
 import org.kohsuke.MetaInfServices;
@@ -33,11 +30,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
+ * Inmemory datasource loaded from OSM xml file.
+ * 
  * @author elek
  */
 @MetaInfServices
-public class OsmFile implements Datasource {
+public class OsmFile extends AbstractDatasource {
 
     private Logger logger = LoggerFactory.getLogger(OsmFile.class);
 
@@ -61,10 +59,7 @@ public class OsmFile implements Datasource {
     private Set<Element.Id> returned = new HashSet();
 
     private boolean initialized = false;
-
-    private TileDivision division;
-
-    private Map<TileCoord, Collection<Element>> index = new HashMap();
+    
 
     public OsmFile(File osmFile) {
         this.osmFile = osmFile;
@@ -177,51 +172,7 @@ public class OsmFile implements Datasource {
         }
     }
 
-    private void putIndex(TileCoord coord, Element e) {
-        Collection<Element> elem = index.get(coord);
-        if (elem == null) {
-            elem = new ArrayList<Element>();
-            index.put(coord, elem);
-        }
-        elem.add(e);
-    }
-
-    private void indexNode(net.anzix.kogutowicz.element.Node node) {
-        TileCoord coord = division.getTileCoord(node);
-        putIndex(coord, node);
-    }
-
-    private void indexWay(net.anzix.kogutowicz.element.Way w) {
-        TileCoord min = null;
-        TileCoord max = null;
-        for (net.anzix.kogutowicz.element.Node n : w.getNodes()) {
-            TileCoord curr = division.getTileCoord(n);
-            if (min == null) {
-                min = new TileCoord(curr);
-                max = new TileCoord(curr);
-            } else {
-                if (min.getX() > curr.getX()) {
-                    min.setX(curr.getX());
-                }
-                if (min.getY() > curr.getY()) {
-                    min.setY(curr.getY());
-                }
-                if (max.getX() < curr.getX()) {
-                    max.setX(curr.getX());
-                }
-                if (max.getY() < curr.getY()) {
-                    max.setY(curr.getY());
-                }
-            }
-        }
-        for (int x = min.getX(); x <= max.getX(); x++) {
-            for (int y = min.getY(); y <= max.getY(); y++) {
-                putIndex(new TileCoord(x, y), w);
-            }
-        }
-
-    }
-
+ 
     public void copyTags(net.anzix.kogutowicz.element.Element ownElement, Entity osmElement) {
         for (Tag tag : osmElement.getTags()) {
             ownElement.addTag(tag.getKey(), tag.getValue());
@@ -229,10 +180,7 @@ public class OsmFile implements Datasource {
 
     }
 
-    @Override
-    public Collection<Element> getElements(TileCoord c) {
-        return index.get(c) == null ? new ArrayList<Element>() : index.get(c);
-    }
+  
 
     @Override
     public void reset() {
