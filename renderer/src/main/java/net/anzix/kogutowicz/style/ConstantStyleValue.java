@@ -7,7 +7,8 @@ package net.anzix.kogutowicz.style;
 import net.anzix.kogutowicz.Zoom;
 
 /**
- *
+ * Style value independent from zoom value.
+ * 
  * @author elek
  */
 public class ConstantStyleValue<T> implements StyleValue<T> {

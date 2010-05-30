@@ -17,7 +17,9 @@ import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 
 /**
+ * Read a mapnik style definition.
  *
+ * @Deprecated
  * @author elek
  */
 @Deprecated

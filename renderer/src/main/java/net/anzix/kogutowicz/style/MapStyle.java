@@ -1,10 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz.style;
 
 /**
+ * Base map style definition interface.
  *
  * @author elek
  */

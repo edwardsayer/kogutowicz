@@ -1,18 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz.style;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.anzix.kogutowicz.Projection;
 import net.anzix.kogutowicz.Zoom;
 import net.anzix.kogutowicz.element.Element;
 import net.anzix.kogutowicz.geometry.GeometryElement;
 
 /**
- *
+ * Figure combined from other figures.
  * @author elek
  */
 public class CombinedFigure extends Figure {

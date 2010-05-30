@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz.style;
 
 import java.util.HashMap;
@@ -9,6 +5,7 @@ import java.util.Map;
 import net.anzix.kogutowicz.Zoom;
 
 /**
+ * Style value depend on zoom value.
  *
  * @author elek
  */
