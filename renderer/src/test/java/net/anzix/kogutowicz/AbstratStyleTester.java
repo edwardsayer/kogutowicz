@@ -1,21 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz;
 
 import java.io.File;
 import net.anzix.kogutowicz.datasource.InMemory;
 import net.anzix.kogutowicz.element.Node;
-import net.anzix.kogutowicz.element.Way;
+import net.anzix.kogutowicz.processor.GeometryCache;
+import net.anzix.kogutowicz.processor.GeometryCachePrinter;
 import net.anzix.kogutowicz.processor.QuadraticProcessor;
 import net.anzix.kogutowicz.processor.RenderContext;
 import net.anzix.kogutowicz.renderer.Java2DFileRenderer;
 import net.anzix.kogutowicz.style.Cartographer;
-import net.anzix.kogutowicz.style.Layer;
-import net.anzix.kogutowicz.style.LineFigure;
-import net.anzix.kogutowicz.style.PngLabelFigure;
-import net.anzix.kogutowicz.style.filter.TagFilter;
 import org.junit.Test;
 
 /**
@@ -28,15 +21,20 @@ public abstract class AbstratStyleTester {
     public void testRender() {
         QuadraticProcessor proc = new QuadraticProcessor();
         RenderContext context = new RenderContext();
+
         context.setTopLeft(new Node(0, 100));
         context.setBottomRight(new Node(100, 0));
         context.setProjection(new EqualProjection());
         context.setBasedir(new File("/tmp"));
-        context.setDivision(new SimpleTileDivision(Zoom.zoom(13), context.getTopLeft(), context.getBottomRight()));
+        context.setDivision(createTileDivision(context));
         context.setZoom(Zoom.zoom(14));
         context.setSize(new Size(200, 200));
 
+        proc.addGeometryCacheProcessor(new GeometryCachePrinter());
+
         InMemory mem = new InMemory();
+        mem.setDivision(context.getDivision());
+        
         initMap(mem);
         Cartographer c = new Cartographer(mem);
         initStyles(c);
@@ -45,7 +43,7 @@ public abstract class AbstratStyleTester {
         proc.setContext(context);
 
         Java2DFileRenderer renderer = new Java2DFileRenderer();
-        renderer.setOutputFile(new File("/tmp/icon.png"));
+        renderer.setOutputFile(getOutputFile());
 
         proc.setRenderer(renderer);
 
@@ -56,7 +54,13 @@ public abstract class AbstratStyleTester {
         renderer.release();
     }
 
+    public TileDivision createTileDivision(RenderContext context) {
+        return new SimpleTileDivision(Zoom.zoom(13), context.getTopLeft(), context.getBottomRight());
+    }
+
     public abstract void initMap(InMemory mem);
 
     public abstract void initStyles(Cartographer c);
+
+    public abstract File getOutputFile();
 }

@@ -79,7 +79,8 @@ public class BookletMap implements MapApplication {
 
     private SimpleSelector selector = new SimpleSelector();
 
-    private GeometryCache geoms = new GeometryCache();
+    @Inject
+    private GeometryCache geoms;
 
     private int i = 0;
 

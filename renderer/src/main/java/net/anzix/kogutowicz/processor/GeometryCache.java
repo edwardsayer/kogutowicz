@@ -1,5 +1,6 @@
 package net.anzix.kogutowicz.processor;
 
+import com.google.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -10,12 +11,14 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.logging.Logger;
 import net.anzix.kogutowicz.TileCoord;
+import net.anzix.kogutowicz.TileDivision;
 import net.anzix.kogutowicz.geometry.GeometryElement;
 import net.anzix.kogutowicz.geometry.GeometryElementOnLayer;
 import net.anzix.kogutowicz.style.Layer;
 
 /**
- *
+ * Gemotery cache store drawed elements between the two phase of rendering.
+ * 
  * @author elek
  */
 public class GeometryCache {
@@ -41,6 +44,8 @@ public class GeometryCache {
 
         }
     };
+
+
 
     public void addGeometry(TileCoord coord, Layer layer, GeometryElement geometry) {
         SortedSet<GeometryElementOnLayer> elements = geometries.get(coord);

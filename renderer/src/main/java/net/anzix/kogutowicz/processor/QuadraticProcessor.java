@@ -1,6 +1,7 @@
 package net.anzix.kogutowicz.processor;
 
 import com.google.inject.Inject;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -41,8 +42,11 @@ public class QuadraticProcessor {
 
     private Size size;
 
+    private List<GeometryCacheProcessor> processors = new ArrayList();
+
     public QuadraticProcessor() {
         this.selector = new SimpleSelector();
+        processors.add(new CollisionDetector());
 
     }
 
@@ -63,6 +67,11 @@ public class QuadraticProcessor {
             }
         }
         logger.debug("datasources are processed");
+
+        for (GeometryCacheProcessor proc : processors) {
+            proc.process(geoms, context);
+        }
+
         for (int x = from.getX(); x <= to.getX(); x++) {
             for (int y = from.getY(); y <= to.getY(); y++) {
                 TileCoord current = new TileCoord(x, y);
@@ -164,5 +173,13 @@ public class QuadraticProcessor {
 
     public void setContext(RenderContext context) {
         this.context = context;
+    }
+
+    public void setGeometryCache(GeometryCache geoms) {
+        this.geoms = geoms;
+    }
+
+    public void addGeometryCacheProcessor(GeometryCachePrinter gcp) {
+        this.processors.add(gcp);
     }
 }

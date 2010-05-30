@@ -4,6 +4,7 @@
  */
 package net.anzix.kogutowicz;
 
+import java.io.File;
 import net.anzix.kogutowicz.datasource.InMemory;
 import net.anzix.kogutowicz.element.Node;
 import net.anzix.kogutowicz.style.Cartographer;
@@ -36,5 +37,10 @@ public class IconTest extends AbstratStyleTester {
         c.addLayer(l);
 //        l.addFigure(new LineFigure().addFilter(new TagFilter("highway", "trunk")));
         l.addFigure(new PngLabelFigure().addFilter(new TagFilter("amenity", "cafe")).init("cafe.p.16"));
+    }
+
+    @Override
+    public File getOutputFile() {
+        return new File("target/icon.png");
     }
 }
