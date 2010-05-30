@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
  * 
  * @author elek
  */
-@MetaInfServices
+@MetaInfServices(value = Datasource.class)
 public class OsmFile extends AbstractDatasource {
 
     private Logger logger = LoggerFactory.getLogger(OsmFile.class);
@@ -59,7 +59,6 @@ public class OsmFile extends AbstractDatasource {
     private Set<Element.Id> returned = new HashSet();
 
     private boolean initialized = false;
-    
 
     public OsmFile(File osmFile) {
         this.osmFile = osmFile;
@@ -172,7 +171,6 @@ public class OsmFile extends AbstractDatasource {
         }
     }
 
- 
     public void copyTags(net.anzix.kogutowicz.element.Element ownElement, Entity osmElement) {
         for (Tag tag : osmElement.getTags()) {
             ownElement.addTag(tag.getKey(), tag.getValue());
@@ -180,10 +178,11 @@ public class OsmFile extends AbstractDatasource {
 
     }
 
-  
-
     @Override
     public void reset() {
         returned.clear();
+        elements.clear();
+        initialized = false;
+        logger.debug("Datasource was reseted");
     }
 }

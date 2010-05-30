@@ -9,6 +9,7 @@ import java.util.List;
 import net.anzix.kogutowicz.Size;
 import net.anzix.kogutowicz.TileCoord;
 import net.anzix.kogutowicz.TileDivision;
+import net.anzix.kogutowicz.Zoom;
 import net.anzix.kogutowicz.datasource.Datasource;
 import net.anzix.kogutowicz.element.Box;
 import net.anzix.kogutowicz.element.Element;
@@ -88,7 +89,7 @@ public class QuadraticProcessor {
     private void processDataSource(TileCoord tile) {
         for (Datasource ds : context.getCartographer().getDataSources()) {
             for (Element element : ds.getElements(tile)) {
-                List<SelectedFigure> figures = selector.getItem(context.getCartographer(), element, context.getZoom());
+                List<SelectedFigure> figures = selector.getItem(context.getCartographer(), element, Zoom.zoom(context.getZoom().getLevel()));
                 for (SelectedFigure figure : figures) {
                     List<GeometryElement> geometries = figure.getFigure().drawElements(element, context.getZoom());
                     geoms.addGeometries(tile, figure.getLayer(), geometries);
@@ -104,6 +105,10 @@ public class QuadraticProcessor {
     }
 
     public void release() {
+        geoms.reset();
+         for (Datasource ds : context.getCartographer().getDataSources()) {
+            ds.reset();
+        }
     }
 
     private void render(TileCoord coord) {

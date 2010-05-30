@@ -14,12 +14,16 @@
         map = new OpenLayers.Map("basicMap");
 	var newLayer = new OpenLayers.Layer.OSM("Kogutowicz", "./${z}/${x}/${y}.png", {numZoomLevels: 19});
 	map.addLayer(newLayer);
+        var mapnik = new OpenLayers.Layer.OSM();
+        map.addLayer(mapnik);
+
         map.setCenter(new OpenLayers.LonLat(18.95,47.55) // Center of the map
           .transform(
             new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
             new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
           ), 14 // Zoom level
         );
+        map.addControl( new OpenLayers.Control.LayerSwitcher() );
       }
     </script>
   </head>

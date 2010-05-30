@@ -39,6 +39,10 @@ public class TilesMap implements MapApplication {
 
     private Integer zoom;
 
+    private Integer startZoom;
+
+    private Integer endZoom;
+
     @NotNull
     private Double west;
 
@@ -67,8 +71,14 @@ public class TilesMap implements MapApplication {
 
     @Override
     public void run() {
+        if (startZoom == null) {
+            startZoom = zoom;
 
-        
+        }
+        if (endZoom == null) {
+            endZoom = zoom;
+        }
+
         Node n1 = Node.valueOf(projection, west, north);
         Node n2 = Node.valueOf(projection, east, south);
         Cartographer c = new Cartographer(datasource);
@@ -76,21 +86,25 @@ public class TilesMap implements MapApplication {
         context.setProjection(projection);
         context.setTopLeft(n1);
         context.setBottomRight(n2);
-
-
-        OSMTileDivision division = new OSMTileDivision(Zoom.zoom(zoom));
-        context.setDivision(division);
-
         context.setCartographer(c);
         processor.setOutputDir(outputDir);
+        for (int z = startZoom; z <= endZoom; z++) {
 
-        Java2DFileRenderer renderer = new Java2DFileRenderer();
 
-        processor.setRenderer(renderer);
-        processor.setWidth(256);
-        processor.setHeight(256);
-        processor.process();
-        processor.release();
+
+            Zoom zZoom = Zoom.zoom(z);
+
+            OSMTileDivision division = new OSMTileDivision(zZoom);
+            context.setDivision(division);
+            context.setZoom(zZoom);
+            Java2DFileRenderer renderer = new Java2DFileRenderer();
+
+            processor.setRenderer(renderer);
+            processor.setWidth(256);
+            processor.setHeight(256);
+            processor.process();
+            processor.release();
+        }
     }
 
     public Datasource getDatasource() {
