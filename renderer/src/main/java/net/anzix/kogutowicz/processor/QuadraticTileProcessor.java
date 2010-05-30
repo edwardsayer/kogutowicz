@@ -45,10 +45,7 @@ public class QuadraticTileProcessor extends QuadraticProcessor {
         //NOOP
     }
 
-    @Override
-    public void release() {
-        //NOOP
-    }
+  
 
     public File getOutputDir() {
         return outputDir;

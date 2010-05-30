@@ -27,14 +27,14 @@ public abstract class AbstratStyleTester {
         context.setProjection(new EqualProjection());
         context.setBasedir(new File("/tmp"));
         context.setDivision(createTileDivision(context));
-        context.setZoom(Zoom.zoom(14));
+        context.setZoom(createZoom());
         context.setSize(new Size(200, 200));
 
         proc.addGeometryCacheProcessor(new GeometryCachePrinter());
 
         InMemory mem = new InMemory();
         mem.setDivision(context.getDivision());
-        
+
         initMap(mem);
         Cartographer c = new Cartographer(mem);
         initStyles(c);
@@ -56,6 +56,10 @@ public abstract class AbstratStyleTester {
 
     public TileDivision createTileDivision(RenderContext context) {
         return new SimpleTileDivision(Zoom.zoom(13), context.getTopLeft(), context.getBottomRight());
+    }
+
+    public Zoom createZoom() {
+        return Zoom.zoom(14);
     }
 
     public abstract void initMap(InMemory mem);

@@ -74,4 +74,8 @@ public class GeometryCache {
             addGeometry(coord, layer, element);
         }
     }
+
+    public void reset() {
+        geometries.clear();
+    }
 }
