@@ -16,11 +16,11 @@ import org.junit.Test;
 public class ImageTest {
 
     @Test
-
+    @Ignore
     public void test() throws Exception {
         //File baseDir = new File("../samples/target/classes");
         File baseDir = new File("../samples/target/classes");
-        new ConfigReader(new File(baseDir, "hungary-atlas-MANUAL.properties")).start();
+        new ConfigReader(new File(baseDir, "tartu-regio-MANUAL.properties")).start();
 //        new ConfigReader(new File("/home/elek/projects/kogutowicz.hg/test/hungary.properties")).start();
     }
 }
