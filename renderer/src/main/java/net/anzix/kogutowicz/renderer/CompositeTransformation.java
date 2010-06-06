@@ -7,7 +7,8 @@ package net.anzix.kogutowicz.renderer;
 import net.anzix.kogutowicz.geometry.CoordPair;
 
 /**
- *
+ * Multiple transformation in one pack.
+ * 
  * @author elek
  */
 public class CompositeTransformation implements Transformation {

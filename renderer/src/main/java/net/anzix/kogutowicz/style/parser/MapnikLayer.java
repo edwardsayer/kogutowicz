@@ -1,11 +1,9 @@
 package net.anzix.kogutowicz.style.parser;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.jdom.Element;
-import org.jdom.Namespace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

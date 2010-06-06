@@ -6,10 +6,10 @@ package net.anzix.kogutowicz.style.parser;
 
 import net.anzix.kogutowicz.style.filter.Filter;
 import net.anzix.kogutowicz.style.filter.NotEqualFilter;
-import net.anzix.kogutowicz.style.filter.OrFilter;
 
 /**
- *
+ * != opration as a parser element.
+ * 
  * @author elek
  */
 public class NotEqualOperator implements Operator {

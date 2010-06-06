@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Relation map object.
  * @author elek
  */
 public class Relation extends Element {

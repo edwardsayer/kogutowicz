@@ -5,7 +5,7 @@ import net.anzix.kogutowicz.element.Node;
 import net.anzix.kogutowicz.renderer.Transformation;
 
 /**
- *
+ * Simple point object.
  * @author elek
  */
 public class Point extends GeometryElement {

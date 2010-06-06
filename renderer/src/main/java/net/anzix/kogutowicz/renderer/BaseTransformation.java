@@ -8,7 +8,8 @@ import net.anzix.kogutowicz.geometry.CoordBox;
 import net.anzix.kogutowicz.geometry.CoordPair;
 
 /**
- *
+ * Simple coordinate transformation.
+ * 
  * @author elek
  */
 public class BaseTransformation implements Transformation {

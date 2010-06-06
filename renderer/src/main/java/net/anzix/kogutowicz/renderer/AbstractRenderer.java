@@ -8,7 +8,8 @@ package net.anzix.kogutowicz.renderer;
 import net.anzix.kogutowicz.Size;
 
 /**
- *
+ * Base renderer implementation.
+ * 
  * @author elek
  */
 public abstract class AbstractRenderer implements Renderer {

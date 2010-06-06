@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz.element;
 
 import java.util.ArrayList;
@@ -9,7 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- *
+ * Abstract map element from any source.
+ * 
  * @author elek
  */
 public abstract class Element {

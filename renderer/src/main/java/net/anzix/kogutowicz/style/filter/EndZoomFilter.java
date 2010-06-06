@@ -4,12 +4,11 @@
  */
 package net.anzix.kogutowicz.style.filter;
 
-import net.anzix.kogutowicz.style.filter.Filter;
 import net.anzix.kogutowicz.Zoom;
 import net.anzix.kogutowicz.element.Element;
 
 /**
- *
+ * Filter by the highest zoom level.
  * @author elek
  */
 public class EndZoomFilter implements Filter {

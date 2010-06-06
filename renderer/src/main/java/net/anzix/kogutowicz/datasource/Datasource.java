@@ -11,6 +11,7 @@ import net.anzix.kogutowicz.TileDivision;
 import net.anzix.kogutowicz.element.Element;
 
 /**
+ * Simple interface to any map data.
  *
  * @author elek
  */

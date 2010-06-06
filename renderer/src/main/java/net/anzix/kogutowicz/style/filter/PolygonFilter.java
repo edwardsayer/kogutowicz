@@ -9,7 +9,7 @@ import net.anzix.kogutowicz.element.Element;
 import net.anzix.kogutowicz.element.Way;
 
 /**
- *
+ * Filter closed ways.
  * @author elek
  */
 public class PolygonFilter implements Filter {

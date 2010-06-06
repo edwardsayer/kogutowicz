@@ -1,13 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz.element;
 
 import net.anzix.kogutowicz.geometry.CoordBox;
 
 /**
- *
+ * Rectangle object.
+ * 
  * @author elek
  */
 public class Box {

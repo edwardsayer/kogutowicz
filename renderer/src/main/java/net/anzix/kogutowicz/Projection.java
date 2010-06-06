@@ -5,7 +5,7 @@
 package net.anzix.kogutowicz;
 
 /**
- *
+ * Simple projection interface to convert between WGS-84 and any other projection.
  * @author elek
  */
 public abstract class Projection {

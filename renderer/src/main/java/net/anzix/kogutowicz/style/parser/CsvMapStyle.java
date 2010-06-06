@@ -21,7 +21,8 @@ import net.anzix.kogutowicz.processor.RenderContext;
 import org.kohsuke.MetaInfServices;
 
 /**
- *
+ * Mapstyle defined by a csv file.
+ * 
  * @author elek
  */
 @MetaInfServices

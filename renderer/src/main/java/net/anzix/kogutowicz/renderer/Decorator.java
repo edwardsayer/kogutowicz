@@ -7,7 +7,7 @@ package net.anzix.kogutowicz.renderer;
 import net.anzix.kogutowicz.geometry.CoordBox;
 
 /**
- *
+ * Decorate rendering process with additional elements (eg. page numbers).
  * @author elek
  */
 public interface Decorator {

@@ -5,7 +5,8 @@
 package net.anzix.kogutowicz.geometry;
 
 /**
- *
+ * Polygonal form.
+ * 
  * @author elek
  */
 public class Polygon extends GeometryElement {

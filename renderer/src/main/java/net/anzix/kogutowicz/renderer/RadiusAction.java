@@ -14,9 +14,11 @@ import net.anzix.kogutowicz.geometry.Icon;
 import net.anzix.kogutowicz.style.Layer;
 
 /**
- *
+ * Deprecated.
+ * 
  * @author elek
  */
+@Deprecated
 public class RadiusAction {
 
     private Map<Double, Icon> xToElement = new HashMap();

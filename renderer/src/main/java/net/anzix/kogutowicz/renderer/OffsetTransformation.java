@@ -7,7 +7,8 @@ package net.anzix.kogutowicz.renderer;
 import net.anzix.kogutowicz.geometry.CoordPair;
 
 /**
- *
+ * Add fix values to a coordinate.
+ * 
  * @author elek
  */
 public class OffsetTransformation implements Transformation {

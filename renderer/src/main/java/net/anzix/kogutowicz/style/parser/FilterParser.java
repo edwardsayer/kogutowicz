@@ -8,10 +8,10 @@ import net.anzix.kogutowicz.style.filter.Filter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-import net.anzix.kogutowicz.style.*;
 
 /**
- *
+ * Parsing a textual filtering expression.
+ * 
  * @author elek
  */
 public class FilterParser {

@@ -29,13 +29,17 @@ import org.jdom.input.DOMBuilder;
 import org.xml.sax.InputSource;
 
 /**
+ * Initial version of a parser to load kosmos like style definition pages.
  *
+ * @TODO
  * @author elek
  */
 public class KosmosParser implements MapStyle {
 
     Namespace ns = Namespace.getNamespace("http://www.w3.org/1999/xhtml");
+
     private File source;
+
     private FilterParser fp = new FilterParser();
 
     public KosmosParser() {
@@ -151,10 +155,10 @@ public class KosmosParser implements MapStyle {
 
             }
             if (f != null) {
-                if (element.getParameter("MinZoom")!=null){
+                if (element.getParameter("MinZoom") != null) {
                     f.setStartZoom(Integer.parseInt(element.getParameter("MinZoom")));
                 }
-                if (element.getParameter("MaxZoom")!=null){
+                if (element.getParameter("MaxZoom") != null) {
                     f.setEndZoom(Integer.parseInt(element.getParameter("MaxZoom")));
                 }
                 f.setFilter(fp.parse(style.selector));

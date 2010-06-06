@@ -9,7 +9,7 @@ import net.anzix.kogutowicz.style.filter.Filter;
 import net.anzix.kogutowicz.style.filter.OrFilter;
 
 /**
- *
+ * OR operator as a parser element.
  * @author elek
  */
 public class OrOperator implements Operator{

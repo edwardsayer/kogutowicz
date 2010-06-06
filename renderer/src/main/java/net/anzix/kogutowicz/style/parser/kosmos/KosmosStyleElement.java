@@ -12,7 +12,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *
+ * Kosmos sytle definition element.
+ * 
  * @author elek
  */
 public class KosmosStyleElement {
