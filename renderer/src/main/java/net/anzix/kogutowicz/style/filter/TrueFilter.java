@@ -8,7 +8,7 @@ import net.anzix.kogutowicz.Zoom;
 import net.anzix.kogutowicz.element.Element;
 
 /**
- *
+ * True filter to composite operations.
  * @author elek
  */
 public class TrueFilter implements Filter {

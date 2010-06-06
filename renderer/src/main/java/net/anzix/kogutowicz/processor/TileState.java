@@ -1,13 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz.processor;
 
 /**
- *
+ * Rendering state used by the old processor.
  * @author elek
  */
+@Deprecated
 public enum TileState {
     
     INIT,

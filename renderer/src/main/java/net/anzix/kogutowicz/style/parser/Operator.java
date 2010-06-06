@@ -7,7 +7,7 @@ package net.anzix.kogutowicz.style.parser;
 import net.anzix.kogutowicz.style.filter.Filter;
 
 /**
- *
+ * Operator like parser elements.
  * @author elek
  */
 public interface Operator {

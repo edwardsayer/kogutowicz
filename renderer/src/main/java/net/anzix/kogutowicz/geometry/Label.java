@@ -1,7 +1,7 @@
 package net.anzix.kogutowicz.geometry;
 
 /**
- *
+ * Simplme text element on the map.
  * @author elek
  */
 public class Label extends Point {

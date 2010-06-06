@@ -8,7 +8,8 @@ import net.anzix.kogutowicz.Zoom;
 import net.anzix.kogutowicz.element.Element;
 
 /**
- *
+ * NOT operation.
+ * 
  * @author elek
  */
 public class NotFilter implements Filter {

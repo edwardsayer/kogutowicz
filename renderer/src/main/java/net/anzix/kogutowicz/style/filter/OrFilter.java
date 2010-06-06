@@ -4,7 +4,6 @@
  */
 package net.anzix.kogutowicz.style.filter;
 
-import net.anzix.kogutowicz.style.filter.Filter;
 import java.util.ArrayList;
 import java.util.List;
 import net.anzix.kogutowicz.Zoom;

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz.geometry;
 
 import net.anzix.kogutowicz.Geometry;
@@ -9,7 +5,7 @@ import net.anzix.kogutowicz.Projection;
 import net.anzix.kogutowicz.element.Box;
 
 /**
- *
+ * Pair of geometrical coords.
  * @author elek
  */
 public class CoordBox {

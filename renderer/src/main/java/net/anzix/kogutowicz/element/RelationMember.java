@@ -1,10 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz.element;
 
 /**
+ * Element of Relation map objects.
  *
  * @author elek
  */

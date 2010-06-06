@@ -13,7 +13,8 @@ import net.anzix.kogutowicz.processor.QuadraticTileProcessor;
 import net.anzix.kogutowicz.processor.RenderContext;
 
 /**
- *
+ * Guice injection definition.
+ * 
  * @author elek
  */
 public class IocModule implements Module {

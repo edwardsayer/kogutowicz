@@ -1,7 +1,7 @@
 package net.anzix.kogutowicz.geometry;
 
 /**
- * Dump drwawable geometric shape.
+ * Dump drawable geometric shape.
  * 
  * @author elek
  */

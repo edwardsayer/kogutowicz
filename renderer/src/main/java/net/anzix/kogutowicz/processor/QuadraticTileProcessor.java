@@ -14,6 +14,7 @@ import net.anzix.kogutowicz.renderer.Java2DFileRenderer;
 import net.anzix.kogutowicz.renderer.Renderer;
 
 /**
+ * Processor to render tiles map by a division step by step.
  *
  * @author elek
  */

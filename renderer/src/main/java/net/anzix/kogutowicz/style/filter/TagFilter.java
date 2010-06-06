@@ -10,7 +10,7 @@ import net.anzix.kogutowicz.Zoom;
 import net.anzix.kogutowicz.element.Element;
 
 /**
- *
+ * Filter element by tag values.
  * @author elek
  */
 public class TagFilter implements Filter {

@@ -21,8 +21,10 @@ import org.slf4j.LoggerFactory;
 /**
  * Import mapnik style xml and convert to inte  rnal style definition.
  *
+ * Currently it's only a partial implementation.
  * @author elek
  */
+@Deprecated
 public class MapnikMapStyle implements MapStyle {
 
     /**

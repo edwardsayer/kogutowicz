@@ -1,14 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.anzix.kogutowicz.geometry;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Simple line element.
  * @author elek
  */
 public class Line extends GeometryElement {

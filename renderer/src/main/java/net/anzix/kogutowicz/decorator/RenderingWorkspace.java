@@ -15,6 +15,7 @@ import net.anzix.kogutowicz.renderer.Transformation;
 import net.anzix.kogutowicz.style.Layer;
 
 /**
+ * Destination context to render.
  *
  * @author elek
  */

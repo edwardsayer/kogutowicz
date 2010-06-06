@@ -9,7 +9,7 @@ import net.anzix.kogutowicz.style.filter.Filter;
 import net.anzix.kogutowicz.style.filter.NotFilter;
 
 /**
- *
+ * NOT funciont as a praser element.
  * @author elek
  */
 public class NotFunction implements Function{

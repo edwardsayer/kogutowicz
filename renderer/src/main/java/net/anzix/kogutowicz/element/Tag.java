@@ -5,7 +5,7 @@
 package net.anzix.kogutowicz.element;
 
 /**
- * OSM tag (key-value pair) for element.
+ * OSM like tag (key-value pair) for element.
  *
  * @author elek
  */

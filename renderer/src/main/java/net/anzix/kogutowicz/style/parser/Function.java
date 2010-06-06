@@ -7,6 +7,7 @@ package net.anzix.kogutowicz.style.parser;
 import net.anzix.kogutowicz.style.filter.Filter;
 
 /**
+ * Represents any function like parser element.
  *
  * @author elek
  */

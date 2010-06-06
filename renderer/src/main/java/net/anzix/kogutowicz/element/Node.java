@@ -8,7 +8,7 @@ import net.anzix.kogutowicz.Projection;
 import net.anzix.kogutowicz.geometry.CoordPair;
 
 /**
- * Element represents an OSM node object.
+ * Element represents any map node object.
  *
  * @author elek
  */

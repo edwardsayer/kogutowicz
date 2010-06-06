@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author elek
  */
+@Deprecated
 public class CsvWriter {
 
     private Map<Class, String> figureClassToStyle = new HashMap();

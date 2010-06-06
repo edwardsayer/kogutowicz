@@ -8,7 +8,7 @@ import net.anzix.kogutowicz.style.filter.Filter;
 import net.anzix.kogutowicz.style.filter.TagFilter;
 
 /**
- *
+ * Parser element to equal operation.
  * @author elek
  */
 public class EqualOperator implements Operator {

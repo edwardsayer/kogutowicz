@@ -12,7 +12,6 @@ import net.anzix.kogutowicz.element.Element;
 import net.anzix.kogutowicz.element.Node;
 import net.anzix.kogutowicz.geometry.GeometryElement;
 import net.anzix.kogutowicz.geometry.Point;
-import net.anzix.kogutowicz.geometry.Style;
 
 /**
  * Map element with style.

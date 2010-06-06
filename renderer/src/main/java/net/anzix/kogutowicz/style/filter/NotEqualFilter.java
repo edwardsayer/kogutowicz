@@ -8,7 +8,8 @@ import net.anzix.kogutowicz.Zoom;
 import net.anzix.kogutowicz.element.Element;
 
 /**
- *
+ * <> filter.
+ * 
  * @author elek
  */
 public class NotEqualFilter implements Filter {

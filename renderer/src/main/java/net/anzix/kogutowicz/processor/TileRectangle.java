@@ -9,6 +9,7 @@ import net.anzix.kogutowicz.element.Box;
 import net.anzix.kogutowicz.element.Node;
 
 /**
+ * Smallest elements of tile divisions.
  *
  * @author elek
  */

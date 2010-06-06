@@ -29,7 +29,7 @@ import net.anzix.kogutowicz.geometry.Polygon;
 import net.anzix.kogutowicz.style.Layer;
 
 /**
- * 
+ * Base class to render to the Java g2d object.
  *
  * @author elek
  */
