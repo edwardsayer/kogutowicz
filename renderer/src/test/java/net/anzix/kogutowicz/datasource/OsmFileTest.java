@@ -33,7 +33,7 @@ public class OsmFileTest {
         TileDivision div = new RectangleTileDivision(new Node(18.5, 48), new Node(19.5, 47), 10, 10);
         file.init(div,new EqualProjection());
         Collection<Element> es = file.getElements(new TileCoord(5, 4));
-        assertEquals(4, es.size());
+        assertEquals(14, es.size());
         for (Element e : es) {
             System.out.println("X" + e);
         }

@@ -33,6 +33,7 @@ public class QuadraticTest {
         RectangleTileDivision division = new RectangleTileDivision(no1, no2, 2, 2);
 
         InMemory m = new InMemory();
+        m.setDivision(division);
         List<Node> nodes = new ArrayList();
         nodes.add(new Node(18.899, 47.588));
         nodes.add(new Node(18.872, 47.572));
