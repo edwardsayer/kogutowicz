@@ -1,0 +1,4 @@
+"layer","zindex","type","startZoom","stopZoom","filter","color","width","pattern"
+"area","invalid_zindex","polygon",,,"landuse = farm","0xead8bd",,
+,,"unknown_type",,,"landuse = leisure",,,
+"streets",,"line","invalid_zoom",13,"highway = tertiary","0xABABAB","13:6,14:7.5,15-16:11,17-18:16",
