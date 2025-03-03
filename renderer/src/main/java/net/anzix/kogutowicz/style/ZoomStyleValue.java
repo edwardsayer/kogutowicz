@@ -17,6 +17,11 @@ public class ZoomStyleValue implements StyleValue<Float> {
     private Map<Integer, Float> values = new HashMap();
 
     public ZoomStyleValue(String pattern) {
+        this(pattern, false);
+    }
+    
+    public ZoomStyleValue(String pattern, boolean isPt) {
+        this.isPt = isPt;
         String[] elements = pattern.split(",");
         for (String element : elements) {
             String[] keyVal = element.split(":");
@@ -35,10 +40,32 @@ public class ZoomStyleValue implements StyleValue<Float> {
 
     @Override
     public Float getValue(Zoom zoom) {
-        return values.get(new Integer(zoom.getLevel()));
+        Float value = values.get(new Integer(zoom.getLevel()));
+        if (value != null && isPt && dpiConfig != null) {
+            return dpiConfig.ptToPx(value);
+        }
+        return value;
     }
 
     protected Map<Integer, Float> getValues() {
         return values;
+    }
+    
+    /**
+     * Check if values are in pt
+     * 
+     * @return true if values are in pt, false if in px
+     */
+    public boolean isPt() {
+        return isPt;
+    }
+    
+    /**
+     * Set if values are in pt
+     * 
+     * @param isPt true if values are in pt, false if in px
+     */
+    public void setPt(boolean isPt) {
+        this.isPt = isPt;
     }
 }

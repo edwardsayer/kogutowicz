@@ -62,6 +62,39 @@ public class LineFigure extends Figure {
         setType(Way.class);
     }
 
+    public LineFigure(int color, float width, boolean isPt) {
+        setStroke(width, isPt);
+        setColor(new Color(color));
+        setType(Way.class);
+    }
+
+    public LineFigure(int color, float width, float[] pattern, boolean isPt) {
+        setStroke(width, isPt);
+        setColor(new Color(color));
+        setPattern(pattern);
+        setType(Way.class);
+    }
+
+    public LineFigure(int color, String width, boolean isPt) {
+        this.width = new ZoomStyleValue(width, isPt);
+        setColor(new Color(color));
+        setType(Way.class);
+    }
+
+    public LineFigure(int color, String width, float[] pattern, boolean isPt) {
+        this.width = new ZoomStyleValue(width, isPt);
+        setColor(new Color(color));
+        setPattern(pattern);
+        setType(Way.class);
+    }
+
+    public LineFigure(int color, float width, float pattern, boolean isPt) {
+        setStroke(width, isPt);
+        setColor(new Color(color));
+        setPattern(new float[]{pattern});
+        setType(Way.class);
+    }
+
     public LineFigure() {
         setType(Way.class);
     }
@@ -94,6 +127,12 @@ public class LineFigure extends Figure {
 
     public LineFigure setStroke(Float stroke) {
         this.width = new ConstantStyleValue<Float>(stroke);
+        return this;
+    }
+    
+    // Add this method to support setting stroke width in pt
+    public LineFigure setStroke(Float stroke, boolean isPt) {
+        this.width = new ConstantStyleValue<Float>(stroke, isPt);
         return this;
     }
 
@@ -136,10 +175,19 @@ public class LineFigure extends Figure {
 
         }
         if (parameters.length > 1) {
-            if (!parameters[1].contains(":")) {
-                setStroke(Float.valueOf(parameters[1]));
+            String widthParam = parameters[1];
+            boolean isPt = false;
+            
+            // Check if width is specified in pt
+            if (widthParam.endsWith("pt")) {
+                isPt = true;
+                widthParam = widthParam.substring(0, widthParam.length() - 2);
+            }
+            
+            if (!widthParam.contains(":")) {
+                setStroke(Float.valueOf(widthParam), isPt);
             } else {
-                this.width = new ZoomStyleValue(parameters[1]);
+                this.width = new ZoomStyleValue(widthParam, isPt);
             }
         }
         if (parameters.length > 2) {
