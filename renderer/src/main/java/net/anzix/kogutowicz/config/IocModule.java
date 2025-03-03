@@ -26,5 +26,6 @@ public class IocModule implements Module {
         binder.bind(QuadraticTileProcessor.class);
         binder.bind(MapRender.class);
         binder.bind(GeometryCache.class);
+        binder.bind(DpiConfig.class).asEagerSingleton();
     }
 }

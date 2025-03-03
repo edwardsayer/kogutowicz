@@ -154,6 +154,18 @@ public class ConfigReader {
 
     public MapApplication start() {
         try {
+            // Set DPI configuration if specified in properties
+            if (props.containsKey("map.dpi")) {
+                DpiConfig dpiConfig = injector.getInstance(DpiConfig.class);
+                try {
+                    float dpi = Float.parseFloat(props.getProperty("map.dpi"));
+                    dpiConfig.setDpi(dpi);
+                    logger.debug("DPI set to {}", dpi);
+                } catch (NumberFormatException e) {
+                    logger.error("Invalid DPI value: {}", props.getProperty("map.dpi"));
+                }
+            }
+            
             MapApplication o = (MapApplication) createClass(BASE_NAME, MapApplication.class);
             ValidatorFactory fact = Validation.buildDefaultValidatorFactory();
             Set<ConstraintViolation<MapApplication>> errors = fact.getValidator().validate(o);

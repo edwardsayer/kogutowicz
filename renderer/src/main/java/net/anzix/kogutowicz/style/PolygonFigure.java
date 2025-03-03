@@ -40,6 +40,19 @@ public class PolygonFigure extends Figure {
         setType(Area.class);
     }
 
+    public PolygonFigure(int color, float width, boolean isPt) {
+        setStroke(width, isPt);
+        setColor(new Color(color));
+        setType(Area.class);
+    }
+
+    public PolygonFigure(int color, String width, boolean isPt) {
+        this.width = new ZoomStyleValue(width, isPt);
+        setColor(new Color(color));
+        setType(Area.class);
+    }
+
+
     @Override
     public List<GeometryElement> drawElements(Element element, Zoom zoom) {
         List<GeometryElement> elements = new ArrayList();
@@ -83,6 +96,12 @@ public class PolygonFigure extends Figure {
         this.width = new ConstantStyleValue<Float>(stroke);
         return this;
     }
+    
+    // Add this method to support setting stroke width in pt
+    public PolygonFigure setStroke(Float stroke, boolean isPt) {
+        this.width = new ConstantStyleValue<Float>(stroke, isPt);
+        return this;
+    }
 
     @Override
     public Figure init(String... parameters) {
@@ -93,8 +112,19 @@ public class PolygonFigure extends Figure {
             }
         }
         if (parameters.length > 1) {
-            if (!parameters[1].contains(":")) {
-                setStroke(Float.valueOf(parameters[1]));
+            String widthParam = parameters[1];
+            boolean isPt = false;
+            
+            // Check if width is specified in pt
+            if (widthParam.endsWith("pt")) {
+                isPt = true;
+                widthParam = widthParam.substring(0, widthParam.length() - 2);
+            }
+            
+            if (!widthParam.contains(":")) {
+                setStroke(Float.valueOf(widthParam), isPt);
+            } else {
+                this.width = new ZoomStyleValue(widthParam, isPt);
             }
         }
         return this;
@@ -110,5 +140,3 @@ public class PolygonFigure extends Figure {
 
     
 }
-
-
